@@ -975,33 +975,38 @@
     mrcScores[key] = value;
   }
 
-  function calculateMRC() {
+  async function calculateMRC() {
     const keys = ['mrc1','mrc2','mrc3','mrc4','mrc5'];
     const answered = keys.filter(k => mrcScores[k]);
     if (answered.length < 3) {
       alert('Please rate at least three questions before seeing your result.');
       return;
     }
-    const total = keys.reduce((sum, k) => sum + (mrcScores[k] || 0), 0);
-    const max = keys.length * 5;
-    const pct = Math.round((total / max) * 100);
 
-    let line, text;
-    if (pct >= 80) {
-      line = 'You are well prepared — now hold that intention in the room.';
-      text = 'The conditions are there. The work now is to remain present as the meeting unfolds, and to notice when the quality of thinking shifts.';
-    } else if (pct >= 55) {
-      line = 'There are strong foundations here — and one or two things worth attending to.';
-      text = 'Look at where you scored lowest. That\'s not a criticism — it\'s the most useful place to focus your attention before you go in.';
-    } else {
-      line = 'This meeting deserves a little more preparation before it begins.';
-      text = 'That\'s an honest and useful thing to notice. Even five minutes of quiet reflection before you walk in can shift the quality of thinking for everyone in the room.';
-    }
+    const btn = document.querySelector('.mrc-calculate');
+    btn.disabled = true;
+    btn.textContent = 'Thinking…';
 
-    document.getElementById('mrc-score-line').textContent = line;
-    document.getElementById('mrc-score-text').textContent = text;
+    document.getElementById('mrc-score-line').textContent = '';
+    document.getElementById('mrc-score-text').textContent = '';
     document.getElementById('mrc-result').classList.add('visible');
     document.getElementById('mrc-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    try {
+      const res = await fetch('/api/assess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ scores: mrcScores })
+      });
+      const data = await res.json();
+      document.getElementById('mrc-score-line').textContent = '';
+      document.getElementById('mrc-score-text').textContent = data.text;
+    } catch(e) {
+      document.getElementById('mrc-score-text').textContent = 'Something went wrong. Please try again.';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'See your result';
   }
 
   // ── EMAIL SIGNUP ──

@@ -2,3 +2,8 @@
   from = "/api/subscribe"
   to = "/.netlify/functions/subscribe"
   status = 200
+
+[[redirects]]
+  from = "/api/assess"
+  to = "/.netlify/functions/assess"
+  status = 200
