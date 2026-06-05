@@ -196,6 +196,18 @@
     color: var(--slate-mid);
     font-weight: 400;
   }
+  .q-incisive-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-top: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  .q-incisive-label + .q-incisive { margin-top: 0; }
+
   .q-incisive {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -657,6 +669,7 @@
   <div class="hero-inner">
     <h1>Thinking Together —<br>a companion for leaders</h1>
     <p class="hero-intro">Following the session with Mitzi and Liz from Wyman Associates on 2 June 2026, this resource is here to help you carry that learning into your day-to-day work — not just your formal meetings, but how you show up in every conversation, every week.</p>
+    <p class="hero-intro" style="margin-top: -0.75rem;">Each section ends with an incisive question — one of Nancy Kline's ten components of a Thinking Environment. These have a particular form: <em>"If you knew that…"</em> They're designed to move thinking past a limiting assumption. Notice what they open up for you.</p>
     <div class="notebook-box" style="background: var(--teal-light); border-color: var(--teal-mid); border-radius: 6px; padding: 1rem 1.25rem;">
       <span class="notebook-icon" style="color: var(--teal-dark);">✎</span>
       <p style="color: var(--slate-mid);"><strong style="color: var(--slate);">This works best with a notebook alongside it.</strong> The questions here are prompts. The thinking is yours. Writing with pen and paper — taking the time to put something down — is itself an act of slowing down. That's where the value lives.</p>
@@ -678,6 +691,7 @@
     <div class="q-card">
       <p class="q-text">If you were to give yourself the same quality of attention that you give others, what would you notice in yourself?</p>
       <p class="q-note">Where are you being present with your own mind — and where are you just reacting? Attention is what you pay, what you invest, what you place. In a Thinking Environment, it is an act of creation.</p>
+      <p class="q-incisive-label">An incisive question — to take your thinking further</p>
       <p class="q-incisive">If you knew that where you place your attention shapes what becomes possible, what would you choose to attend to differently today?</p>
       <button class="reflect-toggle" onclick="toggleReflect(this)" aria-expanded="false">
         ✎ Reflect on this <span class="arrow">▾</span>
@@ -705,7 +719,6 @@
     <div class="q-card">
       <p class="q-text">Where do you notice the urge to interrupt — and what might be underneath it?</p>
       <p class="q-note">Increasingly, one of the most important things a leader can do is ignite the thinking of those around them — not always to have the answers, but to create the conditions where better answers emerge.</p>
-      <p class="q-incisive">If you knew that attention is generative, how would you slow down to give someone more time to think?</p>
     </div>
 
     <div class="q-card">
@@ -781,6 +794,8 @@
         <textarea class="reflect-textarea" placeholder="Write your thoughts here…" oninput="saveReflection('r4', this.value)"></textarea>
         <p class="save-note">Your notes are saved privately in your browser. They do not leave your device.</p>
       </div>
+      <p class="q-incisive-label">An incisive question — to take your thinking further</p>
+      <p class="q-incisive">If you knew that giving yourself time to think — to do this preparation — could transform the quality of your meetings, how would you find that time?</p>
     </div>
   </div>
 </div>
@@ -809,6 +824,7 @@
     <div class="q-card">
       <p class="q-text">When thinking goes flat, what will you do?</p>
       <p class="q-note">That's the moment for thinking pairs. Two people, five minutes, one question, no interruption. In a group of twelve, that adds fifty minutes of thinking to the room. Have a question ready before you need it.</p>
+      <p class="q-incisive-label">An incisive question — to take your thinking further</p>
       <p class="q-incisive">If you knew that waiting just a little longer — before responding, before moving on — would surface something important, how would you hold that pause?</p>
     </div>
 
