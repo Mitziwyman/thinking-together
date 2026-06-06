@@ -135,10 +135,10 @@
   }
   .doors {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1.25rem;
+    max-width: 480px;
   }
-  @media (max-width: 560px) { .doors { grid-template-columns: 1fr; } }
 
   .door {
     background: var(--warm-white);
@@ -246,6 +246,9 @@
 </header>
 <div class="header-teal-bar"></div>
 
+<!-- STONES IMAGE -->
+<div style="height: 260px; background: url('stones.png') center 40% / cover no-repeat;"></div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
@@ -262,7 +265,7 @@
 <!-- TWO DOORS -->
 <section class="doors-band">
   <div class="doors-inner">
-    <div class="doors-label">What brings you here?</div>
+    <div class="doors-label">Where to begin</div>
     <div class="doors">
 
       <a href="/courses" class="door">
@@ -271,14 +274,6 @@
         <h2>Learn the Thinking Environment</h2>
         <p>Structured programmes for those who want to apply the Thinking Environment approach — in their teams, their organisations, or their coaching and facilitation practice.</p>
         <span class="door-cta">See courses and dates →</span>
-      </a>
-
-      <a href="/companion" class="door">
-        <div class="door-label">Leadership Resource</div>
-        <div class="door-rule"></div>
-        <h2>Thinking Together — a companion for leaders</h2>
-        <p>A reflective resource to help you carry the Thinking Environment approach into your day-to-day work — questions, prompts, and a meeting readiness check.</p>
-        <span class="door-cta">Open the companion →</span>
       </a>
 
     </div>
