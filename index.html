@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thinking Together — a companion for leaders | Wyman Associates</title>
+<title>Wyman Associates — Time to Think</title>
 <style>
   :root {
     --teal: #6B9FBC;
@@ -16,7 +16,6 @@
     --warm-white: #FAFAF8;
     --off-white: #F2F4F6;
     --rule: #D8E4EC;
-    --gold: #C9A84C;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,10 +27,10 @@
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
     line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-
-  /* Use system fonts for body, Georgia for elegance */
-  .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
 
   /* ── HEADER ── */
   .site-header {
@@ -41,9 +40,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
   }
   .brand {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -53,971 +49,256 @@
     text-transform: uppercase;
     color: rgba(255,255,255,0.95);
   }
-  .doc-title {
+  .header-link {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 400;
+    font-size: 12px;
     color: rgba(255,255,255,0.6);
+    text-decoration: none;
   }
+  .header-link:hover { color: rgba(255,255,255,0.9); }
   .header-teal-bar { height: 3px; background: var(--teal); }
 
   /* ── HERO ── */
-  .hero-band {
+  .hero {
     background: var(--slate);
-    padding: 4rem 1.5rem 3.5rem;
+    padding: 5rem 1.5rem 4rem;
+    flex: 0 0 auto;
   }
-  .hero-inner { max-width: 700px; margin: 0 auto; }
-
-  .hero-inner h1 {
-    font-size: clamp(36px, 5.5vw, 52px);
+  .hero-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5.5vw, 54px);
     font-weight: 400;
+    font-style: italic;
     color: #fff;
     line-height: 1.1;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
     letter-spacing: -0.01em;
-    font-style: italic;
   }
-  .hero-intro {
+  .hero-body {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.85;
-    color: rgba(255,255,255,0.8);
-    font-weight: 400;
-    max-width: 560px;
-    margin-bottom: 2rem;
+    color: rgba(255,255,255,0.75);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
   }
-  .hero-quote-box {
-    background: rgba(107,159,188,0.2);
+  .hero-quote {
+    background: rgba(107,159,188,0.18);
     border-left: 4px solid var(--teal);
     border-radius: 0 6px 6px 0;
-    padding: 1.25rem 1.4rem;
-    margin-bottom: 1.25rem;
+    padding: 1.1rem 1.4rem;
+    max-width: 540px;
   }
-  .hero-quote-box p {
-    font-size: 17px;
-    font-weight: 400;
+  .hero-quote p {
+    font-size: 16px;
     font-style: italic;
-    color: #fff;
+    color: rgba(255,255,255,0.9);
     line-height: 1.65;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
   }
-  .hero-quote-box .attr {
+  .hero-quote .attr {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 12px;
     color: var(--teal-mid);
-    font-style: normal;
   }
-  .notebook-box {
-    border: 1px solid rgba(107,159,188,0.4);
-    border-radius: 6px;
-    padding: 1rem 1.25rem;
-    display: flex;
-    gap: 0.85rem;
-    align-items: flex-start;
-    background: rgba(255,255,255,0.05);
-  }
-  .notebook-icon { color: var(--teal); font-size: 18px; flex-shrink: 0; margin-top: 3px; }
-  .notebook-box p {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.72);
-  }
-  .notebook-box strong { font-weight: 600; color: rgba(255,255,255,0.95); }
 
-  /* ── SECTION BANDS ── */
-  .section-band { padding: 3.5rem 1.5rem; }
-  .section-band.alt { background: var(--off-white); }
-  .section-band.white { background: var(--warm-white); }
-  .section-inner { max-width: 700px; margin: 0 auto; }
-
-  .section-label-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.4rem;
+  /* ── TWO DOORS ── */
+  .doors-band {
+    padding: 3.5rem 1.5rem;
+    background: var(--off-white);
+    flex: 1 0 auto;
   }
-  .section-num {
+  .doors-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .doors-label {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--teal-dark);
+    margin-bottom: 1.5rem;
   }
-  .section-num-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--teal);
-    flex-shrink: 0;
+  .doors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
   }
-  .section-title {
-    font-size: clamp(28px, 4vw, 34px);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--slate);
-    line-height: 1.15;
-    margin-bottom: 0.6rem;
-  }
-  .section-rule {
-    height: 2px;
-    background: linear-gradient(to right, var(--teal) 70px, var(--rule) 70px);
-    margin-bottom: 1.25rem;
-  }
-  .section-intro {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    line-height: 1.85;
-    color: var(--slate-mid);
-    font-style: normal;
-    max-width: 600px;
-    margin-bottom: 0.5rem;
-  }
+  @media (max-width: 560px) { .doors { grid-template-columns: 1fr; } }
 
-  /* ── QUESTION CARDS ── */
-  .q-card {
-    border-top: 1px solid var(--rule);
-    padding: 1.5rem 0;
+  .door {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    padding: 2rem 1.75rem;
+    text-decoration: none;
+    display: block;
+    transition: box-shadow 0.2s, border-color 0.2s;
   }
-  .q-card:last-of-type { border-bottom: 1px solid var(--rule); }
-
-  .q-text {
-    font-size: 17px;
-    font-weight: 400;
-    font-style: italic;
-    color: var(--slate);
-    line-height: 1.5;
-    margin-bottom: 0.6rem;
+  .door:hover {
+    border-color: var(--teal-mid);
+    box-shadow: 0 4px 20px rgba(61,122,158,0.1);
   }
-  .q-note {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.85;
-    color: var(--slate-mid);
-    font-weight: 400;
-  }
-  .q-incisive-label {
+  .door-label {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-weight: 700;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--teal-dark);
-    margin-top: 0.9rem;
-    margin-bottom: 0.2rem;
-  }
-  .q-incisive-label + .q-incisive { margin-top: 0; }
-
-  .q-incisive {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--teal-dark);
-    font-style: italic;
-    font-weight: 500;
-    margin-top: 0.75rem;
-    padding: 0.65rem 1rem;
-    border-left: 3px solid var(--teal);
-    background: var(--teal-light);
-    border-radius: 0 4px 4px 0;
-  }
-  .q-examples { margin-top: 0.75rem; }
-  .q-example {
-    font-size: 15px;
-    font-style: italic;
-    color: var(--slate);
-    line-height: 1.7;
-    padding: 0.25rem 0;
-    font-weight: 400;
-  }
-  .q-closing {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: var(--slate-light);
-    margin-top: 0.5rem;
-    line-height: 1.7;
-  }
-  .inline-quote {
-    background: var(--teal-light);
-    border-left: 3px solid var(--teal-mid);
-    border-radius: 0 4px 4px 0;
-    padding: 0.75rem 1rem;
-    margin-top: 0.85rem;
-    font-size: 14px;
-    font-style: italic;
-    color: var(--slate-light);
-    line-height: 1.7;
-  }
-
-  /* ── EXPANDABLE REFLECTIONS ── */
-  .reflect-toggle {
-    margin-top: 1rem;
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: 1px solid var(--teal-mid);
-    border-radius: 4px;
-    padding: 0.55rem 0.9rem;
-    cursor: pointer;
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--teal-dark);
-    letter-spacing: 0.04em;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background 0.15s;
-  }
-  .reflect-toggle:hover { background: var(--teal-light); }
-  .reflect-toggle .arrow {
-    margin-left: auto;
-    transition: transform 0.2s;
-    font-style: normal;
-  }
-  .reflect-toggle.open .arrow { transform: rotate(180deg); }
-
-  .reflect-panel {
-    display: none;
-    padding: 1rem;
-    background: var(--teal-light);
-    border: 1px solid var(--teal-mid);
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-  }
-  .reflect-panel.open { display: block; }
-
-  .reflect-prompt {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    color: var(--slate-mid);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  .reflect-textarea {
-    width: 100%;
-    min-height: 80px;
-    border: 1px solid var(--teal-mid);
-    border-radius: 4px;
-    padding: 0.65rem 0.75rem;
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: var(--slate);
-    background: #fff;
-    resize: vertical;
-    line-height: 1.6;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .reflect-textarea:focus { border-color: var(--teal); }
-  .reflect-textarea::placeholder { color: #aaa; }
-  .save-note {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    color: var(--slate-light);
-    margin-top: 0.4rem;
-    font-style: italic;
-  }
-
-  /* ── PULL QUOTE ── */
-  .pull-band {
-    background: var(--teal-light);
-    padding: 3rem 1.5rem;
-    border-top: 1px solid var(--teal-mid);
-    border-bottom: 1px solid var(--teal-mid);
-  }
-  .pull-inner { max-width: 700px; margin: 0 auto; }
-  .pull-quote p {
-    font-size: clamp(22px, 3.5vw, 30px);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--slate);
-    line-height: 1.4;
     margin-bottom: 0.5rem;
   }
-  .pull-attr {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    color: var(--teal-dark);
-    font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-  }
-
-  /* ── MEETING READINESS CHECK ── */
-  .mrc-band {
-    background: var(--slate);
-    padding: 3.5rem 1.5rem;
-  }
-  .mrc-inner { max-width: 700px; margin: 0 auto; }
-  .mrc-label {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 0.4rem;
-  }
-  .mrc-title {
-    font-size: clamp(24px, 4vw, 32px);
-    font-style: italic;
+  .door h2 {
+    font-size: 22px;
     font-weight: 400;
-    color: #fff;
-    margin-bottom: 0.6rem;
-  }
-  .mrc-intro {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    color: rgba(255,255,255,0.72);
-    line-height: 1.8;
-    max-width: 560px;
-    margin-bottom: 2rem;
-  }
-  .mrc-items { list-style: none; }
-  .mrc-item {
-    padding: 1.1rem 0;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .mrc-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
-  .mrc-q {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: rgba(255,255,255,0.9);
-    font-weight: 500;
-    margin-bottom: 0.65rem;
-    line-height: 1.55;
-  }
-  .rating-scale {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .rating-label {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    color: rgba(255,255,255,0.45);
-    margin-right: 0.25rem;
-  }
-  .rating-label.right { margin-left: 0.25rem; margin-right: 0; }
-  .rating-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid rgba(107,159,188,0.5);
-    background: rgba(107,159,188,0.1);
-    color: rgba(255,255,255,0.7);
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .rating-btn:hover { background: var(--teal); border-color: var(--teal); color: #fff; }
-  .rating-btn.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
-
-  .mrc-result {
-    margin-top: 2rem;
-    padding: 1.25rem 1.5rem;
-    background: rgba(107,159,188,0.15);
-    border-left: 4px solid var(--teal);
-    border-radius: 0 6px 6px 0;
-    display: none;
-  }
-  .mrc-result.visible { display: block; }
-  .mrc-score-line {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 0.5rem;
-  }
-  .mrc-score-text {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.7;
-  }
-  .mrc-calculate {
-    margin-top: 1.5rem;
-    background: var(--teal);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 0.75rem 1.5rem;
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s;
-    letter-spacing: 0.02em;
-  }
-  .mrc-calculate:hover { background: var(--teal-dark); }
-
-  /* ── EMAIL CAPTURE ── */
-  .email-band {
-    background: var(--off-white);
-    padding: 3.5rem 1.5rem;
-    border-top: 1px solid var(--rule);
-  }
-  .email-inner { max-width: 700px; margin: 0 auto; }
-  .email-label {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal-dark);
-    margin-bottom: 0.4rem;
-  }
-  .email-title {
-    font-size: clamp(22px, 3.5vw, 28px);
     font-style: italic;
-    font-weight: 400;
     color: var(--slate);
+    line-height: 1.2;
     margin-bottom: 0.75rem;
   }
-  .email-intro {
+  .door p {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    color: var(--slate-mid);
-    line-height: 1.85;
-    max-width: 520px;
-    margin-bottom: 1.75rem;
-  }
-  .email-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    max-width: 420px;
-  }
-  .email-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    color: var(--slate);
-    background: #fff;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  .email-input:focus { border-color: var(--teal); }
-  .email-input::placeholder { color: #aaa; }
-  .email-submit {
-    padding: 0.8rem 1.5rem;
-    background: var(--slate);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s;
-    text-align: center;
-    letter-spacing: 0.02em;
-    align-self: flex-start;
-  }
-  .email-submit:hover { background: var(--teal-dark); }
-  .email-note {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 13px;
+    line-height: 1.75;
     color: var(--slate-light);
-    font-style: italic;
-    margin-top: 0.25rem;
+    margin-bottom: 1.25rem;
   }
-  .email-thanks {
-    display: none;
+  .door-cta {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 600;
     color: var(--teal-dark);
-    font-style: italic;
-    padding: 1rem 0;
+  }
+  .door-rule {
+    height: 2px;
+    background: linear-gradient(to right, var(--teal) 40px, var(--rule) 40px);
+    margin-bottom: 1.5rem;
   }
 
-  /* ── CLOSING ── */
-  .closing-band {
-    background: var(--slate);
-    padding: 3.5rem 1.5rem;
+  /* ── ABOUT STRIP ── */
+  .about-strip {
+    background: var(--warm-white);
+    border-top: 1px solid var(--rule);
+    padding: 2.5rem 1.5rem;
   }
-  .closing-inner {
-    max-width: 700px;
+  .about-inner {
+    max-width: 680px;
     margin: 0 auto;
     display: flex;
-    gap: 2rem;
-    align-items: flex-start;
+    gap: 1.5rem;
+    align-items: center;
   }
-  .closing-photo {
-    width: 88px;
-    height: 88px;
-    border-radius: 6px;
+  .about-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
     object-fit: cover;
-    object-position: center top;
     flex-shrink: 0;
-    border: 2px solid rgba(107,159,188,0.4);
+    border: 2px solid var(--rule);
   }
-  .closing-text h3 {
-    font-size: 17px;
-    font-weight: 600;
+  .about-text p {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    color: #fff;
-    margin-bottom: 0.25rem;
-  }
-  .closing-role {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    color: var(--teal-mid);
-    margin-bottom: 1rem;
-  }
-  .closing-contact {
-    font-size: 15px;
-    font-style: italic;
-    color: rgba(255,255,255,0.72);
+    font-size: 14px;
     line-height: 1.75;
-    margin-bottom: 1rem;
+    color: var(--slate-light);
   }
-  .closing-ctas {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin-top: 0.25rem;
-  }
-  .cta-primary {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #fff;
-    background: var(--teal-dark);
+  .about-text a {
+    color: var(--teal-dark);
     text-decoration: none;
-    padding: 0.6rem 1.1rem;
-    border-radius: 4px;
-    transition: background 0.15s;
-    border: none;
-    cursor: pointer;
+    font-weight: 600;
   }
-  .cta-primary:hover { background: var(--teal); }
-  .cta-secondary {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--teal);
-    background: transparent;
-    text-decoration: none;
-    padding: 0.6rem 1.1rem;
-    border-radius: 4px;
-    border: 1px solid rgba(107,159,188,0.45);
-    transition: all 0.15s;
-    cursor: pointer;
-  }
-  .cta-secondary:hover { background: rgba(107,159,188,0.15); }
 
   /* ── FOOTER ── */
   .site-footer {
-    background: var(--slate);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding: 1.25rem 1.5rem 1.75rem;
+    padding: 1.5rem;
+    background: var(--off-white);
+    border-top: 1px solid var(--rule);
     text-align: center;
   }
   .site-footer p {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    color: rgba(255,255,255,0.35);
+    font-size: 11px;
+    color: var(--slate-light);
     line-height: 1.7;
-    max-width: 600px;
-    margin: 0 auto;
   }
-
-  /* ── PRINT ── */
-  @media print {
-    .site-header { position: static; }
-    .hero-band, .closing-band, .mrc-band { background: #2C3E50 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .pull-band, .email-band { background: #EEF4F8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .reflect-toggle, .reflect-panel, .mrc-calculate, .email-band, .mrc-result { display: none !important; }
-    .q-card { break-inside: avoid; }
-  }
-
-  /* ── MOBILE ── */
-  @media (max-width: 540px) {
-    .site-header .doc-title { display: none; }
-    .closing-inner { flex-direction: column; gap: 1.25rem; }
-    .closing-photo { width: 72px; height: 72px; }
-    .section-band, .mrc-band, .email-band, .closing-band { padding: 2.5rem 1.1rem; }
-    .hero-band { padding: 2.5rem 1.1rem; }
-    .rating-scale { gap: 0.3rem; }
-    .rating-btn { width: 32px; height: 32px; font-size: 12px; }
-    .closing-ctas { flex-direction: column; }
-    .cta-primary, .cta-secondary { text-align: center; }
-  }
+  .site-footer a { color: var(--teal-dark); text-decoration: none; }
 </style>
 </head>
 <body>
 
 <header class="site-header">
   <span class="brand">Wyman Associates</span>
-  <span class="doc-title">Thinking Together — a companion for leaders</span>
+  <a href="https://www.mitziwyman.com" class="header-link">mitziwyman.com ↗</a>
 </header>
 <div class="header-teal-bar"></div>
 
 <!-- HERO -->
-<div class="hero-band">
+<section class="hero">
   <div class="hero-inner">
-    <h1>Thinking Together —<br>a companion for leaders</h1>
-    <p class="hero-intro">You've had an introduction to the Thinking Environment. This resource is here to help you carry that into your day-to-day work — not just your formal meetings, but how you show up in every conversation, every week.</p>
-    <p class="hero-intro" style="margin-top: -0.75rem;">Each section includes an incisive question — one of Nancy Kline's ten components of a Thinking Environment. These have a particular form: <em>"If you knew that…"</em> They're designed to move thinking past a limiting assumption. Notice what they open up for you.</p>
-    <div class="notebook-box" style="background: var(--teal-light); border-color: var(--teal-mid); border-radius: 6px; padding: 1rem 1.25rem;">
-      <span class="notebook-icon" style="color: var(--teal-dark);">✎</span>
-      <p style="color: var(--slate-mid);"><strong style="color: var(--slate);">This works best with a notebook alongside it.</strong> The questions here are prompts. The thinking is yours. Writing with pen and paper — taking the time to put something down — is itself an act of slowing down. That's where the value lives.</p>
+    <div class="hero-eyebrow">Mitzi Wyman · Time to Think</div>
+    <h1>Better thinking changes everything.</h1>
+    <p class="hero-body">Under relentless pressure, clear independent thinking is often the first thing to go. This is a space for those who want to change that — in themselves, in their teams, and in the conversations that matter most.</p>
+    <div class="hero-quote">
+      <p>"The quality of everything we do depends on the quality of the thinking we do first. And that depends on how we treat each other when we're thinking."</p>
+      <span class="attr">— Nancy Kline, President, Time to Think</span>
+    </div>
+  </div>
+</section>
+
+<!-- TWO DOORS -->
+<section class="doors-band">
+  <div class="doors-inner">
+    <div class="doors-label">What brings you here?</div>
+    <div class="doors">
+
+      <a href="/courses" class="door">
+        <div class="door-label">Courses &amp; Programmes</div>
+        <div class="door-rule"></div>
+        <h2>Learn the Thinking Environment</h2>
+        <p>Structured programmes for those who want to apply the Thinking Environment approach — in their teams, their organisations, or their coaching and facilitation practice.</p>
+        <span class="door-cta">See courses and dates →</span>
+      </a>
+
+      <a href="/companion" class="door">
+        <div class="door-label">Leadership Resource</div>
+        <div class="door-rule"></div>
+        <h2>Thinking Together — a companion for leaders</h2>
+        <p>A reflective resource to help you carry the Thinking Environment approach into your day-to-day work — questions, prompts, and a meeting readiness check.</p>
+        <span class="door-cta">Open the companion →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-inner">
+    <img src="mitzi-wyman.jpg" alt="Mitzi Wyman" class="about-photo" onerror="this.style.display='none'">
+    <div class="about-text">
+      <p>Mitzi Wyman is a lawyer by background and a member of the Time to Think Faculty, with over two decades of experience working with senior leaders across the NHS and public sector. She is a facilitator with Windsor Leadership. <a href="https://www.mitziwyman.com">Visit mitziwyman.com →</a></p>
     </div>
   </div>
 </div>
 
-<!-- SECTION ONE -->
-<div class="section-band white">
-  <div class="section-inner">
-    <div class="section-label-row">
-      <span class="section-num">One</span>
-      <span class="section-num-dot"></span>
-    </div>
-    <h2 class="section-title">Your presence</h2>
-    <div class="section-rule"></div>
-    <p class="section-intro">Before you can create the conditions for others to think well, it helps to notice whether you're in those conditions yourself. This isn't about the next meeting. It's about how you're showing up this week — in corridors, in quick conversations, with your direct reports, and crucially, with yourself.</p>
-
-    <div class="q-card">
-      <p class="q-text">If you were to give yourself the same quality of attention that you give others, what would you notice in yourself?</p>
-      <p class="q-note">Where are you being present with your own mind — and where are you just reacting? Attention is what you pay, what you invest, what you place. In a Thinking Environment, it is an act of creation.</p>
-      <p class="q-incisive-label">An incisive question — to take your thinking further</p>
-      <p class="q-incisive">If you knew that where you place your attention shapes what becomes possible, what would you choose to attend to differently today?</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">What do you need to feel at ease — and are you allowing yourself that?</p>
-      <p class="q-note">Ease is freedom from urgency and rush — a distinct and necessary condition for good thinking. It is the container that allows your attention to be generative. If you're carrying pressure from one thing to the next, it travels into every conversation. What would it mean to set something down, even briefly, to create the space for real thought?</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">Where do you notice the urge to interrupt — and what might be underneath it?</p>
-      <p class="q-note">Increasingly, one of the most important things a leader can do is ignite the thinking of those around them — not always to have the answers, but to create the conditions where better answers emerge.</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">Whose thinking haven't you really listened to recently?</p>
-      <p class="q-note">Equality as thinkers isn't about hierarchy. It's about being genuinely interested in everyone's thinking — regardless of where they sit in the organisation. The best ideas can come from anywhere.</p>
-    </div>
-  </div>
-</div>
-
-<!-- PULL QUOTE -->
-<div class="pull-band">
-  <div class="pull-inner">
-    <div class="pull-quote">
-      <p>"If attention is the currency of leaders, time is the investment."</p>
-      <span class="pull-attr">Mitzi Wyman</span>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION TWO -->
-<div class="section-band alt">
-  <div class="section-inner">
-    <div class="section-label-row">
-      <span class="section-num">Two</span>
-      <span class="section-num-dot"></span>
-    </div>
-    <h2 class="section-title">Your meetings</h2>
-    <div class="section-rule"></div>
-    <p class="section-intro">Before you send the invite. The quality of a meeting is largely determined before anyone walks in the room — and before the week begins, it's worth taking an overview of the time you're about to give.</p>
-
-    <div class="q-card">
-      <p class="q-text">What is the core and critical question this meeting needs to address?</p>
-      <p class="q-note">Sometimes the question behind the obvious question is where the real thinking needs to happen. The rush and urgency of organisational life can keep us at the surface. This is an invitation to go a little deeper before anyone arrives.</p>
-      <div class="inline-quote">"The mind works better in the presence of a question." — Nancy Kline</div>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">Can you frame each agenda item as a genuine question?</p>
-      <p class="q-note">Questions invite thinking. Statements invite reporting.</p>
-      <div class="q-examples">
-        <p class="q-example">"What do we need to decide about project X today?"</p>
-        <p class="q-example">"What might we be assuming about project X that would limit our thinking?"</p>
-        <p class="q-closing">The deeper the question, the deeper the thinking it unlocks.</p>
-      </div>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">Who genuinely needs to be there?</p>
-      <p class="q-note">Presence creates obligation — to speak, or to stay silent. Both have a cost. Invite the people whose thinking this needs.</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">What would a good opening round look like?</p>
-      <p class="q-note">Something small and specific that brings people into the present. It builds trust, lowers the temperature before the harder thinking begins, and signals from the start that everyone's voice belongs here.</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">Have you protected enough time — for this meeting and around it?</p>
-      <p class="q-note">A meeting booked back-to-back is already compromised. At the start of the week as much as before any individual meeting, look at the time you've scheduled and ask whether it creates space for thinking — or just fills it. Forty-five minutes with transition time is better than an hour that bleeds into the next thing.</p>
-      <p class="q-incisive-label">An incisive question — to take your thinking further</p>
-      <p class="q-incisive">If you knew that giving yourself time to think — to do this preparation — could transform the quality of your meetings, how would you find that time?</p>
-    </div>
-  </div>
-</div>
-
-<!-- SECTION THREE -->
-<div class="section-band white">
-  <div class="section-inner">
-    <div class="section-label-row">
-      <span class="section-num">Three</span>
-      <span class="section-num-dot"></span>
-    </div>
-    <h2 class="section-title">In the room</h2>
-    <div class="section-rule"></div>
-    <p class="section-intro">You're creating a structure that creates freedom — that's the paradox at the heart of this. The container you hold determines what thinking becomes possible inside it.</p>
-
-    <div class="q-card">
-      <p class="q-text">Are you cultivating ease — or carrying urgency into the space?</p>
-      <p class="q-note">People feel the difference. If you're rushed, they rush. If you're genuinely present, something settles. This is something you model before you say a word.</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">Is everyone getting a turn — or are some voices shaping everything?</p>
-      <p class="q-note">Equality requires active tending. A round brings everyone in. A timed contribution — even thirty seconds — means people arrive having thought, not waiting to think. Reciprocity matters: make sure no single voice, including yours, takes up more than its share.</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">When thinking goes flat, what will you do?</p>
-      <p class="q-note">That's the moment for thinking pairs. Two people, five minutes, one question, no interruption. In a group of twelve, that adds fifty minutes of thinking to the room. Have a question ready before you need it.</p>
-      <p class="q-incisive-label">An incisive question — to take your thinking further</p>
-      <p class="q-incisive">If you knew that waiting just a little longer — before responding, before moving on — would surface something important, how would you hold that pause?</p>
-    </div>
-
-    <div class="q-card">
-      <p class="q-text">How do you want people to feel when they leave?</p>
-      <p class="q-note">Hold that from the moment you open the meeting. Clearer? Heard? More capable of what comes next? That intention shapes everything — how you listen, how you hold the time, how you close.</p>
-    </div>
-  </div>
-</div>
-
-<!-- MEETING READINESS CHECK -->
-<div class="mrc-band">
-  <div class="mrc-inner">
-    <p class="mrc-label">Mitzi Wyman — Meeting Readiness Check</p>
-    <h2 class="mrc-title">Before you go in</h2>
-    <p class="mrc-intro">A two-minute self-check. Rate yourself honestly on each question. There's no right answer — the value is in the noticing.</p>
-
-    <ul class="mrc-items">
-      <li class="mrc-item">
-        <p class="mrc-q">I have a clear question at the heart of this meeting — not just an agenda.</p>
-        <div class="rating-scale">
-          <span class="rating-label">Not yet</span>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc1', 1)" aria-label="1">1</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc1', 2)" aria-label="2">2</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc1', 3)" aria-label="3">3</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc1', 4)" aria-label="4">4</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc1', 5)" aria-label="5">5</button>
-          <span class="rating-label right">Yes, clearly</span>
-        </div>
-      </li>
-      <li class="mrc-item">
-        <p class="mrc-q">I am arriving with genuine attention — not still in the last conversation.</p>
-        <div class="rating-scale">
-          <span class="rating-label">Not yet</span>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc2', 1)" aria-label="1">1</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc2', 2)" aria-label="2">2</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc2', 3)" aria-label="3">3</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc2', 4)" aria-label="4">4</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc2', 5)" aria-label="5">5</button>
-          <span class="rating-label right">Yes, clearly</span>
-        </div>
-      </li>
-      <li class="mrc-item">
-        <p class="mrc-q">I have created the conditions for everyone to contribute — not just the most vocal.</p>
-        <div class="rating-scale">
-          <span class="rating-label">Not yet</span>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc3', 1)" aria-label="1">1</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc3', 2)" aria-label="2">2</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc3', 3)" aria-label="3">3</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc3', 4)" aria-label="4">4</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc3', 5)" aria-label="5">5</button>
-          <span class="rating-label right">Yes, clearly</span>
-        </div>
-      </li>
-      <li class="mrc-item">
-        <p class="mrc-q">I can hold the space with ease — I'm not rushing, depleted, or distracted.</p>
-        <div class="rating-scale">
-          <span class="rating-label">Not yet</span>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc4', 1)" aria-label="1">1</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc4', 2)" aria-label="2">2</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc4', 3)" aria-label="3">3</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc4', 4)" aria-label="4">4</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc4', 5)" aria-label="5">5</button>
-          <span class="rating-label right">Yes, clearly</span>
-        </div>
-      </li>
-      <li class="mrc-item">
-        <p class="mrc-q">I know how I want people to feel when they leave — and I'll hold that intention throughout.</p>
-        <div class="rating-scale">
-          <span class="rating-label">Not yet</span>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc5', 1)" aria-label="1">1</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc5', 2)" aria-label="2">2</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc5', 3)" aria-label="3">3</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc5', 4)" aria-label="4">4</button>
-          <button class="rating-btn" onclick="selectRating(this, 'mrc5', 5)" aria-label="5">5</button>
-          <span class="rating-label right">Yes, clearly</span>
-        </div>
-      </li>
-    </ul>
-
-    <button class="mrc-calculate" onclick="calculateMRC()">See your result</button>
-
-    <div class="mrc-result" id="mrc-result">
-      <p class="mrc-score-line" id="mrc-score-line"></p>
-      <p class="mrc-score-text" id="mrc-score-text"></p>
-    </div>
-  </div>
-</div>
-
-
-<!-- CLOSING REFLECTION -->
-<div class="pull-band">
-  <div class="pull-inner">
-    <p style="font-size: clamp(17px, 2.5vw, 22px); font-style: italic; font-weight: 400; color: var(--slate); line-height: 1.6; margin-bottom: 0;">I hope these questions have given you a moment to think — really think — in the middle of a busy week, free from the urgency and rush of the everyday. Because the quality of your leadership depends on the quality of the thinking you do first.</p>
-  </div>
-</div>
-
-<!-- CLOSING -->
-<div class="closing-band">
-  <div class="closing-inner">
-    <img class="closing-photo" src="mitzi-wyman.jpg" alt="Mitzi Wyman">
-    <div class="closing-text">
-      <h3>Mitzi Wyman</h3>
-      <p class="closing-role">Wyman Associates &nbsp;|&nbsp; Faculty, Time to Think</p>
-      <div class="closing-ctas">
-        <a href="/courses" class="cta-primary">See courses &amp; programmes</a>
-        <a href="https://mitziwyman.com" class="cta-secondary">Visit mitziwyman.com</a>
-      </div>
-    </div>
-  </div>
-</div>
-
+<!-- FOOTER -->
 <footer class="site-footer">
-  <p>Thinking Environment™ is a trademark of Nancy Kline / Time to Think. Used under licence by Mitzi Wyman, Wyman Associates.</p>
+  <p><em>Thinking Environment™ is a trademark of Nancy Kline / Time to Think. Used under licence by Mitzi Wyman, Wyman Associates.</em></p>
 </footer>
-
-<script>
-  // ── EXPANDABLE REFLECTIONS ──
-  function toggleReflect(btn) {
-    const panel = btn.nextElementSibling;
-    const isOpen = panel.classList.contains('open');
-    panel.classList.toggle('open', !isOpen);
-    btn.classList.toggle('open', !isOpen);
-    btn.setAttribute('aria-expanded', !isOpen);
-    // Restore saved text
-    if (!isOpen) {
-      const ta = panel.querySelector('textarea');
-      const key = ta.getAttribute('data-key') || ta.closest('.q-card').querySelector('[data-key]')?.getAttribute('data-key');
-      if (ta && !ta.value) {
-        const id = ta.getAttribute('oninput')?.match(/'([^']+)'/)?.[1];
-        if (id) {
-          const saved = localStorage.getItem('tt_' + id);
-          if (saved) ta.value = saved;
-        }
-      }
-    }
-  }
-
-  function saveReflection(key, value) {
-    try { localStorage.setItem('tt_' + key, value); } catch(e) {}
-  }
-
-  // Restore all saved reflections on load
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.reflect-textarea').forEach(function(ta) {
-      const match = ta.getAttribute('oninput')?.match(/'([^']+)'/);
-      if (match) {
-        const saved = localStorage.getItem('tt_' + match[1]);
-        if (saved) ta.value = saved;
-      }
-    });
-  });
-
-  // ── MEETING READINESS CHECK ──
-  const mrcScores = {};
-
-  function selectRating(btn, key, value) {
-    const scale = btn.closest('.rating-scale');
-    scale.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    mrcScores[key] = value;
-  }
-
-  async function calculateMRC() {
-    const keys = ['mrc1','mrc2','mrc3','mrc4','mrc5'];
-    const answered = keys.filter(k => mrcScores[k]);
-    if (answered.length < 3) {
-      alert('Please rate at least three questions before seeing your result.');
-      return;
-    }
-
-    const btn = document.querySelector('.mrc-calculate');
-    btn.disabled = true;
-    btn.textContent = 'Thinking…';
-
-    document.getElementById('mrc-score-line').textContent = '';
-    document.getElementById('mrc-score-text').textContent = '';
-    document.getElementById('mrc-result').classList.add('visible');
-    document.getElementById('mrc-result').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-    try {
-      const res = await fetch('/api/assess', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ scores: mrcScores })
-      });
-      const data = await res.json();
-      document.getElementById('mrc-score-line').textContent = '';
-      document.getElementById('mrc-score-text').textContent = data.text;
-    } catch(e) {
-      document.getElementById('mrc-score-text').textContent = 'Something went wrong. Please try again.';
-    }
-
-    btn.disabled = false;
-    btn.textContent = 'See your result';
-  }
-
-  // ── EMAIL SIGNUP ──
-  async function handleSignup() {
-    const name = document.getElementById('signup-name').value.trim();
-    const email = document.getElementById('signup-email').value.trim();
-    if (!email || !email.includes('@')) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-    const btn = document.querySelector('.email-submit');
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    try {
-      const res = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email })
-      });
-      if (!res.ok) throw new Error('Request failed');
-    } catch(e) {
-      btn.disabled = false;
-      btn.textContent = 'Send me occasional reflections';
-      alert('Something went wrong. Please try again or email mitzi@mitziwyman.com directly.');
-      return;
-    }
-    document.getElementById('email-form').style.display = 'none';
-    document.getElementById('email-thanks').style.display = 'block';
-  }
-</script>
 
 </body>
 </html>
