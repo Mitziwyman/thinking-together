@@ -31,35 +31,6 @@
     line-height: 1.7;
   }
 
-  /* ── HEADER ── */
-  .site-header {
-    background: var(--slate);
-    padding: 0 2rem;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .brand {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.95);
-  }
-  .header-back {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    text-decoration: none;
-  }
-  .header-back:hover { color: rgba(255,255,255,0.9); }
-  .header-teal-bar { height: 3px; background: var(--teal); }
-
   /* ── HERO ── */
   .hero-band {
     background: var(--slate);
@@ -610,12 +581,7 @@
 </head>
 <body>
 
-<header class="site-header">
-  <span class="brand">Wyman Associates</span>
-  <a href="/" class="header-back">← Home</a>
-</header>
-<div class="header-teal-bar"></div>
-
+<script src="/nav.js"></script>
 <!-- HERO -->
 <section class="hero-band">
   <div class="hero-inner">

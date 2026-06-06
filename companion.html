@@ -33,34 +33,6 @@
   /* Use system fonts for body, Georgia for elegance */
   .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
 
-  /* ── HEADER ── */
-  .site-header {
-    background: var(--slate);
-    padding: 0 2rem;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .brand {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.95);
-  }
-  .doc-title {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    color: rgba(255,255,255,0.6);
-  }
-  .header-teal-bar { height: 3px; background: var(--teal); }
-
   /* ── HERO ── */
   .hero-band {
     background: var(--slate);
@@ -658,12 +630,7 @@
 </head>
 <body>
 
-<header class="site-header">
-  <span class="brand">Wyman Associates</span>
-  <span class="doc-title">Thinking Together — a companion for leaders</span>
-</header>
-<div class="header-teal-bar"></div>
-
+<script src="/nav.js"></script>
 <!-- HERO -->
 <div class="hero-band">
   <div class="hero-inner">
