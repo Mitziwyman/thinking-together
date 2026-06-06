@@ -77,7 +77,7 @@
     );
   }
   .hero-inner {
-    max-width: 680px;
+    max-width: 960px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -132,12 +132,12 @@
 
   /* ── TWO DOORS ── */
   .doors-band {
-    padding: 3.5rem 1.5rem;
+    padding: 4rem 2rem;
     background: var(--off-white);
     flex: 1 0 auto;
   }
   .doors-inner {
-    max-width: 680px;
+    max-width: 960px;
     margin: 0 auto;
   }
   .doors-label {
@@ -147,20 +147,20 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--teal-dark);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
   }
   .doors {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    max-width: 480px;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
   }
+  @media (max-width: 640px) { .doors { grid-template-columns: 1fr; } }
 
   .door {
     background: var(--warm-white);
     border: 1px solid var(--rule);
     border-radius: 10px;
-    padding: 2rem 1.75rem;
+    padding: 2.25rem 2rem;
     text-decoration: none;
     display: block;
     transition: box-shadow 0.2s, border-color 0.2s;
@@ -179,19 +179,19 @@
     margin-bottom: 0.5rem;
   }
   .door h2 {
-    font-size: 22px;
+    font-size: clamp(20px, 2.5vw, 24px);
     font-weight: 400;
     font-style: italic;
     color: var(--slate);
     line-height: 1.2;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.85rem;
   }
   .door p {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    line-height: 1.75;
+    font-size: 14px;
+    line-height: 1.8;
     color: var(--slate-light);
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
   .door-cta {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -209,10 +209,10 @@
   .about-strip {
     background: var(--warm-white);
     border-top: 1px solid var(--rule);
-    padding: 2.5rem 1.5rem;
+    padding: 2.5rem 2rem;
   }
   .about-inner {
-    max-width: 680px;
+    max-width: 960px;
     margin: 0 auto;
     display: flex;
     gap: 1.5rem;
@@ -285,8 +285,16 @@
         <div class="door-label">Courses &amp; Programmes</div>
         <div class="door-rule"></div>
         <h2>Learn the Thinking Environment</h2>
-        <p>Structured programmes for those who want to apply the Thinking Environment approach — in their teams, their organisations, or their coaching and facilitation practice.</p>
+        <p>Structured programmes for those who want to apply the Thinking Environment approach — in their teams, their organisations, or their coaching and facilitation practice. From a two-day foundation through to full accreditation as a facilitator or coach.</p>
         <span class="door-cta">See courses and dates →</span>
+      </a>
+
+      <a href="https://meetings-culture.netlify.app/" class="door" target="_blank" rel="noopener">
+        <div class="door-label">Diagnostic Tool</div>
+        <div class="door-rule"></div>
+        <h2>What is really happening in your meetings?</h2>
+        <p>Most organisations measure activity. Very few can see the quality of thinking. The Meeting Intelligence Index is a short diagnostic — developed from over 20 years of working with senior teams — that shows you what is actually happening when your people meet.</p>
+        <span class="door-cta">Start the diagnostic →</span>
       </a>
 
     </div>
