@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Working Surface — Mitzi Wyman</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --slate: #2C3E50;
+      --teal: #6B9FBC;
+      --teal-light: #e8f1f7;
+      --teal-mid: #b8d4e8;
+      --warm-white: #FAFAF8;
+      --warm-grey: #f0efed;
+      --text: #2C3E50;
+      --muted: #7a8a96;
+      --border: #d8dfe5;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    header {
+      background: var(--slate);
+      color: white;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    header h1 {
+      font-family: Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: normal;
+      letter-spacing: 0.01em;
+    }
+
+    #week-label {
+      font-size: 0.85rem;
+      color: var(--teal-mid);
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--teal-light);
+      padding: 0.65rem 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--teal-mid);
+    }
+
+    .card-header h2 {
+      font-family: Georgia, serif;
+      font-size: 0.9rem;
+      font-weight: normal;
+      color: var(--slate);
+      letter-spacing: 0.02em;
+    }
+
+    .card-hint {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .editable-area {
+      padding: 0.9rem 1.1rem;
+      min-height: 90px;
+      outline: none;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .editable-area:empty::before {
+      content: attr(data-placeholder);
+      color: #b0bcc5;
+      pointer-events: none;
+    }
+
+    .editable-area:focus {
+      background: #fdfcfb;
+    }
+
+    /* Capture section */
+    .capture-card {
+      border-color: var(--teal);
+    }
+
+    .capture-card .card-header {
+      background: var(--teal);
+      border-bottom-color: #5a8fa8;
+    }
+
+    .capture-card .card-header h2 {
+      color: white;
+    }
+
+    .capture-card .card-hint {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .capture-input-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .capture-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--warm-white);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .capture-input:focus {
+      border-color: var(--teal);
+    }
+
+    .btn-add {
+      background: var(--teal);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn-add:hover { background: #5a8fa8; }
+
+    .capture-list {
+      padding: 0.5rem 1.1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      min-height: 44px;
+    }
+
+    .capture-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .capture-item-text {
+      flex: 1;
+      color: var(--text);
+    }
+
+    .capture-item-time {
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-top: 0.2rem;
+    }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #c0ccd4;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0.1rem 0.2rem;
+      margin-top: 0.05rem;
+    }
+
+    .btn-remove:hover { color: #e08080; }
+
+    /* Save indicator */
+    #save-indicator {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: white;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    #save-indicator.show { opacity: 1; }
+
+    /* Monday reset prompt */
+    .monday-banner {
+      background: #fff8e6;
+      border: 1px solid #f0d890;
+      border-radius: 8px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.88rem;
+      color: #7a6020;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .btn-archive {
+      background: none;
+      border: 1px solid #d4b84a;
+      border-radius: 5px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      color: #7a6020;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn-archive:hover { background: #fff0c0; }
+
+    .week-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .week-nav button {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: inherit;
+    }
+
+    .week-nav button:hover { color: var(--slate); border-color: var(--teal); }
+
+    @media (max-width: 600px) {
+      main { padding: 1rem 1rem 3rem; }
+      header { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Weekly Working Surface</h1>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <div class="week-nav">
+      <button id="prev-week">&#8592;</button>
+      <span id="week-label"></span>
+      <button id="next-week">&#8594;</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div id="monday-banner" class="monday-banner" style="display:none">
+    <span>It's a new week. Ready to carry forward what matters and let go of the rest?</span>
+    <button class="btn-archive" id="btn-start-fresh">Start this week fresh</button>
+  </div>
+
+  <!-- Priorities -->
+  <div class="card">
+    <div class="card-header">
+      <h2>This week's one or two priorities</h2>
+      <span class="card-hint">What actually moves the needle</span>
+    </div>
+    <div class="editable-area" id="priorities" contenteditable="true"
+      data-placeholder="What matters most this week? Two things maximum."></div>
+  </div>
+
+  <!-- Live client work -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Live and needs attention</h2>
+      <span class="card-hint">Client work in flight — anyone waiting on you</span>
+    </div>
+    <div class="editable-area" id="live-work" contenteditable="true"
+      data-placeholder="Who is waiting? What has a deadline this week?"></div>
+  </div>
+
+  <!-- Loose ends -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Loose ends</h2>
+      <span class="card-hint">The thing you didn't finish — the email you meant to send</span>
+    </div>
+    <div class="editable-area" id="loose-ends" contenteditable="true"
+      data-placeholder="What's trailing from yesterday or last week?"></div>
+  </div>
+
+  <!-- Thought capture -->
+  <div class="card capture-card">
+    <div class="card-header">
+      <h2>Capture</h2>
+      <span class="card-hint">Drop thoughts as they occur — sort them later</span>
+    </div>
+    <div class="capture-input-row">
+      <input class="capture-input" id="capture-input" type="text"
+        placeholder="A thought, a to-do, something you don't want to forget...">
+      <button class="btn-add" id="btn-capture">Add</button>
+    </div>
+    <div class="capture-list" id="capture-list"></div>
+  </div>
+
+</main>
+
+<div id="save-indicator">Saved</div>
+
+<script>
+  // ── Week navigation ──────────────────────────────────────────────────
+
+  function getMondayOf(date) {
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = (day === 0 ? -6 : 1 - day);
+    d.setDate(d.getDate() + diff);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  function weekKey(monday) {
+    return 'week_' + monday.toISOString().slice(0, 10);
+  }
+
+  function formatWeekLabel(monday) {
+    const friday = new Date(monday);
+    friday.setDate(friday.getDate() + 4);
+    const opts = { day: 'numeric', month: 'short' };
+    return monday.toLocaleDateString('en-GB', opts) + ' – ' + friday.toLocaleDateString('en-GB', opts);
+  }
+
+  let currentMonday = getMondayOf(new Date());
+
+  document.getElementById('prev-week').addEventListener('click', () => {
+    currentMonday.setDate(currentMonday.getDate() - 7);
+    loadWeek();
+  });
+
+  document.getElementById('next-week').addEventListener('click', () => {
+    currentMonday.setDate(currentMonday.getDate() + 7);
+    loadWeek();
+  });
+
+  // ── Storage ──────────────────────────────────────────────────────────
+
+  function storageKey(field) {
+    return weekKey(currentMonday) + '_' + field;
+  }
+
+  function save(field, value) {
+    localStorage.setItem(storageKey(field), JSON.stringify(value));
+    flashSaved();
+  }
+
+  function load(field, fallback) {
+    const v = localStorage.getItem(storageKey(field));
+    return v !== null ? JSON.parse(v) : fallback;
+  }
+
+  let saveTimer;
+  function flashSaved() {
+    const el = document.getElementById('save-indicator');
+    el.classList.add('show');
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => el.classList.remove('show'), 1800);
+  }
+
+  // ── Editable areas ───────────────────────────────────────────────────
+
+  const editableFields = ['priorities', 'live-work', 'loose-ends'];
+
+  function bindEditable(id) {
+    const el = document.getElementById(id);
+    el.addEventListener('input', () => {
+      save(id, el.innerText);
+    });
+  }
+
+  function loadEditable(id) {
+    const el = document.getElementById(id);
+    const text = load(id, '');
+    el.innerText = text;
+  }
+
+  editableFields.forEach(id => {
+    bindEditable(id);
+  });
+
+  // ── Capture list ─────────────────────────────────────────────────────
+
+  function renderCapture() {
+    const items = load('capture', []);
+    const list = document.getElementById('capture-list');
+    list.innerHTML = '';
+    if (items.length === 0) {
+      list.innerHTML = '<div style="font-size:0.8rem;color:#b0bcc5;padding:0.25rem 0">Nothing captured yet this week.</div>';
+      return;
+    }
+    items.forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'capture-item';
+      row.innerHTML = `
+        <span class="capture-item-text">${escapeHtml(item.text)}</span>
+        <span class="capture-item-time">${item.time}</span>
+        <button class="btn-remove" data-i="${i}" title="Remove">&#215;</button>
+      `;
+      list.appendChild(row);
+    });
+    list.querySelectorAll('.btn-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const items = load('capture', []);
+        items.splice(parseInt(btn.dataset.i), 1);
+        save('capture', items);
+        renderCapture();
+      });
+    });
+  }
+
+  function addCapture(text) {
+    if (!text.trim()) return;
+    const items = load('capture', []);
+    const now = new Date();
+    const time = now.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+    items.push({ text: text.trim(), time });
+    save('capture', items);
+    renderCapture();
+  }
+
+  document.getElementById('btn-capture').addEventListener('click', () => {
+    const input = document.getElementById('capture-input');
+    addCapture(input.value);
+    input.value = '';
+    input.focus();
+  });
+
+  document.getElementById('capture-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const input = document.getElementById('capture-input');
+      addCapture(input.value);
+      input.value = '';
+    }
+  });
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ── Monday fresh-start banner ─────────────────────────────────────────
+
+  function checkMondayBanner() {
+    const today = new Date();
+    const todayMonday = getMondayOf(today);
+    const isCurrentWeek = todayMonday.toISOString().slice(0,10) === currentMonday.toISOString().slice(0,10);
+    const isMonday = today.getDay() === 1;
+    const bannerDismissed = localStorage.getItem('banner_dismissed_' + weekKey(currentMonday));
+
+    const banner = document.getElementById('monday-banner');
+    banner.style.display = (isMonday && isCurrentWeek && !bannerDismissed) ? 'flex' : 'none';
+  }
+
+  document.getElementById('btn-start-fresh').addEventListener('click', () => {
+    // Carry over loose ends from last week into this week's loose ends
+    const lastMonday = new Date(currentMonday);
+    lastMonday.setDate(lastMonday.getDate() - 7);
+    const lastKey = 'week_' + lastMonday.toISOString().slice(0, 10);
+    const lastLoose = localStorage.getItem(lastKey + '_loose-ends');
+    const lastCapture = localStorage.getItem(lastKey + '_capture');
+
+    if (lastLoose) {
+      const existing = load('loose-ends', '');
+      const carried = JSON.parse(lastLoose);
+      if (carried && !existing) {
+        save('loose-ends', carried);
+        document.getElementById('loose-ends').innerText = carried;
+      }
+    }
+
+    // Clear priorities and live-work for fresh start
+    ['priorities', 'live-work'].forEach(id => {
+      save(id, '');
+      document.getElementById(id).innerText = '';
+    });
+
+    localStorage.setItem('banner_dismissed_' + weekKey(currentMonday), '1');
+    document.getElementById('monday-banner').style.display = 'none';
+    document.getElementById('priorities').focus();
+  });
+
+  // ── Load week ─────────────────────────────────────────────────────────
+
+  function loadWeek() {
+    document.getElementById('week-label').textContent = formatWeekLabel(currentMonday);
+    editableFields.forEach(loadEditable);
+    renderCapture();
+    checkMondayBanner();
+
+    // Dim header if viewing a past/future week
+    const todayMonday = getMondayOf(new Date());
+    const isPast = currentMonday < todayMonday;
+    const isFuture = currentMonday > todayMonday;
+    document.querySelector('header').style.opacity = (isPast || isFuture) ? '0.75' : '1';
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────
+  loadWeek();
+</script>
+
+</body>
+</html>
