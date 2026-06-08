@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OII Intelligence Log · Wyman Associates</title>
+    <style>
+        :root {
+            --navy: #1C3557;
+            --navy-dark: #132440;
+            --gold: #C9A84C;
+            --gold-light: #E8D5A0;
+            --gold-pale: rgba(201, 168, 76, 0.07);
+            --cream: #FAFAF8;
+            --text: #2C2C2C;
+            --subtle: #6B7280;
+            --border: #D1D5DB;
+            --white: #FFFFFF;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        /* ── Header ── */
+        header {
+            background: var(--navy);
+            color: white;
+            padding: 2rem 2.5rem 1.75rem;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            letter-spacing: 0.02em;
+            color: var(--gold-light);
+            margin-bottom: 0.25rem;
+        }
+
+        header p {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Tab bar ── */
+        .tab-bar {
+            background: var(--navy-dark);
+            display: flex;
+            padding: 0 2.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 0.8rem 1.3rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: color 0.15s, border-color 0.15s;
+        }
+
+        .tab-btn:hover { color: rgba(255, 255, 255, 0.8); }
+        .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+        /* ── Tab panels ── */
+        .tab-panel { display: none; max-width: 800px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+        .tab-panel.active { display: block; }
+
+        /* ── Typography ── */
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: var(--navy);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--gold-light);
+        }
+
+        h3 {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--navy);
+            margin: 1.75rem 0 0.5rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        p { margin-bottom: 1rem; }
+        p:last-child { margin-bottom: 0; }
+
+        ul { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.35rem; }
+
+        blockquote {
+            border-left: 3px solid var(--gold);
+            background: var(--gold-pale);
+            padding: 0.75rem 1.25rem;
+            margin: 1.25rem 0;
+            color: var(--navy);
+            font-style: italic;
+        }
+
+        blockquote p { margin-bottom: 0; }
+
+        /* ── Log entries ── */
+        .log-entry {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .entry-meta {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gold-light);
+            flex-wrap: wrap;
+        }
+
+        .entry-date {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.78rem;
+            color: var(--subtle);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .entry-title {
+            font-size: 1rem;
+            color: var(--navy);
+            font-weight: bold;
+        }
+
+        .entry-body { font-size: 0.95rem; }
+        .entry-body p { margin-bottom: 0.85rem; }
+        .entry-body p:last-child { margin-bottom: 0; }
+
+        /* ── Add entry form ── */
+        .add-entry-block {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.85rem;
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        textarea {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            background: var(--cream);
+            width: 100%;
+        }
+
+        input[type="date"] { flex: 0 0 155px; width: auto; }
+        input[type="text"] { flex: 1; min-width: 180px; }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+            line-height: 1.65;
+            margin-bottom: 0.75rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid var(--gold);
+            border-color: var(--gold);
+        }
+
+        .btn-save {
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 0.55rem 1.4rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.15s;
+        }
+
+        .btn-save:hover { background: var(--navy-dark); }
+
+        /* ── Tensions ── */
+        .tension {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .tension-label {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .tension p { font-size: 0.95rem; margin-bottom: 0; }
+
+        /* ── Footer note ── */
+        .private-note {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.75rem;
+            color: var(--subtle);
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>OII Intelligence Log</h1>
+    <p>Organisational Intelligence Index &nbsp;·&nbsp; Private working document &nbsp;·&nbsp; Wyman Associates</p>
+</header>
+
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="log">Development Log</button>
+    <button class="tab-btn" data-tab="tensions">Working Tensions</button>
+</div>
+
+
+<!-- ═══════════════════════════════════════ OVERVIEW ══════════════════════════════════════════ -->
+
+<div id="panel-overview" class="tab-panel active">
+
+    <h2>What the OII is</h2>
+
+    <p>The Organisational Intelligence Index makes visible what is often less visible: how value shifts across teams, across the system, and over time as a result of decisions that are made. It focuses not on intent, but on what actually shapes decisions under operational pressure.</p>
+
+    <p>Most organisations measure what is easy to count — financial performance, activity, compliance. The OII starts from a different question:</p>
+
+    <blockquote><p>What was actually visible when the decisions affecting that value were being made?</p></blockquote>
+
+    <p>The focus is less on flows of capital and organisational outputs, and more on attention, judgement, trade-offs, and what was present — or absent — in the room when decisions were taken.</p>
+
+    <h3>The intellectual centre</h3>
+
+    <p>The sentence that holds the idea:</p>
+
+    <blockquote><p>The OII is not primarily about value creation. It is about the visibility of value at the point decisions are made.</p></blockquote>
+
+    <p>This is what differentiates it from both traditional governance diagnostics and Integrated Reporting.</p>
+
+    <h3>Relationship to Integrated Reporting</h3>
+
+    <p>Integrated Reporting asks what forms of value are being created, preserved or eroded. The OII asks what was visible when the decisions affecting that value were being made.</p>
+
+    <p>Where Integrated Reporting focuses on flows of capital and value creation, the OII focuses on attention, visibility, judgement, and the conditions under which decisions are made. It shifts the enquiry from outputs to the room where decisions happened.</p>
+
+    <h3>What it asks</h3>
+    <ul>
+        <li>What was being attended to?</li>
+        <li>What was difficult to see?</li>
+        <li>What was difficult to raise?</li>
+        <li>Which forms of value were present in the room?</li>
+        <li>Which forms of value were absent?</li>
+    </ul>
+
+    <h3>Where it sits</h3>
+
+    <p>The OII sits at the intersection of governance, board effectiveness, leadership, organisational psychology, decision-making, integrated reporting, and systems thinking. It is not sector-specific — it applies wherever senior people make consequential decisions under pressure.</p>
+
+    <h3>The six forms of value</h3>
+    <ul>
+        <li>Financial resources</li>
+        <li>People and capability</li>
+        <li>Relationships and trust</li>
+        <li>Knowledge and expertise</li>
+        <li>Community context</li>
+        <li>Natural environment</li>
+    </ul>
+
+    <h3>The five patterns of decision-making</h3>
+    <ul>
+        <li><strong>Compressed Horizon</strong> — short-term focus; longer-term consequences largely unseen</li>
+        <li><strong>Well-Managed Silo</strong> — strong within boundaries; value shifting between teams unnoticed</li>
+        <li><strong>Articulate Avoider</strong> — values clearly expressed, but not consistently lived in decisions</li>
+        <li><strong>Emerging Integrator</strong> — broader awareness growing, but not yet consistent</li>
+        <li><strong>The Long View</strong> — operational and long-term considerations held together with clarity</li>
+    </ul>
+
+    <p style="margin-top: 1.5rem; font-style: italic; color: var(--subtle);">The patterns are mirrors, not labels. They describe something that is already happening — not a category, not a judgement. They are starting points for a different kind of conversation.</p>
+
+    <p class="private-note">Private document &nbsp;·&nbsp; Wyman Associates &nbsp;·&nbsp; Not for circulation</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════ LOG ═══════════════════════════════════════════════ -->
+
+<div id="panel-log" class="tab-panel">
+
+    <div class="add-entry-block">
+        <span class="form-label">Add new entry</span>
+        <div class="form-row">
+            <input type="date" id="entry-date" />
+            <input type="text" id="entry-title" placeholder="Entry heading" />
+        </div>
+        <textarea id="entry-body" placeholder="Notes, reflections, insights, conversations… Use blank lines to separate paragraphs."></textarea>
+        <button class="btn-save" onclick="addEntry()">Save entry</button>
+    </div>
+
+    <div id="log-entries"></div>
+
+    <p class="private-note">Private document &nbsp;·&nbsp; Wyman Associates &nbsp;·&nbsp; Not for circulation</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════ TENSIONS ══════════════════════════════════════════ -->
+
+<div id="panel-tensions" class="tab-panel">
+
+    <h2>Working tensions</h2>
+
+    <p style="font-family: system-ui, sans-serif; font-size: 0.875rem; color: var(--subtle); margin-bottom: 1.75rem;">These are the live tensions in the work — not problems to solve, but things to hold. Updated in a working session when something genuinely shifts.</p>
+
+    <div class="tension">
+        <div class="tension-label">Depth vs. reach</div>
+        <p>The OII's value lies in facilitated conversation — the report opens the door, but the real insight comes from what happens in the room. Scaling the tool without losing that quality is an unresolved tension.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">NHS roots vs. wider application</div>
+        <p>The OII was developed in and for the NHS and public sector. The intellectual framework is not sector-specific, but the language, examples, and relationships are. Moving into governance and commercial contexts requires care about what travels and what doesn't.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">Tool vs. framework</div>
+        <p>The OII could be positioned as a diagnostic tool (a thing you do) or as a conceptual framework (a way of thinking about organisational decision-making). The two are related but pull in different directions commercially and intellectually.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">IP and openness</div>
+        <p>The ideas in the OII are shareable and generative. But sharing them freely, especially with well-connected people who operate at scale, carries risk. The right level of protection — licensing, partnerships, professional relationships — is not yet settled.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">MII and OII — the relationship</div>
+        <p>The MII and OII are complementary but distinct. The MII focuses on what happens in meetings; the OII focuses on what shapes decisions across the organisation. The temptation to conflate them, or to position the OII as simply a bigger MII, would understate what the OII is.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">Visibility and readiness</div>
+        <p>Taking the OII out more widely before it is fully formed carries risk. But waiting until it feels finished may mean missing strategic conversations at exactly the moment they are available. Paul Druckman's engagement in June 2026 surfaced this tension directly.</p>
+    </div>
+
+    <p class="private-note">Private document &nbsp;·&nbsp; Wyman Associates &nbsp;·&nbsp; Not for circulation</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════ SCRIPT ════════════════════════════════════════════ -->
+
+<script>
+    const STORAGE_KEY = 'oii-log-v1';
+
+    const SEED_ENTRIES = [
+        {
+            date: '2026-06-08',
+            title: 'Paul Druckman — MII feedback, IP concern, and the OII formulation',
+            body: `Paul Druckman (former Chair of ICAEW, CEO of the International Integrated Reporting Council, Chair of the World Benchmarking Alliance) completed a trial run of the MII using a fictitious meeting. His feedback was positive — he described it as a potentially useful enhancement to the process of running meetings, easy and "cool" to use.
+
+Most significantly, he advised: "Be careful about your IP." He mentioned Board Intelligence as an organisation that might find the MII valuable and have the client base to make it commercially successful. The reference felt considered — he immediately located the work within the wider governance and board effectiveness market.
+
+On MII reports in healthy organisations: Paul's report was less dramatic than some. This may simply reflect that his meetings are already high performing. The most revealing reports emerge where there are significant differences in experience, hidden tensions, unspoken assumptions, barriers to challenge, or compressed decision-making. In high-functioning teams, fewer issues are surfaced. That is not a limitation of the tool.
+
+The most important thing to emerge from this exchange was a clearer formulation of the OII's distinctive contribution. Integrated Reporting asks what forms of value are being created, preserved or eroded. The OII asks what was visible when the decisions affecting that value were being made. The OII shifts attention from outcomes to the conditions under which decisions are made. This is what differentiates it from both traditional governance diagnostics and Integrated Reporting.
+
+A follow-up email was sent to Paul sharing the OII description and positioning it in relation to his Integrated Reporting background. An invitation to continue the conversation — coffee in London or a call — was extended.
+
+Working hypothesis: the most valuable next step with Paul may not be to explain the OII in greater detail, but to understand what he sees when he looks at it. His perspective could offer important clues about commercial positioning, governance applications, IP strategy, and routes to scale.`
+        }
+    ];
+
+    function loadEntries() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+    }
+
+    function saveEntries(entries) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    function getEntries() {
+        const stored = loadEntries();
+        if (stored !== null) return stored;
+        saveEntries(SEED_ENTRIES);
+        return SEED_ENTRIES;
+    }
+
+    function formatDate(str) {
+        if (!str) return '';
+        const [y, m, d] = str.split('-').map(Number);
+        const months = ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
+        return `${d} ${months[m - 1]} ${y}`;
+    }
+
+    function esc(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function bodyToHtml(text) {
+        return text.split(/\n\n+/).filter(p => p.trim())
+            .map(p => `<p>${esc(p.trim())}</p>`).join('');
+    }
+
+    function renderEntries() {
+        const entries = getEntries();
+        const el = document.getElementById('log-entries');
+        if (!entries.length) {
+            el.innerHTML = '<p style="color:var(--subtle);font-family:system-ui,sans-serif;font-size:0.875rem;">No entries yet.</p>';
+            return;
+        }
+        el.innerHTML = entries.map(e => `
+            <div class="log-entry">
+                <div class="entry-meta">
+                    <span class="entry-date">${formatDate(e.date)}</span>
+                    <span class="entry-title">${esc(e.title)}</span>
+                </div>
+                <div class="entry-body">${bodyToHtml(e.body)}</div>
+            </div>
+        `).join('');
+    }
+
+    function addEntry() {
+        const date  = document.getElementById('entry-date').value;
+        const title = document.getElementById('entry-title').value.trim();
+        const body  = document.getElementById('entry-body').value.trim();
+
+        if (!title || !body) {
+            alert('Please add a heading and some notes before saving.');
+            return;
+        }
+
+        const entries = getEntries();
+        entries.unshift({ date, title, body });
+        saveEntries(entries);
+
+        document.getElementById('entry-date').valueAsDate = new Date();
+        document.getElementById('entry-title').value = '';
+        document.getElementById('entry-body').value = '';
+
+        renderEntries();
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const name = btn.dataset.tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + name).classList.add('active');
+        });
+    });
+
+    // Initialise
+    document.getElementById('entry-date').valueAsDate = new Date();
+    renderEntries();
+</script>
+
+</body>
+</html>
