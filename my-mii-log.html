@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MII Intelligence Log · Wyman Associates</title>
+    <style>
+        :root {
+            --navy: #1C3557;
+            --navy-dark: #132440;
+            --gold: #C9A84C;
+            --gold-light: #E8D5A0;
+            --gold-pale: rgba(201, 168, 76, 0.07);
+            --cream: #FAFAF8;
+            --text: #2C2C2C;
+            --subtle: #6B7280;
+            --border: #D1D5DB;
+            --white: #FFFFFF;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        header {
+            background: var(--navy);
+            color: white;
+            padding: 2rem 2.5rem 1.75rem;
+            border-bottom: 3px solid var(--gold);
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            letter-spacing: 0.02em;
+            color: var(--gold-light);
+            margin-bottom: 0.25rem;
+        }
+
+        header p {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.55);
+            letter-spacing: 0.03em;
+        }
+
+        .tab-bar {
+            background: var(--navy-dark);
+            display: flex;
+            padding: 0 2.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: rgba(255, 255, 255, 0.5);
+            padding: 0.8rem 1.3rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: color 0.15s, border-color 0.15s;
+        }
+
+        .tab-btn:hover { color: rgba(255, 255, 255, 0.8); }
+        .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+        .tab-panel { display: none; max-width: 800px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+        .tab-panel.active { display: block; }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: var(--navy);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--gold-light);
+        }
+
+        h3 {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--navy);
+            margin: 1.75rem 0 0.5rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        p { margin-bottom: 1rem; }
+        p:last-child { margin-bottom: 0; }
+
+        ul { margin: 0.5rem 0 1rem 1.5rem; }
+        li { margin-bottom: 0.35rem; }
+
+        blockquote {
+            border-left: 3px solid var(--gold);
+            background: var(--gold-pale);
+            padding: 0.75rem 1.25rem;
+            margin: 1.25rem 0;
+            color: var(--navy);
+            font-style: italic;
+        }
+
+        blockquote p { margin-bottom: 0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.25rem;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--navy);
+            color: var(--gold-light);
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background: rgba(201, 168, 76, 0.04); }
+
+        .log-entry {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .entry-meta {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 0.85rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gold-light);
+            flex-wrap: wrap;
+        }
+
+        .entry-date {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.78rem;
+            color: var(--subtle);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .entry-title {
+            font-size: 1rem;
+            color: var(--navy);
+            font-weight: bold;
+        }
+
+        .entry-body { font-size: 0.95rem; }
+        .entry-body p { margin-bottom: 0.85rem; }
+        .entry-body p:last-child { margin-bottom: 0; }
+
+        .add-entry-block {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.85rem;
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        input[type="date"],
+        input[type="text"],
+        textarea {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.9rem;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 0.5rem 0.75rem;
+            color: var(--text);
+            background: var(--cream);
+            width: 100%;
+        }
+
+        input[type="date"] { flex: 0 0 155px; width: auto; }
+        input[type="text"] { flex: 1; min-width: 180px; }
+
+        textarea {
+            min-height: 130px;
+            resize: vertical;
+            line-height: 1.65;
+            margin-bottom: 0.75rem;
+        }
+
+        input:focus, textarea:focus {
+            outline: 2px solid var(--gold);
+            border-color: var(--gold);
+        }
+
+        .btn-save {
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 0.55rem 1.4rem;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background 0.15s;
+        }
+
+        .btn-save:hover { background: var(--navy-dark); }
+
+        .tension {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            border-radius: 0 4px 4px 0;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .tension-label {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .tension p { font-size: 0.95rem; margin-bottom: 0; }
+
+        .private-note {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 0.75rem;
+            color: var(--subtle);
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>MII Intelligence Log</h1>
+    <p>Meeting Intelligence Index &nbsp;·&nbsp; Private working document &nbsp;·&nbsp; Wyman Associates</p>
+</header>
+
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="overview">Overview</button>
+    <button class="tab-btn" data-tab="log">Development Log</button>
+    <button class="tab-btn" data-tab="tensions">Working Tensions</button>
+</div>
+
+
+<!-- ══════════════════════════════════════ OVERVIEW ══════════════════════════════════════════ -->
+
+<div id="panel-overview" class="tab-panel active">
+
+    <h2>What the MII is</h2>
+
+    <p>Most organisations know their meetings could be better. What is less often examined is what that actually costs — in the quality of decisions made, in organisational energy, and in what meetings reveal about the culture of the place itself.</p>
+
+    <p>Under pressure, meetings default to information rather than inquiry. Thinking becomes compressed. Challenge becomes quieter. Over time, people learn what can be said — and what is better left unsaid. Decisions are made and actions followed through, but the question remains:</p>
+
+    <blockquote><p>To what extent are those decisions drawing on the full intelligence available in the room?</p></blockquote>
+
+    <p>The Meeting Intelligence Index makes that visible — quickly, precisely, and without a lot of overhead.</p>
+
+    <h3>What it does</h3>
+
+    <p>A structured diagnostic (~10 minutes) completed individually. Each person receives an individual report — not a generic summary, but a considered reading of what their particular combination of responses suggests about their meeting culture. Used with a team, the range between individuals is often the most revealing number.</p>
+
+    <h3>The four dimensions</h3>
+
+    <table>
+        <tr><th>Dimension</th><th>What it measures</th></tr>
+        <tr><td>Preparation &amp; Structure</td><td>Whether the infrastructure exists and creates conditions for genuine thinking — not just functional threshold</td></tr>
+        <tr><td>Participation &amp; Listening</td><td>Whether all voices are fully in the room; whether contributions carry equal weight; whether the meeting operates with its full intelligence</td></tr>
+        <tr><td>Quality of Thinking</td><td>Whether discussions generate new thinking or stay close to the familiar; whether conditions exist for deeper inquiry</td></tr>
+        <tr><td>Decisions &amp; Follow-Through</td><td>Whether decisions get made and are held; whether execution is in place</td></tr>
+    </table>
+
+    <h3>Key insight</h3>
+
+    <p>A high Decisions &amp; Follow-Through score alongside low Participation and Thinking scores is a specific, important pattern: things are moving, but the conditions that would make that movement <em>wiser</em> are not yet in place. Strong execution applied to decisions made without full thinking is efficient — but carries a cost that builds over time.</p>
+
+    <h3>Facilitator principle</h3>
+
+    <p>The data makes questions visible; it cannot answer them. The real value is in facilitated conversation — space to explore what sustains the patterns and what it would take to shift them.</p>
+
+    <p class="private-note">Private document &nbsp;·&nbsp; Wyman Associates &nbsp;·&nbsp; Not for circulation</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════ LOG ═══════════════════════════════════════════════ -->
+
+<div id="panel-log" class="tab-panel">
+
+    <div class="add-entry-block">
+        <span class="form-label">Add new entry</span>
+        <div class="form-row">
+            <input type="date" id="entry-date" />
+            <input type="text" id="entry-title" placeholder="Entry heading" />
+        </div>
+        <textarea id="entry-body" placeholder="Notes, reflections, insights, conversations… Use blank lines to separate paragraphs."></textarea>
+        <button class="btn-save" onclick="addEntry()">Save entry</button>
+    </div>
+
+    <div id="log-entries"></div>
+
+    <p class="private-note">Private document &nbsp;·&nbsp; Wyman Associates &nbsp;·&nbsp; Not for circulation</p>
+</div>
+
+
+<!-- ══════════════════════════════════════ TENSIONS ══════════════════════════════════════════ -->
+
+<div id="panel-tensions" class="tab-panel">
+
+    <h2>Working tensions</h2>
+
+    <p style="font-family: system-ui, sans-serif; font-size: 0.875rem; color: var(--subtle); margin-bottom: 1.75rem;">These are the live tensions in the work — not problems to solve, but things to hold. Updated in a working session when something genuinely shifts.</p>
+
+    <div class="tension">
+        <div class="tension-label">Individual insight vs. team conversation</div>
+        <p>The individual report is valuable. But the real moment is when a team looks at the range between them — whose experience has been shaping meeting design, and who has quietly learned not to expect more. Getting to that conversation requires trust and skilled facilitation. The tool opens the door; it cannot guarantee what happens next.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">Healthy teams and the unremarkable report</div>
+        <p>In well-functioning teams, MII reports are less dramatic. This is not a limitation — it is accurate. But it creates a challenge when introducing the tool to high-performing leaders: the report may not surface the tension needed to justify the conversation. Paul Druckman's June 2026 trial illustrated this directly.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">Tool vs. conversation starter</div>
+        <p>The MII could be positioned as a standalone diagnostic (a thing you do once) or as the opening move in an ongoing conversation about meeting culture. The two are not incompatible, but they require different framing and different follow-through. Most of the commercial value lives in the second version.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">IP and commercial scale</div>
+        <p>The MII is already live and in use. The question is not whether it works, but how far it travels. Board Intelligence and similar governance consultancies could take it to scale — but that introduces questions about licensing, branding, and what Mitzi's ongoing role would be. Paul Druckman's instinct to flag IP was well-founded.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">MII and OII — keeping them distinct</div>
+        <p>The MII focuses on what happens in meetings. The OII focuses on what shapes decisions across the organisation. They are complementary and sequential — better meetings lead to better organisational decisions — but they are not the same thing. Marketing them together risks blurring both.</p>
+    </div>
+
+    <div class="tension">
+        <div class="tension-label">NHS roots vs. governance market</div>
+        <p>The MII was built in and for the NHS and public sector. The dynamics it surfaces — compressed thinking, unspoken assumptions, unequal voices — are recognisable anywhere, but the language and examples are grounded in public sector experience. Entering the board governance and commercial sector requires care about translation.</p>
+    </div>
+
+    <p class="private-note">Private document &nbsp;·&nbsp; Wyman Associates &nbsp;·&nbsp; Not for circulation</p>
+</div>
+
+
+<!-- ══════════════════════════════════════ SCRIPT ════════════════════════════════════════════ -->
+
+<script>
+    const STORAGE_KEY = 'mii-log-v1';
+
+    const SEED_ENTRIES = [
+        {
+            date: '2026-06-08',
+            title: 'Paul Druckman — first external trial, IP concern, governance market',
+            body: `Paul Druckman (former Chair of ICAEW, CEO of the International Integrated Reporting Council, Chair of the World Benchmarking Alliance) completed a trial run of the MII using a fictitious meeting scenario. His feedback was positive — he described it as a potentially useful enhancement to the process of running meetings, easy and "cool" to use.
+
+Most significantly, he advised: "Be careful about your IP." He mentioned Board Intelligence as an organisation that might find the MII valuable and have the client base to make it commercially successful. The reference felt considered rather than casual — he immediately located the work within the wider governance and board effectiveness market rather than seeing it simply as a meeting tool.
+
+On his individual report: Paul's scores were less dramatic than many. This is likely an accurate reflection — his meetings are probably already high performing. The most revealing MII reports emerge where there are significant differences in experience between team members, hidden tensions, unspoken assumptions, barriers to challenge, or compressed decision-making. In healthy, well-functioning teams, fewer issues surface. That is not a limitation of the tool; it is the tool working correctly.
+
+The important implication: when introducing the MII to high-performing leaders as a first encounter, the individual report alone may not generate the energy needed to justify deeper engagement. The team report — and specifically the range between individuals — is where the real conversation begins. The framing matters.
+
+Paul's engagement also surfaced a broader question about the relationship between the MII and the OII. The MII surfaces what is happening in meetings. The OII asks what was visible when decisions were made across the organisation. They are sequential and complementary. Better meetings are one condition for better organisational decisions — but they are not the whole story.`
+        }
+    ];
+
+    function loadEntries() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch (e) { return null; }
+    }
+
+    function saveEntries(entries) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+
+    function getEntries() {
+        const stored = loadEntries();
+        if (stored !== null) return stored;
+        saveEntries(SEED_ENTRIES);
+        return SEED_ENTRIES;
+    }
+
+    function formatDate(str) {
+        if (!str) return '';
+        const [y, m, d] = str.split('-').map(Number);
+        const months = ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
+        return `${d} ${months[m - 1]} ${y}`;
+    }
+
+    function esc(s) {
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function bodyToHtml(text) {
+        return text.split(/\n\n+/).filter(p => p.trim())
+            .map(p => `<p>${esc(p.trim())}</p>`).join('');
+    }
+
+    function renderEntries() {
+        const entries = getEntries();
+        const el = document.getElementById('log-entries');
+        if (!entries.length) {
+            el.innerHTML = '<p style="color:var(--subtle);font-family:system-ui,sans-serif;font-size:0.875rem;">No entries yet.</p>';
+            return;
+        }
+        el.innerHTML = entries.map(e => `
+            <div class="log-entry">
+                <div class="entry-meta">
+                    <span class="entry-date">${formatDate(e.date)}</span>
+                    <span class="entry-title">${esc(e.title)}</span>
+                </div>
+                <div class="entry-body">${bodyToHtml(e.body)}</div>
+            </div>
+        `).join('');
+    }
+
+    function addEntry() {
+        const date  = document.getElementById('entry-date').value;
+        const title = document.getElementById('entry-title').value.trim();
+        const body  = document.getElementById('entry-body').value.trim();
+
+        if (!title || !body) {
+            alert('Please add a heading and some notes before saving.');
+            return;
+        }
+
+        const entries = getEntries();
+        entries.unshift({ date, title, body });
+        saveEntries(entries);
+
+        document.getElementById('entry-date').valueAsDate = new Date();
+        document.getElementById('entry-title').value = '';
+        document.getElementById('entry-body').value = '';
+
+        renderEntries();
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const name = btn.dataset.tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('panel-' + name).classList.add('active');
+        });
+    });
+
+    document.getElementById('entry-date').valueAsDate = new Date();
+    renderEntries();
+</script>
+
+</body>
+</html>
