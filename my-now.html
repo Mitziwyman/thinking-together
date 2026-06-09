@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weekly Working Surface — Mitzi Wyman</title>
+  <title>Working Surface — Mitzi Wyman</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -53,31 +53,31 @@
     main {
       max-width: 760px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 2.5rem 1.5rem 5rem;
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 2.25rem;
     }
 
     .card {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 10px;
       overflow: hidden;
     }
 
     .card-header {
       background: var(--teal-light);
-      padding: 0.65rem 1.1rem;
+      padding: 0.8rem 1.4rem;
       display: flex;
-      align-items: center;
+      align-items: baseline;
       justify-content: space-between;
       border-bottom: 1px solid var(--teal-mid);
     }
 
     .card-header h2 {
       font-family: Georgia, serif;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: normal;
       color: var(--slate);
       letter-spacing: 0.02em;
@@ -90,14 +90,26 @@
     }
 
     .editable-area {
-      padding: 0.9rem 1.1rem;
-      min-height: 90px;
+      padding: 1.2rem 1.4rem;
+      min-height: 100px;
       outline: none;
       font-size: 0.95rem;
-      line-height: 1.65;
+      line-height: 1.75;
       color: var(--text);
       white-space: pre-wrap;
       word-break: break-word;
+    }
+
+    /* First card (focus) gets a touch more presence */
+    .focus-card .card-header {
+      background: #f0f4f8;
+      border-bottom-color: #ccd8e2;
+    }
+
+    .focus-card .editable-area {
+      min-height: 120px;
+      font-size: 1rem;
+      line-height: 1.8;
     }
 
     .editable-area:empty::before {
@@ -131,7 +143,7 @@
     .capture-input-row {
       display: flex;
       gap: 0.5rem;
-      padding: 0.75rem 1.1rem;
+      padding: 0.85rem 1.4rem;
       border-bottom: 1px solid var(--border);
     }
 
@@ -166,7 +178,7 @@
     .btn-add:hover { background: #5a8fa8; }
 
     .capture-list {
-      padding: 0.5rem 1.1rem 0.75rem;
+      padding: 0.6rem 1.4rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.35rem;
@@ -332,7 +344,7 @@
     .checklist-input-row {
       display: flex;
       gap: 0.5rem;
-      padding: 0.75rem 1.1rem;
+      padding: 0.85rem 1.4rem;
       border-bottom: 1px solid var(--border);
     }
 
@@ -365,7 +377,7 @@
     .btn-add-check:hover { background: #4a9462; }
 
     .checklist-list {
-      padding: 0.5rem 1.1rem 0.75rem;
+      padding: 0.6rem 1.4rem 1rem;
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
@@ -452,7 +464,7 @@
 <body>
 
 <header>
-  <h1>Weekly Working Surface</h1>
+  <h1>Working Surface</h1>
   <div style="display:flex;align-items:center;gap:1rem">
     <div class="week-nav">
       <button id="prev-week">&#8592;</button>
@@ -465,66 +477,66 @@
 <main>
 
   <div id="monday-banner" class="monday-banner" style="display:none">
-    <span>It's a new week. Ready to carry forward what matters and let go of the rest?</span>
-    <button class="btn-archive" id="btn-start-fresh">Start this week fresh</button>
+    <span>A new week. What do you want to carry forward — and what can you leave behind?</span>
+    <button class="btn-archive" id="btn-start-fresh">Begin this week</button>
   </div>
 
-  <!-- Priorities -->
-  <div class="card">
+  <!-- Focus -->
+  <div class="card focus-card">
     <div class="card-header">
-      <h2>This week's one or two priorities</h2>
-      <span class="card-hint">What actually moves the needle</span>
+      <h2>What this week is for</h2>
+      <span class="card-hint">One or two things — not a list</span>
     </div>
     <div class="editable-area" id="priorities" contenteditable="true"
-      data-placeholder="What matters most this week? Two things maximum."></div>
+      data-placeholder="If this week goes well, it will be because…"></div>
   </div>
 
-  <!-- Live client work -->
-  <div class="card">
-    <div class="card-header">
-      <h2>Live and needs attention</h2>
-      <span class="card-hint">Client work in flight — anyone waiting on you</span>
-    </div>
-    <div class="editable-area" id="live-work" contenteditable="true"
-      data-placeholder="Who is waiting? What has a deadline this week?"></div>
-  </div>
-
-  <!-- Loose ends -->
-  <div class="card">
-    <div class="card-header">
-      <h2>Loose ends</h2>
-      <span class="card-hint">The thing you didn't finish — the email you meant to send</span>
-    </div>
-    <div class="editable-area" id="loose-ends" contenteditable="true"
-      data-placeholder="What's trailing from yesterday or last week?"></div>
-  </div>
-
-  <!-- Checklist -->
-  <div class="card checklist-card">
-    <div class="card-header">
-      <h2>To do this week</h2>
-      <span class="card-hint">Tick when done — the colour will tell the story</span>
-    </div>
-    <div class="checklist-input-row">
-      <input class="checklist-input" id="checklist-input" type="text"
-        placeholder="Add a task...">
-      <button class="btn-add-check" id="btn-add-check">Add</button>
-    </div>
-    <div class="checklist-list" id="checklist-list"></div>
-  </div>
-
-  <!-- Thought capture -->
+  <!-- Notebook / Capture — moved up -->
   <div class="card capture-card">
     <div class="card-header">
-      <h2>Capture</h2>
-      <span class="card-hint">Drop thoughts as they occur — sort them later</span>
+      <h2>Notebook</h2>
+      <span class="card-hint">Thoughts as they arrive — no sorting required</span>
     </div>
     <div class="capture-input-row">
       <input class="capture-input" id="capture-input" type="text"
-        placeholder="A thought, a to-do, something you don't want to forget...">
+        placeholder="A thought, a question, something you don't want to lose...">
       <button class="btn-add" id="btn-capture">Add</button>
     </div>
     <div class="capture-list" id="capture-list"></div>
+  </div>
+
+  <!-- In motion -->
+  <div class="card">
+    <div class="card-header">
+      <h2>In motion</h2>
+      <span class="card-hint">Active work — what is moving right now</span>
+    </div>
+    <div class="editable-area" id="live-work" contenteditable="true"
+      data-placeholder="Clients and projects that are currently moving. Who is waiting on you?"></div>
+  </div>
+
+  <!-- Threads -->
+  <div class="card">
+    <div class="card-header">
+      <h2>Threads</h2>
+      <span class="card-hint">Unfinished things — they will wait</span>
+    </div>
+    <div class="editable-area" id="loose-ends" contenteditable="true"
+      data-placeholder="What didn't get finished? What is sitting quietly, waiting to be picked up?"></div>
+  </div>
+
+  <!-- This week's list -->
+  <div class="card checklist-card">
+    <div class="card-header">
+      <h2>This week's list</h2>
+      <span class="card-hint">Simple and completable — tick when done</span>
+    </div>
+    <div class="checklist-input-row">
+      <input class="checklist-input" id="checklist-input" type="text"
+        placeholder="Add something to do this week...">
+      <button class="btn-add-check" id="btn-add-check">Add</button>
+    </div>
+    <div class="checklist-list" id="checklist-list"></div>
   </div>
 
 </main>
