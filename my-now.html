@@ -273,6 +273,176 @@
 
     .week-nav button:hover { color: var(--slate); border-color: var(--teal); }
 
+    /* ── Formatting toolbar ── */
+    #format-toolbar {
+      position: fixed;
+      display: none;
+      background: var(--slate);
+      border-radius: 6px;
+      padding: 0.3rem 0.4rem;
+      gap: 0.25rem;
+      align-items: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+      z-index: 1000;
+      transform: translateY(-110%);
+    }
+
+    #format-toolbar.visible { display: flex; }
+
+    .fmt-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-family: Georgia, serif;
+      padding: 0.2rem 0.42rem;
+      border-radius: 4px;
+      line-height: 1.4;
+      min-width: 26px;
+    }
+
+    .fmt-btn:hover { background: rgba(255,255,255,0.18); }
+
+    .fmt-btn.bold { font-weight: bold; }
+    .fmt-btn.italic { font-style: italic; }
+
+    .fmt-sep {
+      width: 1px;
+      height: 18px;
+      background: rgba(255,255,255,0.25);
+      margin: 0 0.1rem;
+    }
+
+    .fmt-swatch {
+      width: 18px; height: 18px;
+      border-radius: 3px;
+      border: 2px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .fmt-swatch:hover { border-color: white; transform: scale(1.15); }
+
+    /* ── Checklist card ── */
+    .checklist-card .card-header {
+      background: #eef6f0;
+      border-bottom-color: #b8dfc4;
+    }
+
+    .checklist-input-row {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 1.1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .checklist-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--warm-white);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .checklist-input:focus { border-color: #5aab74; }
+
+    .btn-add-check {
+      background: #5aab74;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .btn-add-check:hover { background: #4a9462; }
+
+    .checklist-list {
+      padding: 0.5rem 1.1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      min-height: 44px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 0.35rem 0.5rem;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+
+    .checklist-item.done {
+      background: #eef6f0;
+    }
+
+    .checklist-item input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      border: 2px solid #b8dfc4;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 0.1rem;
+      background: white;
+      position: relative;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .checklist-item input[type="checkbox"]:checked {
+      background: #5aab74;
+      border-color: #5aab74;
+    }
+
+    .checklist-item input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      left: 3px; top: 0px;
+      width: 8px; height: 12px;
+      border: 2px solid white;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg);
+    }
+
+    .checklist-item-text {
+      flex: 1;
+      color: var(--text);
+      transition: color 0.2s;
+    }
+
+    .checklist-item.done .checklist-item-text {
+      color: #5aab74;
+      text-decoration: line-through;
+      text-decoration-color: #b8dfc4;
+    }
+
+    .btn-remove-check {
+      background: none;
+      border: none;
+      color: #c0ccd4;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0.1rem 0.2rem;
+      margin-top: 0.05rem;
+    }
+
+    .btn-remove-check:hover { color: #e08080; }
+
     @media (max-width: 600px) {
       main { padding: 1rem 1rem 3rem; }
       header { padding: 1rem; }
@@ -329,6 +499,20 @@
       data-placeholder="What's trailing from yesterday or last week?"></div>
   </div>
 
+  <!-- Checklist -->
+  <div class="card checklist-card">
+    <div class="card-header">
+      <h2>To do this week</h2>
+      <span class="card-hint">Tick when done — the colour will tell the story</span>
+    </div>
+    <div class="checklist-input-row">
+      <input class="checklist-input" id="checklist-input" type="text"
+        placeholder="Add a task...">
+      <button class="btn-add-check" id="btn-add-check">Add</button>
+    </div>
+    <div class="checklist-list" id="checklist-list"></div>
+  </div>
+
   <!-- Thought capture -->
   <div class="card capture-card">
     <div class="card-header">
@@ -344,6 +528,19 @@
   </div>
 
 </main>
+
+<!-- Formatting toolbar -->
+<div id="format-toolbar">
+  <button class="fmt-btn bold" data-cmd="bold" title="Bold">B</button>
+  <button class="fmt-btn italic" data-cmd="italic" title="Italic">I</button>
+  <div class="fmt-sep"></div>
+  <div class="fmt-swatch" data-color="#fff9c4" title="Yellow highlight" style="background:#fff9c4"></div>
+  <div class="fmt-swatch" data-color="#d4edda" title="Green highlight" style="background:#d4edda"></div>
+  <div class="fmt-swatch" data-color="#fce4d6" title="Peach highlight" style="background:#fce4d6"></div>
+  <div class="fmt-swatch" data-color="#ddeeff" title="Blue highlight" style="background:#ddeeff"></div>
+  <div class="fmt-sep"></div>
+  <button class="fmt-btn" data-cmd="removeformat" title="Clear formatting" style="font-size:0.75rem;opacity:0.8">✕</button>
+</div>
 
 <div id="save-indicator">Saved</div>
 
@@ -406,25 +603,163 @@
     saveTimer = setTimeout(() => el.classList.remove('show'), 1800);
   }
 
-  // ── Editable areas ───────────────────────────────────────────────────
+  // ── Editable areas (HTML preserved for formatting) ───────────────────
 
   const editableFields = ['priorities', 'live-work', 'loose-ends'];
 
   function bindEditable(id) {
     const el = document.getElementById(id);
     el.addEventListener('input', () => {
-      save(id, el.innerText);
+      save(id, el.innerHTML);
     });
   }
 
   function loadEditable(id) {
     const el = document.getElementById(id);
-    const text = load(id, '');
-    el.innerText = text;
+    const html = load(id, '');
+    el.innerHTML = html;
   }
 
   editableFields.forEach(id => {
     bindEditable(id);
+  });
+
+  // ── Formatting toolbar ───────────────────────────────────────────────
+
+  const toolbar = document.getElementById('format-toolbar');
+  let savedRange = null;
+
+  document.querySelectorAll('.editable-area').forEach(area => {
+    area.addEventListener('mouseup', positionToolbar);
+    area.addEventListener('keyup', positionToolbar);
+  });
+
+  function positionToolbar() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.toString().trim() === '') {
+      toolbar.classList.remove('visible');
+      return;
+    }
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    toolbar.classList.add('visible');
+    const tbWidth = toolbar.offsetWidth || 260;
+    let left = rect.left + window.scrollX + rect.width / 2 - tbWidth / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - tbWidth - 8));
+    toolbar.style.left = left + 'px';
+    toolbar.style.top = (rect.top + window.scrollY - toolbar.offsetHeight - 10) + 'px';
+    toolbar.style.transform = 'none';
+  }
+
+  document.addEventListener('mousedown', e => {
+    if (!toolbar.contains(e.target)) return;
+    // Save selection before toolbar click blurs the editable
+    const sel = window.getSelection();
+    if (sel && !sel.isCollapsed) savedRange = sel.getRangeAt(0).cloneRange();
+  });
+
+  toolbar.querySelectorAll('.fmt-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      restoreSelection();
+      document.execCommand(btn.dataset.cmd, false, null);
+      saveActiveEditable();
+      toolbar.classList.remove('visible');
+    });
+  });
+
+  toolbar.querySelectorAll('.fmt-swatch').forEach(swatch => {
+    swatch.addEventListener('click', e => {
+      e.preventDefault();
+      restoreSelection();
+      document.execCommand('hiliteColor', false, swatch.dataset.color);
+      saveActiveEditable();
+      toolbar.classList.remove('visible');
+    });
+  });
+
+  function restoreSelection() {
+    if (!savedRange) return;
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+  }
+
+  function saveActiveEditable() {
+    editableFields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el.contains(window.getSelection().anchorNode) || savedRange && el.contains(savedRange.commonAncestorContainer)) {
+        save(id, el.innerHTML);
+      }
+    });
+  }
+
+  document.addEventListener('mousedown', e => {
+    if (!toolbar.contains(e.target) && !e.target.closest('.editable-area')) {
+      toolbar.classList.remove('visible');
+    }
+  });
+
+  // ── Checklist ────────────────────────────────────────────────────────
+
+  function renderChecklist() {
+    const items = load('checklist', []);
+    const list = document.getElementById('checklist-list');
+    list.innerHTML = '';
+    if (items.length === 0) {
+      list.innerHTML = '<div style="font-size:0.8rem;color:#b0bcc5;padding:0.25rem 0">No tasks yet — add one above.</div>';
+      return;
+    }
+    items.forEach((item, i) => {
+      const row = document.createElement('div');
+      row.className = 'checklist-item' + (item.done ? ' done' : '');
+      row.innerHTML = `
+        <input type="checkbox" data-i="${i}" ${item.done ? 'checked' : ''}>
+        <span class="checklist-item-text">${escapeHtml(item.text)}</span>
+        <button class="btn-remove-check" data-i="${i}" title="Remove">&#215;</button>
+      `;
+      list.appendChild(row);
+    });
+    list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const items = load('checklist', []);
+        items[parseInt(cb.dataset.i)].done = cb.checked;
+        save('checklist', items);
+        renderChecklist();
+      });
+    });
+    list.querySelectorAll('.btn-remove-check').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const items = load('checklist', []);
+        items.splice(parseInt(btn.dataset.i), 1);
+        save('checklist', items);
+        renderChecklist();
+      });
+    });
+  }
+
+  function addChecklistItem(text) {
+    if (!text.trim()) return;
+    const items = load('checklist', []);
+    items.push({ text: text.trim(), done: false });
+    save('checklist', items);
+    renderChecklist();
+  }
+
+  document.getElementById('btn-add-check').addEventListener('click', () => {
+    const input = document.getElementById('checklist-input');
+    addChecklistItem(input.value);
+    input.value = '';
+    input.focus();
+  });
+
+  document.getElementById('checklist-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const input = document.getElementById('checklist-input');
+      addChecklistItem(input.value);
+      input.value = '';
+    }
   });
 
   // ── Capture list ─────────────────────────────────────────────────────
@@ -501,26 +836,23 @@
   }
 
   document.getElementById('btn-start-fresh').addEventListener('click', () => {
-    // Carry over loose ends from last week into this week's loose ends
     const lastMonday = new Date(currentMonday);
     lastMonday.setDate(lastMonday.getDate() - 7);
     const lastKey = 'week_' + lastMonday.toISOString().slice(0, 10);
     const lastLoose = localStorage.getItem(lastKey + '_loose-ends');
-    const lastCapture = localStorage.getItem(lastKey + '_capture');
 
     if (lastLoose) {
       const existing = load('loose-ends', '');
       const carried = JSON.parse(lastLoose);
       if (carried && !existing) {
         save('loose-ends', carried);
-        document.getElementById('loose-ends').innerText = carried;
+        document.getElementById('loose-ends').innerHTML = carried;
       }
     }
 
-    // Clear priorities and live-work for fresh start
     ['priorities', 'live-work'].forEach(id => {
       save(id, '');
-      document.getElementById(id).innerText = '';
+      document.getElementById(id).innerHTML = '';
     });
 
     localStorage.setItem('banner_dismissed_' + weekKey(currentMonday), '1');
@@ -533,10 +865,10 @@
   function loadWeek() {
     document.getElementById('week-label').textContent = formatWeekLabel(currentMonday);
     editableFields.forEach(loadEditable);
+    renderChecklist();
     renderCapture();
     checkMondayBanner();
 
-    // Dim header if viewing a past/future week
     const todayMonday = getMondayOf(new Date());
     const isPast = currentMonday < todayMonday;
     const isFuture = currentMonday > todayMonday;
