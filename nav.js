@@ -4,7 +4,10 @@
 
   var navItems = [
     { label: 'Home',    href: '/' },
+    { label: 'About',   href: '/about' },
     { label: 'Courses', href: '/courses' },
+    { label: 'Working with Organisations', href: '/organisations' },
+    { label: 'Fulcrum', href: '/fulcrum' },
   ];
 
   var links = navItems.map(function(item) {
