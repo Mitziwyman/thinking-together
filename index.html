@@ -44,24 +44,17 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      120deg,
-      rgba(44, 62, 80, 0.78) 0%,
-      rgba(44, 62, 80, 0.45) 45%,
-      rgba(61, 122, 158, 0.3) 100%
+      to right,
+      rgba(30, 42, 54, 0.82) 0%,
+      rgba(30, 42, 54, 0.65) 55%,
+      rgba(30, 42, 54, 0.25) 100%
     );
   }
   .hero-inner {
-    max-width: 1020px;
+    max-width: 960px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 2.5rem;
-    align-items: center;
-  }
-  @media (max-width: 760px) {
-    .hero-inner { grid-template-columns: 1fr; }
   }
   .hero-eyebrow {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -87,34 +80,28 @@
     font-size: 16px;
     line-height: 1.85;
     color: rgba(255,255,255,0.78);
-    max-width: 520px;
-    margin-bottom: 1.1rem;
-  }
-  .hero-body:last-of-type {
-    margin-bottom: 0;
-    color: rgba(255,255,255,0.92);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
   }
   .hero-quote {
-    background: rgba(20, 30, 40, 0.45);
+    background: rgba(20, 30, 40, 0.5);
     border-left: 4px solid var(--teal);
     border-radius: 0 6px 6px 0;
-    padding: 1.4rem 1.6rem;
+    padding: 1.1rem 1.4rem;
+    max-width: 500px;
     backdrop-filter: blur(4px);
   }
   .hero-quote p {
-    font-size: 18px;
+    font-size: 15px;
     font-style: italic;
-    color: rgba(255,255,255,0.95);
+    color: rgba(255,255,255,0.9);
     line-height: 1.65;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.4rem;
   }
   .hero-quote .attr {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 12px;
     color: var(--teal-mid);
-  }
-  @media (max-width: 760px) {
-    .hero-quote { margin-top: 1.5rem; }
   }
 
   /* ── TWO DOORS ── */
@@ -225,85 +212,6 @@
     font-weight: 600;
   }
 
-  /* ── TESTIMONIALS ── */
-  .testimonials-band {
-    background: var(--off-white);
-    border-top: 1px solid var(--rule);
-    padding: 3rem 2rem;
-  }
-  .testimonials-inner {
-    max-width: 960px;
-    margin: 0 auto;
-  }
-  .testimonials-label {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal-dark);
-    margin-bottom: 1.5rem;
-  }
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
-  .testimonial-card {
-    background: var(--warm-white);
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    padding: 1.5rem;
-  }
-  .testimonial-card blockquote {
-    font-family: 'Georgia', serif;
-    font-size: 15px;
-    font-style: italic;
-    color: var(--slate-mid);
-    line-height: 1.7;
-    margin-bottom: 0.75rem;
-  }
-  .testimonial-card cite {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--slate-light);
-    font-style: normal;
-  }
-
-  /* ── LOGO STRIP ── */
-  .logo-strip {
-    background: var(--warm-white);
-    padding: 2.5rem 2rem;
-    border-top: 1px solid var(--rule);
-    text-align: center;
-  }
-  .logo-strip-label {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal-dark);
-    margin-bottom: 1.5rem;
-  }
-  .logo-strip-list {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem 2rem;
-  }
-  .logo-strip-list span {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--slate-light);
-    text-transform: uppercase;
-  }
-
   /* ── FOOTER ── */
   .site-footer {
     padding: 1.5rem;
@@ -326,16 +234,12 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div>
-      <div class="hero-eyebrow">Mitzi Wyman · Time to Think</div>
-      <h1>Better thinking changes everything.</h1>
-      <p class="hero-body">Somewhere in your diary this week there's a meeting that will decide something important. And if it goes the way most meetings go, that decision will be made on about half the thinking available in the room.</p>
-      <p class="hero-body">People rehearsing their point while someone else is speaking. The most senior voice quietly setting the limits of what gets said. A good idea arriving in someone's head and dying there, unspoken.</p>
-      <p class="hero-body">This is a space for changing that — in yourself, your team, and the conversations that matter most.</p>
-    </div>
+    <div class="hero-eyebrow">Mitzi Wyman · Time to Think</div>
+    <h1>Better thinking changes everything.</h1>
+    <p class="hero-body">Under relentless pressure, clear independent thinking is often the first thing to go. This is a space for those who want to change that — in themselves, in their teams, and in the conversations that matter most.</p>
     <div class="hero-quote">
       <p>"The quality of everything we do depends on the quality of the thinking we do first. And that depends on how we treat each other when we're thinking."</p>
-      <span class="attr">— Nancy Kline, founder of the Thinking Environment approach</span>
+      <span class="attr">— Nancy Kline, President, Time to Think</span>
     </div>
   </div>
 </section>
@@ -354,12 +258,12 @@
         <span class="door-cta">See courses and dates →</span>
       </a>
 
-      <a href="/organisations" class="door">
-        <div class="door-label">For Boards &amp; Senior Teams</div>
+      <a href="https://meetings-culture.netlify.app/" class="door" target="_blank" rel="noopener">
+        <div class="door-label">Diagnostic Tool</div>
         <div class="door-rule"></div>
-        <h2>Working with organisations</h2>
-        <p>Most organisations measure activity. Very few can see the quality of thinking. From bespoke culture-change packages to the Meeting Intelligence Index — a proprietary diagnostic of what's really happening when your people meet — this is the route for boards and sponsoring executives ready to invest in deeper change.</p>
-        <span class="door-cta">Explore organisational work →</span>
+        <h2>What is really happening in your meetings?</h2>
+        <p>Most organisations measure activity. Very few can see the quality of thinking. The Meeting Intelligence Index is a short diagnostic — developed from over 20 years of working with senior teams — that shows you what is actually happening when your people meet.</p>
+        <span class="door-cta">Start the diagnostic →</span>
       </a>
 
     </div>
@@ -370,52 +274,16 @@
 <div class="about-strip">
   <div class="about-inner">
     <div class="about-text">
-      <p><strong style="color: var(--slate);">Mitzi Wyman</strong> is a lawyer by background and a member of the Time to Think Faculty, with over two decades of experience working with leaders across sectors — from the NHS and public sector to corporates including Sony Pictures, Skanska and Arup. She has a training in organisational psychiatry and psychology and is a facilitator with Windsor Leadership. <a href="/about">More about Mitzi →</a></p>
+      <p><strong style="color: var(--slate);">Mitzi Wyman</strong> is a lawyer by background and a member of the Time to Think Faculty, with over two decades of experience working with senior leaders across the NHS and public sector. She has a training in organisational psychiatry and psychology and is a facilitator with Windsor Leadership.</p>
     </div>
   </div>
 </div>
 
 <!-- SPEAKING PHOTO BAND — image already contains the quote as text -->
-<img src="mitzi-speaking.png" alt="The quality of everything we do depends on the quality of the thinking we do first" style="display: block; width: 100%; height: auto;">
-
-
-<!-- TESTIMONIALS -->
-<section class="testimonials-band">
-  <div class="testimonials-inner">
-    <div class="testimonials-label">What clients say</div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <blockquote>"This enables us to think through issues in a more collegiate and collaborative way."</blockquote>
-        <cite>Sir Ernest Ryder, Senior President of Tribunals</cite>
-      </div>
-      <div class="testimonial-card">
-        <blockquote>"Mitzi is incredibly creative, well qualified and skilled in developing leaders. She's passionate about making the world a better place."</blockquote>
-        <cite>Elisabeth Buggins CBE, DL, Chair, Eastern Academic Health Science Network</cite>
-      </div>
-      <div class="testimonial-card">
-        <blockquote>"Not only is the Thinking Environment a straightforward philosophy about communication; its practical, values-based approach makes it great to improve confidence, communication and clarity of thought."</blockquote>
-        <cite>Adele Wright, Associate Director of Learning &amp; Organisational Development, Camden &amp; Islington NHS Foundation Trust</cite>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LOGO STRIP -->
-<section class="logo-strip">
-  <div class="logo-strip-label">Trusted by organisations in multiple fields</div>
-  <div class="logo-strip-list">
-    <span>KPMG</span>
-    <span>Sony</span>
-    <span>NHS</span>
-    <span>Cabinet Office</span>
-    <span>ARUP</span>
-    <span>Skanska</span>
-    <span>HarperCollins</span>
-    <span>University of Westminster</span>
-    <span>Marine Conservation Society</span>
-    <span>NAPC</span>
-  </div>
-</section>
+<div style="
+  background: url('mitzi-speaking.png') center 30% / cover no-repeat;
+  height: 300px;
+"></div>
 
 <!-- FOOTER -->
 <footer class="site-footer">
