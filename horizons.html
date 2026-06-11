@@ -332,16 +332,24 @@
   .mrc-result {
     margin-top: 2rem;
     padding: 1.25rem 1.5rem;
-    background: rgba(107,159,188,0.15);
+    background: rgba(255,255,255,0.95);
     border-left: 4px solid var(--teal);
     border-radius: 0 6px 6px 0;
     display: none;
   }
   .mrc-result.visible { display: block; }
+  .mrc-error {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--teal-mid);
+    margin-top: 0.75rem;
+    display: none;
+  }
+  .mrc-error.visible { display: block; }
   .mrc-score-text {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 14px;
-    color: rgba(255,255,255,0.75);
+    color: var(--slate-mid);
     line-height: 1.7;
   }
   .mrc-calculate {
@@ -667,6 +675,8 @@
 
     <button class="mrc-calculate" onclick="calculateHorizonCheck()">See your result</button>
 
+    <p class="mrc-error" id="hc-error">Please rate at least three statements before seeing your result.</p>
+
     <div class="mrc-result" id="hc-result">
       <p class="mrc-score-text">There's no pass mark. The horizons are a way of seeing, and the only habit worth building is the noticing itself: where your time went, what it served, and what's quietly waiting for your attention.</p>
     </div>
@@ -731,11 +741,14 @@
   function calculateHorizonCheck() {
     const keys = ['hc1','hc2','hc3','hc4','hc5'];
     const answered = keys.filter(k => hcScores[k]);
+    const error = document.getElementById('hc-error');
+    const result = document.getElementById('hc-result');
     if (answered.length < 3) {
-      alert('Please rate at least three statements before seeing your result.');
+      error.classList.add('visible');
+      result.classList.remove('visible');
       return;
     }
-    const result = document.getElementById('hc-result');
+    error.classList.remove('visible');
     result.classList.add('visible');
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
