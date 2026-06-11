@@ -768,17 +768,32 @@
     error.classList.remove('visible');
 
     const lowest = answered.reduce((a, b) => hcScores[a] <= hcScores[b] ? a : b);
+    const highest = answered.reduce((a, b) => hcScores[a] >= hcScores[b] ? a : b);
     const total = answered.reduce((sum, k) => sum + hcScores[k], 0);
     const avg = total / answered.length;
 
-    let main;
-    if (avg >= 4) {
-      main = "This week, your thinking seems to have had room to breathe — attention placed with some intention, and at least one thing protected from the rush. The habit worth keeping is the noticing itself.";
-    } else if (avg >= 2.5) {
-      main = "A mixed week — some of your thinking had room, some of it didn't. That's normal. The value isn't in the score, it's in spotting where the gap was.";
-    } else {
-      main = "It sounds like the week ran you, more than you ran it. That's information, not a verdict — and naming it is itself a step outside the rush.";
-    }
+    const highVariants = [
+      "This week, your thinking seems to have had room to breathe — particularly around " + hcLabels[highest] + ". The habit worth keeping is the noticing itself.",
+      "A strong week for noticing, especially around " + hcLabels[highest] + ". Worth asking: what made that possible — and can you repeat it?",
+      "Several of these landed well this week, " + hcLabels[highest] + " most of all. The value isn't the score — it's seeing what conditions supported it."
+    ];
+    const midVariants = [
+      "A mixed week — some of your thinking had room, some of it didn't. That's normal. The value isn't in the score, it's in spotting where the gap was.",
+      "A week of contrasts: " + hcLabels[highest] + " went well, while something else didn't get the same room. Both are useful to notice.",
+      "Nothing dramatic either way this week — which is its own kind of information. Where would a small shift make the most difference?"
+    ];
+    const lowVariants = [
+      "It sounds like the week ran you, more than you ran it. That's information, not a verdict — and naming it is itself a step outside the rush.",
+      "A week where the urgent likely crowded out the important. No judgement in that — just worth seeing clearly before the next one starts.",
+      "This reads like a week with little room to think. That's common, and naming it is the first step toward changing it next week."
+    ];
+
+    let variants;
+    if (avg >= 4) variants = highVariants;
+    else if (avg >= 2.5) variants = midVariants;
+    else variants = lowVariants;
+
+    const main = variants[Math.floor(Math.random() * variants.length)];
 
     document.getElementById('hc-result-main').textContent = main;
     document.getElementById('hc-result-focus').textContent = "Lowest this week: " + hcLabels[lowest] + ". " + hcFocus[lowest];
