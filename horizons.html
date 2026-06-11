@@ -678,7 +678,8 @@
     <p class="mrc-error" id="hc-error">Please rate at least three statements before seeing your result.</p>
 
     <div class="mrc-result" id="hc-result">
-      <p class="mrc-score-text">There's no pass mark. The horizons are a way of seeing, and the only habit worth building is the noticing itself: where your time went, what it served, and what's quietly waiting for your attention.</p>
+      <p class="mrc-score-text" id="hc-result-main"></p>
+      <p class="mrc-score-text" id="hc-result-focus" style="margin-top: 0.85rem;"></p>
     </div>
   </div>
 </div>
@@ -738,6 +739,22 @@
     hcScores[key] = value;
   }
 
+  const hcFocus = {
+    hc1: "If naming where your best thinking went isn't easy, that's worth sitting with — attention spent without noticing is attention you can't yet learn from. Before next week, try catching it once, in the moment.",
+    hc2: "Look for a moment where the thinking and the question were mismatched — a future question answered with an operational reflex, or a present problem given more weight than it needed. Naming that mismatch is itself useful.",
+    hc3: "Keep half an eye out this week for the moment something new gets pulled back into the old way of doing things. It's rarely anyone's fault — naming it, when it happens, is most of the work.",
+    hc4: "Is there a pocket of time you could protect this coming week — even briefly — from the immediate and the urgent? It doesn't need to be much to change what becomes possible in it.",
+    hc5: "What question deserves your best thinking before the team next meets? Write it down now, even if you can't answer it yet — carrying it is the point."
+  };
+
+  const hcLabels = {
+    hc1: "naming where your best thinking went",
+    hc2: "matching your thinking to the question",
+    hc3: "noticing the pull of the present",
+    hc4: "protecting time from the immediate",
+    hc5: "carrying a question forward"
+  };
+
   function calculateHorizonCheck() {
     const keys = ['hc1','hc2','hc3','hc4','hc5'];
     const answered = keys.filter(k => hcScores[k]);
@@ -749,6 +766,23 @@
       return;
     }
     error.classList.remove('visible');
+
+    const lowest = answered.reduce((a, b) => hcScores[a] <= hcScores[b] ? a : b);
+    const total = answered.reduce((sum, k) => sum + hcScores[k], 0);
+    const avg = total / answered.length;
+
+    let main;
+    if (avg >= 4) {
+      main = "This week, your thinking seems to have had room to breathe — attention placed with some intention, and at least one thing protected from the rush. The habit worth keeping is the noticing itself.";
+    } else if (avg >= 2.5) {
+      main = "A mixed week — some of your thinking had room, some of it didn't. That's normal. The value isn't in the score, it's in spotting where the gap was.";
+    } else {
+      main = "It sounds like the week ran you, more than you ran it. That's information, not a verdict — and naming it is itself a step outside the rush.";
+    }
+
+    document.getElementById('hc-result-main').textContent = main;
+    document.getElementById('hc-result-focus').textContent = "Lowest this week: " + hcLabels[lowest] + ". " + hcFocus[lowest];
+
     result.classList.add('visible');
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
