@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thinking in Time — a horizons companion | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --teal-mid: #B0CCE0;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+    --gold: #C9A84C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* Use system fonts for body, Georgia for elegance */
+  .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+
+  /* ── HERO ── */
+  .hero-band {
+    background: var(--slate);
+    padding: 4rem 1.5rem 3.5rem;
+  }
+  .hero-inner { max-width: 700px; margin: 0 auto; }
+
+  .hero-inner h1 {
+    font-size: clamp(36px, 5.5vw, 52px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+    font-style: italic;
+  }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.8);
+    font-weight: 400;
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+  .notebook-box {
+    border: 1px solid rgba(107,159,188,0.4);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.05);
+  }
+  .notebook-icon { color: var(--teal); font-size: 18px; flex-shrink: 0; margin-top: 3px; }
+  .notebook-box p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.72);
+  }
+  .notebook-box strong { font-weight: 600; color: rgba(255,255,255,0.95); }
+
+  /* ── SECTION BANDS ── */
+  .section-band { padding: 3.5rem 1.5rem; }
+  .section-band.alt { background: var(--off-white); }
+  .section-band.white { background: var(--warm-white); }
+  .section-inner { max-width: 700px; margin: 0 auto; }
+
+  .section-label-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+  .section-num {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+  }
+  .section-num-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 34px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  .section-rule {
+    height: 2px;
+    background: linear-gradient(to right, var(--teal) 70px, var(--rule) 70px);
+    margin-bottom: 1.25rem;
+  }
+  .section-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--slate-mid);
+    font-style: normal;
+    max-width: 600px;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── QUESTION CARDS ── */
+  .q-card {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem 0;
+  }
+  .q-card:last-of-type { border-bottom: 1px solid var(--rule); }
+
+  .q-text {
+    font-size: 17px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+  }
+  .q-note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--slate-mid);
+    font-weight: 400;
+  }
+  .q-incisive-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-top: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  .q-incisive-label + .q-incisive { margin-top: 0; }
+
+  .q-incisive {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--teal-dark);
+    font-style: italic;
+    font-weight: 500;
+    margin-top: 0.75rem;
+    padding: 0.65rem 1rem;
+    border-left: 3px solid var(--teal);
+    background: var(--teal-light);
+    border-radius: 0 4px 4px 0;
+  }
+  .q-closing {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: var(--slate-light);
+    margin-top: 0.5rem;
+    line-height: 1.7;
+  }
+
+  /* ── HORIZONS-AT-A-GLANCE TOGGLES ── */
+  .horizon-row {
+    border-top: 1px solid var(--rule);
+    padding: 1rem 0;
+  }
+  .horizon-row:last-of-type { border-bottom: 1px solid var(--rule); }
+  .h-label {
+    font-size: 17px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--slate);
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+  }
+  .horizon-panel p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--slate-mid);
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-band {
+    background: var(--teal-light);
+    padding: 3rem 1.5rem;
+    border-top: 1px solid var(--teal-mid);
+    border-bottom: 1px solid var(--teal-mid);
+  }
+  .pull-inner { max-width: 700px; margin: 0 auto; }
+  .pull-quote p {
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+  .pull-attr {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--teal-dark);
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  /* ── ROTATING PROMPT ── */
+  .rotating-band {
+    background: var(--off-white);
+    padding: 2.5rem 1.5rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    display: none;
+  }
+  .rotating-band.visible { display: block; }
+  .rotating-inner { max-width: 700px; margin: 0 auto; }
+  .rotating-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.6rem;
+  }
+  .rotating-prompt {
+    font-size: clamp(19px, 3vw, 24px);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* ── HORIZON CHECK ── */
+  .mrc-band {
+    background: var(--slate);
+    padding: 3.5rem 1.5rem;
+  }
+  .mrc-inner { max-width: 700px; margin: 0 auto; }
+  .mrc-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.4rem;
+  }
+  .mrc-title {
+    font-size: clamp(24px, 4vw, 32px);
+    font-style: italic;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+  .mrc-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.8;
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+  .mrc-items { list-style: none; }
+  .mrc-item {
+    padding: 1.1rem 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .mrc-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .mrc-q {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    font-weight: 500;
+    margin-bottom: 0.65rem;
+    line-height: 1.55;
+  }
+  .rating-scale {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .rating-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-right: 0.25rem;
+  }
+  .rating-label.right { margin-left: 0.25rem; margin-right: 0; }
+  .rating-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(107,159,188,0.5);
+    background: rgba(107,159,188,0.1);
+    color: rgba(255,255,255,0.7);
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rating-btn:hover { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .rating-btn.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+  .mrc-result {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(107,159,188,0.15);
+    border-left: 4px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    display: none;
+  }
+  .mrc-result.visible { display: block; }
+  .mrc-score-text {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+  }
+  .mrc-calculate {
+    margin-top: 1.5rem;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .mrc-calculate:hover { background: var(--teal-dark); }
+
+  /* ── CLOSING ── */
+  .closing-band {
+    background: var(--slate);
+    padding: 3.5rem 1.5rem;
+  }
+  .closing-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+  .closing-photo {
+    width: 88px;
+    height: 88px;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
+    border: 2px solid rgba(107,159,188,0.4);
+  }
+  .closing-text h3 {
+    font-size: 17px;
+    font-weight: 600;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: #fff;
+    margin-bottom: 0.25rem;
+  }
+  .closing-role {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--teal-mid);
+    margin-bottom: 1rem;
+  }
+  .closing-contact {
+    font-size: 15px;
+    font-style: italic;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .closing-ctas {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+  }
+  .cta-primary {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--teal-dark);
+    text-decoration: none;
+    padding: 0.6rem 1.1rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+    border: none;
+    cursor: pointer;
+  }
+  .cta-primary:hover { background: var(--teal); }
+  .cta-secondary {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--teal);
+    background: transparent;
+    text-decoration: none;
+    padding: 0.6rem 1.1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(107,159,188,0.45);
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+  .cta-secondary:hover { background: rgba(107,159,188,0.15); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--slate);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 1.5rem 1.75rem;
+    text-align: center;
+  }
+  .site-footer p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .site-footer a:hover { text-decoration: underline; }
+
+  /* ── PRINT ── */
+  @media print {
+    .site-header { position: static; }
+    .hero-band, .closing-band, .mrc-band { background: #2C3E50 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .pull-band, .rotating-band { background: #EEF4F8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .mrc-calculate, .mrc-result { display: none !important; }
+    .q-card { break-inside: avoid; }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 540px) {
+    .site-header .doc-title { display: none; }
+    .closing-inner { flex-direction: column; gap: 1.25rem; }
+    .closing-photo { width: 72px; height: 72px; }
+    .section-band, .mrc-band, .closing-band, .rotating-band { padding: 2.5rem 1.1rem; }
+    .hero-band { padding: 2.5rem 1.1rem; }
+    .rating-scale { gap: 0.3rem; }
+    .rating-btn { width: 32px; height: 32px; font-size: 12px; }
+    .closing-ctas { flex-direction: column; }
+    .cta-primary, .cta-secondary { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<script src="/nav.js"></script>
+<!-- HERO -->
+<div class="hero-band">
+  <div class="hero-inner">
+    <h1>Thinking in Time —<br>a horizons companion</h1>
+    <p class="hero-intro">You've worked with the Three Horizons — a way of seeing where a system is now, where it's heading, and the space in between where the new is finding its feet. This companion helps you carry that lens into your week. A few minutes, once a week: where has your thinking been living, and what is that making possible?</p>
+    <div class="notebook-box">
+      <span class="notebook-icon">✎</span>
+      <p><strong>Best with a notebook alongside it.</strong> The questions are prompts; the thinking is yours. Writing something down, unhurried, is itself a way of stepping outside the rush.</p>
+    </div>
+  </div>
+</div>
+
+<!-- THE HORIZONS, BRIEFLY -->
+<div class="section-band white">
+  <div class="section-inner">
+    <div class="section-label-row">
+      <span class="section-num">The horizons, briefly</span>
+      <span class="section-num-dot"></span>
+    </div>
+
+    <div class="horizon-row">
+      <p class="h-label">H1 — keeping the system working.</p>
+      <div class="horizon-panel open">
+        <p>Delivery, reporting, the programme as commissioned — necessary work that holds the memory and the machinery.</p>
+      </div>
+    </div>
+
+    <div class="horizon-row">
+      <p class="h-label">H2 — the new finding its feet.</p>
+      <div class="horizon-panel open">
+        <p>Pilots and partnerships proving their value in a system that hasn't yet made room for them — the contested middle where innovation work lives.</p>
+      </div>
+    </div>
+
+    <div class="horizon-row">
+      <p class="h-label">H3 — the future asking questions.</p>
+      <div class="horizon-panel open">
+        <p>Work that has no home yet: what health in this region could become.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION ONE -->
+<div class="section-band alt">
+  <div class="section-inner">
+    <div class="section-label-row">
+      <span class="section-num">One</span>
+      <span class="section-num-dot"></span>
+    </div>
+    <h2 class="section-title">Where your best attention went</h2>
+    <div class="section-rule"></div>
+
+    <div class="q-card">
+      <p class="q-text">Think of one piece of work this week that had your best attention. Which horizon was it serving?</p>
+      <p class="q-note">There's no right answer — Horizon 1 work done with full attention is leadership. Notice too whether the thinking matched the question: the trouble is rarely too much time in the present, more often a future question answered with an operational reflex.</p>
+      <p class="q-incisive-label">An incisive question</p>
+      <p class="q-incisive">If you knew that your attention is the most consequential resource you allocate each week, what would you place it on tomorrow?</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION TWO -->
+<div class="section-band white">
+  <div class="section-inner">
+    <div class="section-label-row">
+      <span class="section-num">Two</span>
+      <span class="section-num-dot"></span>
+    </div>
+    <h2 class="section-title">The pull of the present</h2>
+    <div class="section-rule"></div>
+
+    <div class="q-card">
+      <p class="q-text">Was there a moment this week where something new was being pulled back into the old way of doing things?</p>
+      <p class="q-note">A pilot reframed as a delivery target; a fresh idea asked to prove itself by the old measures. It's rarely anyone's fault — it's gravity, and naming it is most of the work.</p>
+      <p class="q-incisive-label">An incisive question</p>
+      <p class="q-incisive">If you knew that the new thing only needs protecting until it can stand, what would you shield this month?</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION THREE -->
+<div class="section-band alt">
+  <div class="section-inner">
+    <div class="section-label-row">
+      <span class="section-num">Three</span>
+      <span class="section-num-dot"></span>
+    </div>
+    <h2 class="section-title">The question you carry</h2>
+    <div class="section-rule"></div>
+
+    <div class="q-card">
+      <p class="q-text">What question deserves your best thinking before the team next meets?</p>
+      <p class="q-note">Write it down. Don't answer it. Bring it with you to the next session — it may be exactly what the team needs to hear.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PULL QUOTE -->
+<div class="pull-band">
+  <div class="pull-inner">
+    <div class="pull-quote">
+      <p>"If attention is the currency of leaders, time is the investment."</p>
+      <span class="pull-attr">Mitzi Wyman</span>
+    </div>
+  </div>
+</div>
+
+<!-- FROM TIME TO TIME (rotating prompt) -->
+<div class="rotating-band" id="rotating-band">
+  <div class="rotating-inner">
+    <p class="rotating-label">From time to time</p>
+    <p class="rotating-prompt" id="rotating-prompt"></p>
+  </div>
+</div>
+
+<!-- HORIZON CHECK -->
+<div class="mrc-band">
+  <div class="mrc-inner">
+    <p class="mrc-label">Mitzi Wyman — Horizon Check</p>
+    <h2 class="mrc-title">Before the week closes</h2>
+    <p class="mrc-intro">A two-minute self-check. Rate yourself honestly on each statement. There's no pass mark — the value is in the noticing.</p>
+
+    <ul class="mrc-items">
+      <li class="mrc-item">
+        <p class="mrc-q">I can name where my best thinking went this week.</p>
+        <div class="rating-scale">
+          <span class="rating-label">Not yet</span>
+          <button class="rating-btn" onclick="selectRating(this, 'hc1', 1)" aria-label="1">1</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc1', 2)" aria-label="2">2</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc1', 3)" aria-label="3">3</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc1', 4)" aria-label="4">4</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc1', 5)" aria-label="5">5</button>
+          <span class="rating-label right">Yes, clearly</span>
+        </div>
+      </li>
+      <li class="mrc-item">
+        <p class="mrc-q">The thinking I gave my work matched the questions it was asking.</p>
+        <div class="rating-scale">
+          <span class="rating-label">Not yet</span>
+          <button class="rating-btn" onclick="selectRating(this, 'hc2', 1)" aria-label="1">1</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc2', 2)" aria-label="2">2</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc2', 3)" aria-label="3">3</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc2', 4)" aria-label="4">4</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc2', 5)" aria-label="5">5</button>
+          <span class="rating-label right">Yes, clearly</span>
+        </div>
+      </li>
+      <li class="mrc-item">
+        <p class="mrc-q">I noticed at least one place where the new was being pulled back into the old.</p>
+        <div class="rating-scale">
+          <span class="rating-label">Not yet</span>
+          <button class="rating-btn" onclick="selectRating(this, 'hc3', 1)" aria-label="1">1</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc3', 2)" aria-label="2">2</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc3', 3)" aria-label="3">3</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc3', 4)" aria-label="4">4</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc3', 5)" aria-label="5">5</button>
+          <span class="rating-label right">Yes, clearly</span>
+        </div>
+      </li>
+      <li class="mrc-item">
+        <p class="mrc-q">I protected some time this week that wasn't claimed by the immediate.</p>
+        <div class="rating-scale">
+          <span class="rating-label">Not yet</span>
+          <button class="rating-btn" onclick="selectRating(this, 'hc4', 1)" aria-label="1">1</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc4', 2)" aria-label="2">2</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc4', 3)" aria-label="3">3</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc4', 4)" aria-label="4">4</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc4', 5)" aria-label="5">5</button>
+          <span class="rating-label right">Yes, clearly</span>
+        </div>
+      </li>
+      <li class="mrc-item">
+        <p class="mrc-q">I'm carrying a question into next week — and I know what it is.</p>
+        <div class="rating-scale">
+          <span class="rating-label">Not yet</span>
+          <button class="rating-btn" onclick="selectRating(this, 'hc5', 1)" aria-label="1">1</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc5', 2)" aria-label="2">2</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc5', 3)" aria-label="3">3</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc5', 4)" aria-label="4">4</button>
+          <button class="rating-btn" onclick="selectRating(this, 'hc5', 5)" aria-label="5">5</button>
+          <span class="rating-label right">Yes, clearly</span>
+        </div>
+      </li>
+    </ul>
+
+    <button class="mrc-calculate" onclick="calculateHorizonCheck()">See your result</button>
+
+    <div class="mrc-result" id="hc-result">
+      <p class="mrc-score-text">There's no pass mark. The horizons are a way of seeing, and the only habit worth building is the noticing itself: where your time went, what it served, and what's quietly waiting for your attention.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING REFLECTION -->
+<div class="pull-band">
+  <div class="pull-inner">
+    <p style="font-size: clamp(17px, 2.5vw, 22px); font-style: italic; font-weight: 400; color: var(--slate); line-height: 1.6; margin-bottom: 0;">I hope these few minutes have let you look at your week from a little distance. The future doesn't arrive by itself — it's built by people who give it room to be thought about.</p>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing-band">
+  <div class="closing-inner">
+    <img class="closing-photo" src="mitzi-wyman.jpg" alt="Mitzi Wyman">
+    <div class="closing-text">
+      <h3>Mitzi Wyman</h3>
+      <p class="closing-role">Wyman Associates &nbsp;|&nbsp; Faculty, Time to Think</p>
+      <div class="closing-ctas">
+        <a href="/courses" class="cta-primary">See courses &amp; programmes</a>
+        <a href="/" class="cta-secondary">Visit thinking.mitziwyman.com</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>Also: <a href="/companion" style="color: var(--teal-mid); text-decoration: none;">Thinking Together — a companion for your meetings</a>. Three Horizons after Bill Sharpe. Thinking Environment™ is a trademark of Nancy Kline / Time to Think.<br>Used under licence by Mitzi Wyman, Wyman Associates.</p>
+</footer>
+
+<script>
+  // ── ROTATING PROMPT (every third or fourth visit) ──
+  document.addEventListener('DOMContentLoaded', function() {
+    const prompts = [
+      "What got built this week that won't show up in any report?",
+      "Whose thinking changed yours this week?",
+      "What are you tending now that only pays off in a future you may never see?"
+    ];
+    try {
+      let count = parseInt(localStorage.getItem('tih_visits') || '0', 10) + 1;
+      localStorage.setItem('tih_visits', count);
+      if (count % 4 === 0) {
+        const idx = Math.floor(count / 4) % prompts.length;
+        document.getElementById('rotating-prompt').textContent = prompts[idx];
+        document.getElementById('rotating-band').classList.add('visible');
+      }
+    } catch(e) {}
+  });
+
+  // ── HORIZON CHECK ──
+  const hcScores = {};
+
+  function selectRating(btn, key, value) {
+    const scale = btn.closest('.rating-scale');
+    scale.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    hcScores[key] = value;
+  }
+
+  function calculateHorizonCheck() {
+    const keys = ['hc1','hc2','hc3','hc4','hc5'];
+    const answered = keys.filter(k => hcScores[k]);
+    if (answered.length < 3) {
+      alert('Please rate at least three statements before seeing your result.');
+      return;
+    }
+    const result = document.getElementById('hc-result');
+    result.classList.add('visible');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
+
+</body>
+</html>
