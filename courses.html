@@ -553,17 +553,18 @@
     gap: 1.75rem;
   }
   .nancy-quote-flex img {
-    flex: 0 0 200px;
-    width: 200px;
+    flex: 0 0 280px;
+    width: 280px;
     height: auto;
     display: block;
+    object-fit: contain;
     border-radius: 0;
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   }
   .nancy-quote-flex .testimonial-block { margin: 0; flex: 1 1 auto; min-width: 0; }
   @media (max-width: 580px) {
     .nancy-quote-flex { flex-direction: column; gap: 1rem; }
-    .nancy-quote-flex img { flex: 0 0 auto; width: 100%; max-width: 320px; height: auto; aspect-ratio: 530 / 270; }
+    .nancy-quote-flex img { flex: 0 0 auto; width: 100%; max-width: 320px; height: auto; }
   }
 
   /* ── TESTIMONIAL GRID ── */
@@ -731,11 +732,11 @@
 </section>
 
 <!-- NANCY KLINE QUOTE BAND -->
-<section style="background: var(--slate); padding: 3rem 1.5rem;">
+<section style="background: var(--off-white); padding: 3rem 1.5rem;">
   <div style="max-width: 700px; margin: 0 auto;">
     <div class="nancy-quote-flex">
       <img src="mitzi-nancy-small.png" alt="Mitzi Wyman with Nancy Kline">
-      <div class="testimonial-block light">
+      <div class="testimonial-block">
         <blockquote>"Mitzi inspires me, over and over again. When I need hope for humanity, I turn to her. She reaches into the core of both the good in society and the causes of its pain. She understands what it takes to transform a situation, a team, an organisation into the finest version of itself. She manages to blend humility with confidence, detail with scope, leadership with autonomy. Her expertise and her warmth are compelling. I trust her completely. And I am grateful for her in this world."</blockquote>
         <cite>Nancy Kline, President, Time to Think</cite>
       </div>
