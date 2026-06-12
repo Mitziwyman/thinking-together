@@ -42,6 +42,13 @@
     color: #fff;
     line-height: 1.2;
   }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+    margin-top: 0.75rem;
+  }
 
   /* ── STANDARD LAYOUT ── */
   .section-band { padding: 3rem 1.5rem; }
@@ -67,10 +74,29 @@
   }
   .body-text:last-of-type { margin-bottom: 0; }
 
+  /* ── VIDEO EMBED ── */
+  .video-embed {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
   /* ── PURPOSE BAND ── */
   .purpose-band {
     background: var(--slate);
     padding: 3rem 1.5rem;
+    text-align: center;
   }
   .purpose-band .section-inner p {
     font-size: clamp(19px, 2.5vw, 23px);
@@ -79,6 +105,13 @@
     color: #fff;
     line-height: 1.5;
     margin: 0;
+  }
+  .purpose-band .attr {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    color: var(--teal-mid);
+    margin-top: 0.75rem;
   }
 
   /* ── FACILITATION PHOTO ── */
@@ -147,6 +180,7 @@
 <section class="hero-band">
   <div class="hero-inner">
     <h1>Working with organisations</h1>
+    <p class="hero-intro">Building thinking capability that lasts</p>
   </div>
 </section>
 
@@ -159,6 +193,31 @@
     <img src="mitzi-facilitation.jpg" alt="Mitzi Wyman facilitating a group conversation" class="facilitation-photo">
 
     <p class="body-text">I work with senior teams who are navigating genuinely complex conditions — where the pressures are sustained, the questions don't have easy answers, and the quality of thinking behind decisions matters as much as the decisions themselves. The work usually begins with a conversation about where the team is and what it most needs. From there, we design something together.</p>
+  </div>
+</section>
+
+<!-- QUALITY OF THINKING -->
+<section class="purpose-band">
+  <div class="section-inner">
+    <p>The quality of thinking behind decisions matters as much as the decisions themselves.</p>
+  </div>
+</section>
+
+<!-- VIDEO: WHAT HAPPENS WHEN LEADERS STOP LISTENING -->
+<section class="section-band white">
+  <div class="section-inner">
+    <div class="section-label">Watch — What happens when leaders stop listening</div>
+    <p class="body-text" style="font-style: italic;">Twenty years of working with senior teams has convinced me that the quality of everything else depends on this.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube-nocookie.com/embed/JnHvSGpOwAs?rel=0" title="What happens when leaders stop listening" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-band white">
+  <div class="section-inner">
+    <div class="section-label">How it works</div>
     <p class="body-text">A typical engagement combines structured team sessions, individual thinking time with senior leaders, and digital tools — the Meeting Intelligence Index running as a live thread, companion tools keeping the thinking alive between sessions. The frameworks I draw on — the Thinking Environment, Three Horizons, the Six Capitals — are brought in when they serve the question, not as a fixed programme to be delivered.</p>
     <p class="body-text">The goal is always the same: a team that thinks better together, holds complexity without collapsing it, and makes decisions it can stand behind. And increasingly, organisations that build this kind of shared thinking capability across boundaries — across a system, a region, a place — find it deepens not just how they decide, but how they lead.</p>
     <p class="body-text">If this sounds like what your organisation needs, the right starting point is a conversation.</p>
@@ -169,6 +228,7 @@
 <section class="purpose-band">
   <div class="section-inner">
     <p>The goal is always the same: a team that thinks better together, holds complexity without collapsing it, and makes decisions it can stand behind.</p>
+    <p class="attr">— Mitzi Wyman</p>
   </div>
 </section>
 

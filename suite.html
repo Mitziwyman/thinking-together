@@ -121,6 +121,24 @@
   }
   .body-text:last-of-type { margin-bottom: 0; }
 
+  /* ── VIDEO EMBED ── */
+  .video-embed {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
   /* ── TESTIMONIAL ── */
   .testimonial-block {
     border-left: 3px solid var(--teal);
@@ -339,6 +357,25 @@
           <p class="tool-image-caption">Example team report — illustrative data</p>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO: AI AND THE FUTURE OF LEADERSHIP -->
+<section class="section-band white">
+  <div class="section-inner narrow">
+    <div class="section-label">Watch — AI and the future of leadership</div>
+    <p class="body-text" style="font-style: italic;">A conversation about simulated empathy, AI, and what it means for how we lead — recorded at a recent healthcare leadership event.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube-nocookie.com/embed/jW4yhyWphcE?rel=0" title="AI and the future of leadership" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FROM MEETINGS TO ORGANISATIONAL INSIGHT (continued) -->
+<section class="section-band white">
+  <div class="section-inner narrow">
+    <div class="tool-list">
       <div class="tool-item">
         <h3>The Organisational Intelligence Index</h3>
         <p>A deeper, structured lens for exploring where organisational attention is going — what gets discussed, measured, protected, avoided or missed, and where change may need to begin.</p>
