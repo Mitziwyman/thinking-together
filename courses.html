@@ -528,6 +528,23 @@
   }
   .testimonial-block.light cite { color: var(--teal-mid); }
 
+  /* ── TESTIMONIAL GRID ── */
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  @media (max-width: 580px) { .testimonial-grid { grid-template-columns: 1fr; } }
+  .testimonial-card {
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: var(--warm-white);
+  }
+  .testimonial-card .testimonial-block {
+    margin: 0;
+  }
+
   /* ── ABOUT ── */
   .about-grid {
     display: grid;
@@ -650,16 +667,6 @@
   </div>
 </section>
 
-<!-- NANCY KLINE QUOTE BAND -->
-<section style="background: var(--slate); padding: 3rem 1.5rem;">
-  <div style="max-width: 700px; margin: 0 auto;">
-    <div class="testimonial-block light">
-      <blockquote>"Mitzi inspires me, over and over again. When I need hope for humanity, I turn to her. She reaches into the core of both the good in society and the causes of its pain. She understands what it takes to transform a situation, a team, an organisation into the finest version of itself. She manages to blend humility with confidence, detail with scope, leadership with autonomy. Her expertise and her warmth are compelling. I trust her completely. And I am grateful for her in this world."</blockquote>
-      <cite>Nancy Kline, President, Time to Think</cite>
-    </div>
-  </div>
-</section>
-
 <!-- TWO STARTING POINTS -->
 <section class="section-band alt">
   <div class="section-inner">
@@ -681,6 +688,16 @@
         <p>For coaches, practitioners, and leaders who work with individuals — and want to develop a deeper quality of attention in one-to-one conversations.</p>
         <span class="pathway-cta">See dates and details ↓</span>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- NANCY KLINE QUOTE BAND -->
+<section style="background: var(--slate); padding: 3rem 1.5rem;">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <div class="testimonial-block light">
+      <blockquote>"Mitzi inspires me, over and over again. When I need hope for humanity, I turn to her. She reaches into the core of both the good in society and the causes of its pain. She understands what it takes to transform a situation, a team, an organisation into the finest version of itself. She manages to blend humility with confidence, detail with scope, leadership with autonomy. Her expertise and her warmth are compelling. I trust her completely. And I am grateful for her in this world."</blockquote>
+      <cite>Nancy Kline, President, Time to Think</cite>
     </div>
   </div>
 </section>
@@ -740,9 +757,6 @@
   </div>
 </section>
 
-
-<!-- STONES DIVIDER -->
-<div style="height: 220px; background: url('stones.png') center center / cover no-repeat; opacity: 0.85;"></div>
 
 <!-- ─────────────────────────────────────── -->
 <!-- THINKING PARTNERSHIP COURSE -->
@@ -848,22 +862,22 @@
   </div>
 </section>
 
-<!-- TESTIMONIAL -->
+<!-- TESTIMONIALS -->
 <section class="section-band alt">
   <div class="section-inner">
-    <div class="testimonial-block">
-      <blockquote>"I think we often feel as though our voice isn't heard and people don't value our ideas. Mitzi taught us about Nancy Kline's Time to Think approach and helped us work out how we could create the right environment for everyone to feel confident, prepared and supported to think and speak up."</blockquote>
-      <cite>Janet Thornley RN MSc ACP, GPN Strategic Lead, BLMK Integrated Care System</cite>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIAL -->
-<section class="section-band white">
-  <div class="section-inner">
-    <div class="testimonial-block">
-      <blockquote>"How many times are you invited to a meeting with a range of leaders where you're asked to leave power, wealth and status outside the door? It was a fantastic experience — a safe space to be open and consider a range of views on some fundamental issues impacting on people's lives. The dialogic approach provides a new way to do business. The public and private sectors alike should learn from this approach as it could change the dynamics of business and motivate people."</blockquote>
-      <cite>Gillian Fawcett, former Head of Global, CIPFA</cite>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-block">
+          <blockquote>"I think we often feel as though our voice isn't heard and people don't value our ideas. Mitzi taught us about Nancy Kline's Time to Think approach and helped us work out how we could create the right environment for everyone to feel confident, prepared and supported to think and speak up."</blockquote>
+          <cite>Janet Thornley RN MSc ACP, GPN Strategic Lead, BLMK Integrated Care System</cite>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-block">
+          <blockquote>"How many times are you invited to a meeting with a range of leaders where you're asked to leave power, wealth and status outside the door? It was a fantastic experience — a safe space to be open and consider a range of views on some fundamental issues impacting on people's lives. The dialogic approach provides a new way to do business. The public and private sectors alike should learn from this approach as it could change the dynamics of business and motivate people."</blockquote>
+          <cite>Gillian Fawcett, former Head of Global, CIPFA</cite>
+        </div>
+      </div>
     </div>
   </div>
 </section>

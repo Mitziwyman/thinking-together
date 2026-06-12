@@ -48,6 +48,16 @@
   .section-band.white { background: var(--warm-white); }
   .section-inner { max-width: 700px; margin: 0 auto; }
 
+  .section-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.4rem;
+  }
+
   .body-text {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 15px;
@@ -56,6 +66,20 @@
     margin-bottom: 1rem;
   }
   .body-text:last-of-type { margin-bottom: 0; }
+
+  /* ── PURPOSE BAND ── */
+  .purpose-band {
+    background: var(--slate);
+    padding: 3rem 1.5rem;
+  }
+  .purpose-band .section-inner p {
+    font-size: clamp(19px, 2.5vw, 23px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0;
+  }
 
   /* ── FACILITATION PHOTO ── */
   .facilitation-photo {
@@ -129,6 +153,7 @@
 <!-- BODY -->
 <section class="section-band white">
   <div class="section-inner">
+    <div class="section-label">The work</div>
     <p class="body-text">The most significant work happens over time. A single session — however good — rarely enhances how a team thinks. What makes the difference is building a practice: a shared discipline that becomes part of how the organisation operates, not just something that happens in the room with a facilitator.</p>
 
     <img src="mitzi-facilitation.jpg" alt="Mitzi Wyman facilitating a group conversation" class="facilitation-photo">
@@ -137,7 +162,19 @@
     <p class="body-text">A typical engagement combines structured team sessions, individual thinking time with senior leaders, and digital tools — the Meeting Intelligence Index running as a live thread, companion tools keeping the thinking alive between sessions. The frameworks I draw on — the Thinking Environment, Three Horizons, the Six Capitals — are brought in when they serve the question, not as a fixed programme to be delivered.</p>
     <p class="body-text">The goal is always the same: a team that thinks better together, holds complexity without collapsing it, and makes decisions it can stand behind. And increasingly, organisations that build this kind of shared thinking capability across boundaries — across a system, a region, a place — find it deepens not just how they decide, but how they lead.</p>
     <p class="body-text">If this sounds like what your organisation needs, the right starting point is a conversation.</p>
+  </div>
+</section>
 
+<!-- PURPOSE -->
+<section class="purpose-band">
+  <div class="section-inner">
+    <p>The goal is always the same: a team that thinks better together, holds complexity without collapsing it, and makes decisions it can stand behind.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-band white">
+  <div class="section-inner">
     <div class="cta-wrap">
       <a href="https://calendly.com/mitziw/discovery-call" class="access-cta" target="_blank" rel="noopener">Book a discovery call →</a>
     </div>
