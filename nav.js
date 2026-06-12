@@ -6,6 +6,7 @@
     { label: 'Home',    href: '/' },
     { label: 'Courses', href: '/courses' },
     { label: 'Tools',   href: '/suite' },
+    { label: 'About',   href: '/about' },
   ];
 
   var links = navItems.map(function(item) {
