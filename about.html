@@ -121,19 +121,14 @@
     font-style: normal;
   }
 
-  /* ── FACILITATION PHOTO BAND ── */
-  .facilitation-band {
-    background: url('mitzi-facilitation.jpg') center 30% / cover no-repeat;
-    height: 300px;
-  }
-  @media (max-width: 700px) {
-    .facilitation-band {
-      background-size: contain;
-      background-position: center;
-      background-color: var(--off-white);
-      height: auto;
-      aspect-ratio: 1066 / 476;
-    }
+  /* ── FACILITATION PHOTO ── */
+  .facilitation-photo {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    border-radius: 8px;
+    border: 1px solid var(--rule);
   }
 
   /* ── CONTACT LINE ── */
@@ -201,8 +196,12 @@
   </div>
 </section>
 
-<!-- FACILITATION PHOTO BAND -->
-<div class="facilitation-band"></div>
+<!-- FACILITATION PHOTO -->
+<section class="section-band white">
+  <div class="section-inner">
+    <img src="mitzi-facilitation.jpg" alt="Mitzi Wyman facilitating a group conversation" class="facilitation-photo">
+  </div>
+</section>
 
 <!-- TESTIMONIAL -->
 <section class="section-band white">
