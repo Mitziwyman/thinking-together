@@ -42,30 +42,6 @@
     color: #fff;
     line-height: 1.2;
   }
-  .hero-flex {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-  .hero-photo-circle {
-    flex: 0 0 150px;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-  .hero-photo-circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  @media (max-width: 600px) {
-    .hero-flex { flex-direction: column; text-align: center; }
-  }
-
   /* ── STANDARD LAYOUT ── */
   .section-band { padding: 3rem 1.5rem; }
   .section-band.alt { background: var(--off-white); }
@@ -102,6 +78,32 @@
     margin-bottom: 1rem;
   }
   .body-text:last-of-type { margin-bottom: 0; }
+
+  /* ── OPENING ── */
+  .opening-flex {
+    display: flex;
+    align-items: center;
+    gap: 2.25rem;
+  }
+  .opening-flex .opening-text { flex: 1 1 auto; min-width: 0; }
+  .opening-photo-circle {
+    flex: 0 0 160px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  }
+  .opening-photo-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 600px) {
+    .opening-flex { flex-direction: column; text-align: center; }
+    .opening-photo-circle { flex: 0 0 auto; }
+  }
 
   /* ── VIDEO EMBED ── */
   .video-embed {
@@ -224,20 +226,22 @@
 
 <!-- HERO -->
 <section class="hero-band">
-  <div class="hero-inner hero-flex">
-    <div class="hero-text">
-      <h1>About Mitzi Wyman</h1>
-    </div>
-    <div class="hero-photo-circle">
-      <img src="mitzi-about-hero.png" alt="Mitzi Wyman">
-    </div>
+  <div class="hero-inner">
+    <h1>About Mitzi Wyman</h1>
   </div>
 </section>
 
 <!-- OPENING -->
 <section class="section-band white">
   <div class="section-inner">
-    <p class="body-text">My work sits at the intersection of two things that are usually kept separate: the inner life of leadership — the clarity, courage and wisdom a leader needs to bring to genuinely difficult situations — and the organisation itself, where it is going, what it is investing in, whether its thinking is expanding or just rehearsing what it already knows.</p>
+    <div class="opening-flex">
+      <div class="opening-text">
+        <p class="body-text">My work sits at the intersection of two things that are usually kept separate: the inner life of leadership — the clarity, courage and wisdom a leader needs to bring to genuinely difficult situations — and the organisation itself, where it is going, what it is investing in, whether its thinking is expanding or just rehearsing what it already knows.</p>
+      </div>
+      <div class="opening-photo-circle">
+        <img src="mitzi-about-hero.png" alt="Mitzi Wyman">
+      </div>
+    </div>
     <p class="body-text">The Thinking Environment is where those two things meet. When people are given genuine attention, something shifts. Leaders find access to their own best thinking. Teams stop performing consensus and start thinking together. I've worked with organisations across sectors — NHS trusts, Sony Pictures, the Judicial College, Cabinet Office, and others — where the common thread is not the industry but the complexity of the leadership challenge.</p>
   </div>
 </section>
