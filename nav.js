@@ -3,10 +3,11 @@
   var currentPath = window.location.pathname.replace(/\/$/, '') || '/';
 
   var navItems = [
-    { label: 'Home',    href: '/' },
-    { label: 'Courses', href: '/courses' },
-    { label: 'Tools',   href: '/suite' },
-    { label: 'About',   href: '/about' },
+    { label: 'Home',          href: '/' },
+    { label: 'Courses',       href: '/courses' },
+    { label: 'Organisations', href: '/organisations' },
+    { label: 'Tools',         href: '/suite' },
+    { label: 'About',         href: '/about' },
   ];
 
   var links = navItems.map(function(item) {

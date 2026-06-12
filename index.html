@@ -125,7 +125,7 @@
   }
   .doors {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
   }
   @media (max-width: 640px) { .doors { grid-template-columns: 1fr; } }
@@ -278,6 +278,14 @@
         <div class="door-rule"></div>
         <h2>Are you spending or investing your time in meetings?</h2>
         <p>Most organisations measure activity. Very few can see the quality of thinking. The Meeting Intelligence Index is a short diagnostic — developed from over 20 years of working with senior teams — that shows you what is actually happening when your people meet.</p>
+        <span class="door-cta">Find out more →</span>
+      </a>
+
+      <a href="organisations.html" class="door">
+        <div class="door-label">Working with Organisations</div>
+        <div class="door-rule"></div>
+        <h2>Thinking capability that stays</h2>
+        <p>I work with senior teams over time — building a shared thinking practice that lives in the organisation, not just in the workshop. Structured sessions, diagnostic tools, and companions between meetings, designed around what the team most needs.</p>
         <span class="door-cta">Find out more →</span>
       </a>
 

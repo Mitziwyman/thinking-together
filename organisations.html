@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Working with Organisations | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --teal-mid: #B0CCE0;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero-band {
+    background: var(--slate);
+    padding: 3.5rem 1.5rem;
+  }
+  .hero-inner { max-width: 700px; margin: 0 auto; }
+  .hero-inner h1 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  /* ── STANDARD LAYOUT ── */
+  .section-band { padding: 3rem 1.5rem; }
+  .section-band.white { background: var(--warm-white); }
+  .section-inner { max-width: 700px; margin: 0 auto; }
+
+  .body-text {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--slate-light);
+    margin-bottom: 1rem;
+  }
+  .body-text:last-of-type { margin-bottom: 0; }
+
+  /* ── CTA ── */
+  .cta-wrap { margin-top: 2rem; }
+  .access-cta {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--slate);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .access-cta:hover { background: var(--teal-dark); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    padding: 2.5rem 1.5rem;
+    background: var(--off-white);
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .footer-inner {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .site-footer p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--slate-light);
+    line-height: 1.8;
+  }
+  .site-footer a { color: var(--teal-dark); text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }
+  .footer-name {
+    color: var(--slate);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .footer-links { margin-bottom: 1.5rem; }
+  .footer-copyright {
+    font-size: 12px;
+    color: var(--slate-light);
+    opacity: 0.65;
+  }
+</style>
+</head>
+<body>
+
+<script src="/nav.js"></script>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="hero-inner">
+    <h1>Working with organisations</h1>
+  </div>
+</section>
+
+<!-- BODY -->
+<section class="section-band white">
+  <div class="section-inner">
+    <p class="body-text">The most significant work happens over time. A single session — however good — rarely enhances how a team thinks. What makes the difference is building a practice: a shared discipline that becomes part of how the organisation operates, not just something that happens in the room with a facilitator.</p>
+    <p class="body-text">I work with senior teams who are navigating genuinely complex conditions — where the pressures are sustained, the questions don't have easy answers, and the quality of thinking behind decisions matters as much as the decisions themselves. The work usually begins with a conversation about where the team is and what it most needs. From there, we design something together.</p>
+    <p class="body-text">A typical engagement combines structured team sessions, individual thinking time with senior leaders, and digital tools — the Meeting Intelligence Index running as a live thread, companion tools keeping the thinking alive between sessions. The frameworks I draw on — the Thinking Environment, Three Horizons, the Six Capitals — are brought in when they serve the question, not as a fixed programme to be delivered.</p>
+    <p class="body-text">The goal is always the same: a team that thinks better together, holds complexity without collapsing it, and makes decisions it can stand behind. And increasingly, organisations that build this kind of shared thinking capability across boundaries — across a system, a region, a place — find it deepens not just how they decide, but how they lead.</p>
+    <p class="body-text">If this sounds like what your organisation needs, the right starting point is a conversation.</p>
+
+    <div class="cta-wrap">
+      <a href="https://calendly.com/mitziw/discovery-call" class="access-cta" target="_blank" rel="noopener">Book a discovery call →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-name">Mitzi Wyman · Wyman Associates</p>
+    <p class="footer-links">
+      <a href="/">thinking.mitziwyman.com</a> &nbsp;·&nbsp;
+      <a href="mailto:mitzi@mitziwyman.com">mitzi@mitziwyman.com</a> &nbsp;·&nbsp;
+      <a href="https://calendly.com/mitziw/discovery-call" target="_blank" rel="noopener">Book a discovery call</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/mitziwyman" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p class="footer-copyright">© 2026 Wyman Associates. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
