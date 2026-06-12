@@ -80,6 +80,24 @@
   }
   .body-text:last-of-type { margin-bottom: 0; }
 
+  /* ── VIDEO EMBED ── */
+  .video-embed {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
   /* ── TESTIMONIAL ── */
   .testimonial-block {
     border-left: 3px solid var(--teal);
@@ -214,6 +232,12 @@
     <p class="body-text">I work with organisations over time. The work usually begins with a question the team can't quite answer, or a sense that the conversations in the room aren't reaching what matters most.</p>
     <p class="body-text">What I bring isn't just facilitation. Alongside the thinking work, I build digital tools — diagnostics and companions — that stay with the organisation after I do. The Meeting Intelligence Index shows what's actually happening in a team's meetings. Companion tools keep the thinking alive between sessions. The work doesn't end when I leave the room.</p>
     <p class="body-text">At a moment when most organisations are uncertain about AI, I've been working at that intersection — building intelligent tools, speaking and writing about what it means for how we lead, and helping leaders stay ahead of it rather than behind it.</p>
+
+    <div class="section-label">Watch — AI and leadership</div>
+    <p class="body-text" style="font-style: italic;">Questions about AI and leadership are ones I've been sitting with for a while. Earlier this year I spoke at a Masterclass for Windsor Leadership on AI and this is my freshest thinking on simulated empathy, what AI can and can't do, and what it means for how we lead.</p>
+    <div class="video-embed">
+      <iframe src="https://www.youtube-nocookie.com/embed/jW4yhyWphcE?rel=0" title="AI and leadership" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
 
     <div class="testimonial-block">
       <blockquote>"This was a fulfilling and work-changing session. Attendees ranged from chairmen of global organisations to senior regulators. By creating a thinking environment that is inclusive and promotes fresh, clear thinking, the meetings became more productive and engaging. Applying this in practice was a joy with immediate results."</blockquote>
