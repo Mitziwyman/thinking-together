@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wyman Intelligence Index Suite | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --teal-mid: #B0CCE0;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+    --gold: #C9A84C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero-band {
+    background: var(--slate);
+    padding: 3rem 1.5rem;
+  }
+  .hero-inner { max-width: 1000px; margin: 0 auto; }
+  .hero-flex {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .hero-text { flex: 1 1 auto; min-width: 0; max-width: 480px; }
+  .hero-photo {
+    flex: 0 0 320px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    background: #28384a;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.78) contrast(0.9) brightness(1.1);
+  }
+  .hero-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(44,62,80,0.32) 0%, rgba(61,122,158,0.18) 100%);
+  }
+  .hero-inner h1 {
+    font-size: clamp(22px, 3.2vw, 32px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 1.1rem;
+    letter-spacing: 0.01em;
+  }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.8);
+    max-width: 480px;
+    margin-bottom: 0;
+  }
+
+  /* ── STANDARD LAYOUT ── */
+  .section-band { padding: 3rem 1.5rem; }
+  .section-band.alt { background: var(--off-white); }
+  .section-band.white { background: var(--warm-white); }
+  .section-inner { max-width: 960px; margin: 0 auto; }
+  .section-inner.narrow { max-width: 700px; }
+
+  .section-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-size: clamp(26px, 3.5vw, 34px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  .section-rule {
+    height: 2px;
+    background: linear-gradient(to right, var(--teal) 70px, var(--rule) 70px);
+    margin-bottom: 1.5rem;
+  }
+  .body-text {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--slate-light);
+    max-width: 700px;
+    margin-bottom: 1rem;
+  }
+  .body-text:last-of-type { margin-bottom: 0; }
+
+  /* ── TOOL GROUPS ── */
+  .tool-group-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin: 0 0 0.5rem;
+  }
+  .section-inner > .tool-group-label { margin-top: 2.1rem; }
+  .section-inner > .tool-group-label:first-child { margin-top: 1.25rem; }
+
+  /* ── TOOL LIST ── */
+  .tool-list { margin-top: 0.5rem; }
+  .tool-item {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .tool-list .tool-item:first-child { border-top: none; padding-top: 0.5rem; }
+  .tool-item h3 {
+    font-size: clamp(19px, 2.5vw, 23px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+  }
+  .tool-item p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--slate-light);
+    max-width: 680px;
+  }
+
+  /* ── ACCESS ── */
+  .access-inner { max-width: 700px; margin: 0 auto; }
+  .access-cta {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--slate);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+    margin-top: 0.5rem;
+  }
+  .access-cta:hover { background: var(--teal-dark); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    padding: 2.5rem 1.5rem;
+    background: var(--off-white);
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .footer-inner {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .site-footer p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--slate-light);
+    line-height: 1.8;
+  }
+  .site-footer a { color: var(--teal-dark); text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }
+  .footer-name {
+    color: var(--slate);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .footer-links { margin-bottom: 1.5rem; }
+  .footer-note {
+    font-size: 12px;
+    color: var(--slate-light);
+    opacity: 0.75;
+    margin-bottom: 0.5rem;
+  }
+  .footer-copyright {
+    font-size: 12px;
+    color: var(--slate-light);
+    opacity: 0.65;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 700px) {
+    .hero-flex { flex-direction: column; gap: 1.75rem; }
+    .hero-photo { flex: 0 0 auto; width: 100%; aspect-ratio: 16 / 9; max-width: 420px; }
+  }
+</style>
+</head>
+<body>
+
+<script src="/nav.js"></script>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="hero-inner hero-flex">
+    <div class="hero-text">
+      <h1>The Wyman Intelligence<br>Index Suite</h1>
+      <p class="hero-intro">Digital companions for deeper thinking, better meetings, and sharper organisational insight.</p>
+    </div>
+    <div class="hero-photo">
+      <img src="hero-suite.jpg" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- FROM MEETINGS TO ORGANISATIONAL INSIGHT -->
+<section class="section-band white">
+  <div class="section-inner narrow">
+    <div class="section-label">The tools</div>
+    <h2 class="section-title">From meetings to organisational insight</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">The suite starts with meetings, because meetings are where much of an organisation's thinking becomes visible — who speaks, who is heard, what gets repeated, what is avoided, and whether the conversation produces clarity or simply more activity.</p>
+    <p class="body-text">From there, the tools open up a wider question: what is the organisation paying attention to, and what might it be missing?</p>
+  </div>
+
+  <div class="section-inner narrow">
+    <div class="tool-group-label">The diagnostics</div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <h3>The Meeting Intelligence Index</h3>
+        <p>A short but substantial diagnostic that reveals what is actually happening in your meetings — the quality of thinking, the distribution of attention, and what the numbers rarely show.</p>
+      </div>
+      <div class="tool-item">
+        <h3>The Organisational Intelligence Index</h3>
+        <p>A deeper, structured lens for exploring where organisational attention is going: what gets discussed, measured, protected, avoided or missed, and where change may need to begin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE COMPANIONS -->
+<section class="section-band alt">
+  <div class="section-inner narrow">
+    <div class="tool-group-label">The companions</div>
+    <div class="tool-list">
+      <div class="tool-item">
+        <h3>The Thinking Environment Companion</h3>
+        <p>A guided reflection tool developed for use alongside Thinking Environment workshops and programmes — helping participants carry the quality of attention, equality and ease back into everyday work.</p>
+      </div>
+      <div class="tool-item">
+        <h3>The Horizons Companion</h3>
+        <p>A guided reflection tool developed for use alongside Three Horizons work — helping people reflect on present pressures, emerging possibilities, and the future they are trying to serve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESS -->
+<section class="section-band white">
+  <div class="access-inner">
+    <div class="section-label">Access</div>
+    <h2 class="section-title">Available to clients and programme participants</h2>
+    <div class="section-rule"></div>
+    <p class="body-text">These tools are currently introduced as part of client work and selected programmes. If you're curious whether they might be useful in your context, the best starting point is a conversation.</p>
+    <a href="https://calendly.com/mitziw/discovery-call" class="access-cta" target="_blank" rel="noopener">Book a discovery call →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-name">Mitzi Wyman · Wyman Associates</p>
+    <p class="footer-links">
+      <a href="/">thinking.mitziwyman.com</a> &nbsp;·&nbsp;
+      <a href="mailto:mitzi@mitziwyman.com">mitzi@mitziwyman.com</a> &nbsp;·&nbsp;
+      <a href="https://calendly.com/mitziw/discovery-call" target="_blank" rel="noopener">Book a discovery call</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/mitziwyman" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p class="footer-copyright">© 2026 Wyman Associates. All rights reserved.</p>
+    <p class="footer-note">The Wyman Intelligence Index Suite, Meeting Intelligence Index, Organisational Intelligence Index and companion tools are developed by Wyman Associates.</p>
+  </div>
+</footer>
+
+</body>
+</html>

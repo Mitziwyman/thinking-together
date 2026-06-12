@@ -5,6 +5,7 @@
   var navItems = [
     { label: 'Home',    href: '/' },
     { label: 'Courses', href: '/courses' },
+    { label: 'Tools',   href: '/suite' },
   ];
 
   var links = navItems.map(function(item) {
