@@ -121,6 +121,28 @@
   }
   .body-text:last-of-type { margin-bottom: 0; }
 
+  /* ── TESTIMONIAL ── */
+  .testimonial-block {
+    border-left: 3px solid var(--teal);
+    padding-left: 1.25rem;
+    margin: 1.75rem 0;
+  }
+  .testimonial-block blockquote {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--slate-mid);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+  .testimonial-block.light blockquote { color: rgba(255,255,255,0.85); }
+  .testimonial-block cite {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: var(--slate-light);
+    font-style: normal;
+  }
+  .testimonial-block.light cite { color: var(--teal-mid); }
+
   /* ── TOOL GROUPS ── */
   .tool-group-label {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -256,6 +278,11 @@
         <h3>The Organisational Intelligence Index</h3>
         <p>A deeper, structured lens for exploring where organisational attention is going: what gets discussed, measured, protected, avoided or missed, and where change may need to begin.</p>
       </div>
+    </div>
+
+    <div class="testimonial-block">
+      <blockquote>"Mitzi Wyman hosted one of the most pleasurable and stimulating nights of my year. A group of varied and interesting people were given the opportunity to speak freely on an important topic for our times, and then to comment on each other's contributions, in an egalitarian atmosphere of warmth and openness. Mitzi held the reins lightly and expertly and was a role model for facilitation. Deeply enjoyable, sociable, educational and potentially world-changing."</blockquote>
+      <cite>Alison Goldie, Author, Actress, Coach</cite>
     </div>
   </div>
 </section>
