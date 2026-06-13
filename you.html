@@ -66,6 +66,11 @@
     line-height: 1.15;
     margin-bottom: 0.6rem;
   }
+  .section-rule {
+    height: 2px;
+    background: linear-gradient(to right, var(--teal) 70px, var(--rule) 70px);
+    margin-bottom: 1.5rem;
+  }
   .body-text {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 15px;
@@ -85,6 +90,15 @@
     padding: 3.5rem 1.5rem;
   }
   .diag-inner { max-width: 700px; margin: 0 auto; }
+  .diag-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.75rem;
+  }
   .diag-items { list-style: none; }
   .diag-item {
     padding: 1.5rem 0;
@@ -151,11 +165,11 @@
   #results.visible { display: block; }
 
   .opening-line {
-    font-size: clamp(19px, 2.6vw, 23px);
+    font-size: clamp(21px, 3vw, 27px);
+    font-weight: 400;
     font-style: italic;
     color: var(--slate);
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
+    line-height: 1.5;
   }
   .opening-line.loading {
     color: var(--slate-light);
@@ -311,6 +325,7 @@
 <!-- QUESTIONS -->
 <div class="diag-band">
   <div class="diag-inner">
+    <p class="diag-label">Seven questions</p>
     <ul class="diag-items" id="diag-items"></ul>
     <button class="diag-submit" id="diag-submit">See your reflection</button>
     <p class="diag-note" id="diag-note">Please answer all seven questions before continuing.</p>
@@ -322,12 +337,19 @@
 
   <section class="section-band white">
     <div class="section-inner">
-      <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
-
+      <p class="section-label">Wyman Associates — Your reflection</p>
       <p class="opening-line loading" id="opening-line">Thinking…</p>
-
-      <div id="profile-copy"></div>
     </div>
+  </section>
+
+  <section class="section-band alt">
+    <div class="section-inner">
+      <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
+    </div>
+  </section>
+
+  <section class="section-band white">
+    <div class="section-inner" id="profile-copy"></div>
   </section>
 
   <!-- IKEDA QUOTE -->
