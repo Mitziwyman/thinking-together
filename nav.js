@@ -16,13 +16,25 @@
     return '<a href="' + item.href + '" class="nav-link' + (isActive ? ' nav-active' : '') + '">' + item.label + '</a>';
   }).join('');
 
+  var mobileLinks = navItems.map(function(item) {
+    var itemPath = item.href.replace(/\/$/, '') || '/';
+    var isActive = currentPath === itemPath;
+    return '<a href="' + item.href + '" class="mobile-nav-link' + (isActive ? ' nav-active' : '') + '">' + item.label + '</a>';
+  }).join('');
+
   var html = '\
 <header class="site-header">\
   <a href="/" class="brand">Wyman Associates</a>\
   <nav class="site-nav">' + links + '</nav>\
   <a href="https://calendly.com/mitziw/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a discovery call</a>\
+  <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById(\'mobile-nav\').classList.toggle(\'open\')">\
+    <span></span><span></span><span></span>\
+  </button>\
 </header>\
-<div class="header-teal-bar"></div>';
+<div class="header-teal-bar"></div>\
+<nav class="mobile-nav" id="mobile-nav">' + mobileLinks + '\
+  <a href="https://calendly.com/mitziw/discovery-call" class="mobile-nav-link mobile-nav-cta" target="_blank" rel="noopener">Book a discovery call</a>\
+</nav>';
 
   var style = '\
 <style>\
@@ -76,8 +88,46 @@
   }\
   .nav-cta:hover { color: rgba(255,255,255,0.9); }\
   .header-teal-bar { height: 3px; background: #6B9FBC; }\
+  .nav-toggle {\
+    display: none;\
+    flex-direction: column;\
+    justify-content: center;\
+    gap: 5px;\
+    width: 28px;\
+    height: 28px;\
+    background: none;\
+    border: none;\
+    padding: 0;\
+    cursor: pointer;\
+    flex-shrink: 0;\
+  }\
+  .nav-toggle span {\
+    display: block;\
+    width: 100%;\
+    height: 2px;\
+    background: rgba(255,255,255,0.85);\
+  }\
+  .mobile-nav {\
+    display: none;\
+    flex-direction: column;\
+    background: #2C3E50;\
+  }\
+  .mobile-nav.open { display: flex; }\
+  .mobile-nav-link {\
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;\
+    font-size: 14px;\
+    font-weight: 500;\
+    color: rgba(255,255,255,0.85);\
+    text-decoration: none;\
+    padding: 0.85rem 1.5rem;\
+    border-top: 1px solid rgba(255,255,255,0.08);\
+  }\
+  .mobile-nav-link.nav-active { color: #fff; font-weight: 600; }\
+  .mobile-nav-cta { color: #6B9FBC; }\
   @media (max-width: 560px) {\
     .site-nav { display: none; }\
+    .nav-cta { display: none; }\
+    .nav-toggle { display: flex; }\
   }\
 </style>';
 
