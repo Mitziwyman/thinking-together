@@ -218,6 +218,30 @@
   #results { display: none; }
   #results.visible { display: block; }
 
+  .opening-band {
+    background: #F7F7F5;
+    padding: 4.5rem 1.5rem;
+  }
+  .opening-line-wrap {
+    border-left: 4px solid var(--teal);
+    padding-left: 1.4rem;
+  }
+  .frame-band {
+    padding-bottom: 5rem;
+  }
+  .frame-divider {
+    border: none;
+    height: 1px;
+    background: rgba(107,159,188,0.3);
+    margin: 0 0 3rem;
+  }
+  .results-landscape {
+    display: block;
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: center;
+  }
   .opening-line {
     font-size: clamp(17px, 1.8vw, 19px);
     font-weight: 400;
@@ -409,21 +433,26 @@
 <!-- RESULTS -->
 <div id="results">
 
-  <section class="section-band white roomy">
-    <div class="section-inner">
+  <section class="section-band opening-band">
+    <div class="section-inner opening-line-wrap">
       <p class="opening-line loading" id="opening-line">Thinking…</p>
     </div>
   </section>
 
-  <section class="section-band alt roomy">
+  <section class="section-band alt roomy frame-band">
     <div class="section-inner">
       <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
     </div>
   </section>
 
   <section class="section-band white roomy">
-    <div class="section-inner" id="profile-copy"></div>
+    <div class="section-inner">
+      <hr class="frame-divider">
+      <div id="profile-copy"></div>
+    </div>
   </section>
+
+  <img class="results-landscape" src="results-landscape.jpg" alt="">
 
   <!-- IKEDA QUOTE -->
   <div class="quote-band">
