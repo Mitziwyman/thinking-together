@@ -240,12 +240,34 @@
     background: rgba(107,159,188,0.3);
     margin: 0 0 3rem;
   }
-  .results-landscape {
+  .results-landscape-quote {
+    position: relative;
+    width: 100%;
+    height: 380px;
+  }
+  .results-landscape-quote img {
     display: block;
     width: 100%;
-    height: 280px;
+    height: 100%;
     object-fit: cover;
     object-position: center;
+  }
+  .results-landscape-quote::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(13,27,62,0.55);
+  }
+  .results-landscape-quote .quote-inner {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    text-align: center;
   }
   .opening-line {
     font-size: clamp(17px, 1.8vw, 19px);
@@ -261,12 +283,7 @@
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   }
 
-  /* ── QUOTE BAND ── */
-  .quote-band {
-    background: var(--slate);
-    padding: 4.5rem 1.5rem;
-    text-align: center;
-  }
+  /* ── QUOTE OVER LANDSCAPE ── */
   .quote-inner { max-width: 560px; margin: 0 auto; }
   .quote-inner p {
     font-size: clamp(14px, 1.6vw, 16px);
@@ -396,8 +413,8 @@
   }
 
   @media (max-width: 540px) {
-    .hero-band, .section-band, .diag-band, .quote-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
-    .section-band.roomy, .quote-band, .opening-band { padding: 3rem 1.1rem; }
+    .hero-band, .section-band, .diag-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
+    .section-band.roomy, .opening-band { padding: 3rem 1.1rem; }
   }
 
   @media (max-width: 768px) {
@@ -458,10 +475,9 @@
     </div>
   </section>
 
-  <img class="results-landscape" src="results-landscape.jpg" alt="">
-
-  <!-- IKEDA QUOTE -->
-  <div class="quote-band">
+  <!-- LANDSCAPE + IKEDA QUOTE -->
+  <div class="results-landscape-quote">
+    <img src="results-landscape.jpg" alt="">
     <div class="quote-inner">
       <p>"Engaging in dialogue is a struggle to positively transform our own life as well as that of others. It is the act of breaking out of the shell of our lesser self, surrounding the wall of our callous ego, and creating and expanding positive connections with others. When we have the courage to meet and talk with people about our ideals, we are taking the first and surest step in our human revolution."</p>
       <cite>— Daisaku Ikeda</cite>
