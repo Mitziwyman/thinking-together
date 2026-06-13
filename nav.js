@@ -8,7 +8,7 @@
     { label: 'Organisations', href: '/organisations' },
     { label: 'Tools',         href: '/suite' },
     { label: 'About',         href: '/about' },
-    { label: 'You',           href: '/you' },
+    { label: 'For You',       href: '/you' },
   ];
 
   var links = navItems.map(function(item) {
