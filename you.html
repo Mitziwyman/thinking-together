@@ -243,7 +243,7 @@
   .results-landscape-quote {
     position: relative;
     width: 100%;
-    height: 380px;
+    height: 300px;
   }
   .results-landscape-quote img {
     display: block;
@@ -282,16 +282,23 @@
     font-style: normal;
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   }
+  .results-insight {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.75);
+    margin-top: 1.1rem;
+  }
 
   /* ── QUOTE OVER LANDSCAPE ── */
   .quote-inner { max-width: 560px; margin: 0 auto; }
   .quote-inner p {
-    font-size: clamp(14px, 1.6vw, 16px);
+    font-size: clamp(13px, 1.4vw, 15px);
     font-style: italic;
     font-weight: 400;
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,0.8);
     line-height: 1.75;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
   }
   .quote-inner cite {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -316,6 +323,14 @@
     color: var(--slate-mid);
     line-height: 1.85;
     margin-bottom: 1.25rem;
+  }
+  .email-note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--slate-light);
+    line-height: 1.7;
+    margin-top: 0.75rem;
+    max-width: 420px;
   }
   .email-form {
     display: flex;
@@ -415,6 +430,7 @@
   @media (max-width: 540px) {
     .hero-band, .section-band, .diag-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
     .section-band.roomy, .opening-band { padding: 3rem 1.1rem; }
+    .results-landscape-quote { height: 220px; }
   }
 
   @media (max-width: 768px) {
@@ -459,11 +475,13 @@
   <section class="section-band opening-band">
     <div class="section-inner opening-line-wrap">
       <p class="opening-line loading" id="opening-line">Thinking…</p>
+      <p class="results-insight" id="results-insight"></p>
     </div>
   </section>
 
   <section class="section-band alt roomy frame-band">
     <div class="section-inner">
+      <p class="section-label">A fuller reflection</p>
       <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
     </div>
   </section>
@@ -479,7 +497,7 @@
   <div class="results-landscape-quote">
     <img src="results-landscape.jpg" alt="">
     <div class="quote-inner">
-      <p>"Engaging in dialogue is a struggle to positively transform our own life as well as that of others. It is the act of breaking out of the shell of our lesser self, surrounding the wall of our callous ego, and creating and expanding positive connections with others. When we have the courage to meet and talk with people about our ideals, we are taking the first and surest step in our human revolution."</p>
+      <p>"When we have the courage to meet and talk with people about our ideals, we are taking the first and surest step in our human revolution."</p>
       <cite>— Daisaku Ikeda</cite>
     </div>
   </div>
@@ -487,11 +505,12 @@
   <!-- EMAIL CAPTURE -->
   <div class="email-band">
     <div class="email-inner">
-      <p class="email-intro">If you'd like a short summary to keep, I can send it to you.</p>
+      <p class="email-intro">I can send you a short version of this reflection, so you have it to come back to.</p>
       <form class="email-form" id="email-form" onsubmit="return false;">
         <input class="email-input" type="email" id="reflection-email" placeholder="you@organisation.org" required>
         <button class="email-submit" id="email-submit">Send it to me</button>
       </form>
+      <p class="email-note">I'll only use your email to send this reflection, unless you choose to stay in touch.</p>
       <p class="email-thanks" id="email-thanks">Sent — thank you.</p>
     </div>
   </div>
@@ -608,6 +627,12 @@
 <p class="body-text">If you're sitting with that question, I'd be glad to have the conversation.</p>`
   };
 
+  const PROFILE_INSIGHT = {
+    A: "Your responses suggest the pressure is close in right now. Before strategy or structure, the question is usually whether there is enough space — and enough trust — for the thinking that matters to actually happen.",
+    B: "Your responses suggest things are working, but something isn't quite moving. The next edge is rarely more effort or structure. It's usually the quality of thinking the organisation can generate together.",
+    C: "Your responses suggest you're asking the right question. What takes an organisation further at this stage is rarely structural — it's whether the thinking can become genuinely expansive, relational and long-horizon."
+  };
+
   const answers = {};
 
   // ── RENDER QUESTIONS ──
@@ -683,6 +708,7 @@
     document.querySelector('.diag-band').style.display = 'none';
     document.querySelector('.hero-band').style.display = 'none';
     document.getElementById('profile-copy').innerHTML = PROFILE_COPY[profile];
+    document.getElementById('results-insight').textContent = PROFILE_INSIGHT[profile];
 
     const results = document.getElementById('results');
     results.classList.add('visible');
