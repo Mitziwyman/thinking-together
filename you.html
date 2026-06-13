@@ -123,6 +123,22 @@
     color: var(--slate);
     font-style: italic;
   }
+  .immediate-insight {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--slate);
+    margin-bottom: 2rem;
+  }
+  .fuller-reflection-title {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.75rem;
+  }
 
   /* ── QUESTIONS ── */
   .diag-band {
@@ -243,7 +259,7 @@
   .results-landscape-quote {
     position: relative;
     width: 100%;
-    height: 380px;
+    height: 170px;
   }
   .results-landscape-quote img {
     display: block;
@@ -256,7 +272,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(13,27,62,0.55);
+    background: rgba(13,27,62,0.4);
   }
   .results-landscape-quote .quote-inner {
     position: absolute;
@@ -286,12 +302,12 @@
   /* ── QUOTE OVER LANDSCAPE ── */
   .quote-inner { max-width: 560px; margin: 0 auto; }
   .quote-inner p {
-    font-size: clamp(14px, 1.6vw, 16px);
+    font-size: clamp(12px, 1.3vw, 14px);
     font-style: italic;
     font-weight: 400;
     color: rgba(255,255,255,0.85);
-    line-height: 1.75;
-    margin-bottom: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
   }
   .quote-inner cite {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -321,6 +337,14 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    max-width: 420px;
+  }
+  .email-note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    font-weight: 300;
+    color: var(--slate-light);
+    margin-top: 0.6rem;
     max-width: 420px;
   }
   .email-input {
@@ -415,6 +439,8 @@
   @media (max-width: 540px) {
     .hero-band, .section-band, .diag-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
     .section-band.roomy, .opening-band { padding: 3rem 1.1rem; }
+    .results-landscape-quote { height: 150px; }
+    .quote-inner p { font-size: 12px; }
   }
 
   @media (max-width: 768px) {
@@ -462,15 +488,11 @@
     </div>
   </section>
 
-  <section class="section-band alt roomy frame-band">
-    <div class="section-inner">
-      <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
-    </div>
-  </section>
-
   <section class="section-band white roomy">
     <div class="section-inner">
-      <hr class="frame-divider">
+      <p class="body-text immediate-insight" id="immediate-insight"></p>
+      <h3 class="section-title fuller-reflection-title">A fuller reflection</h3>
+      <div class="section-rule"></div>
       <div id="profile-copy"></div>
     </div>
   </section>
@@ -479,7 +501,7 @@
   <div class="results-landscape-quote">
     <img src="results-landscape.jpg" alt="">
     <div class="quote-inner">
-      <p>"Engaging in dialogue is a struggle to positively transform our own life as well as that of others. It is the act of breaking out of the shell of our lesser self, surrounding the wall of our callous ego, and creating and expanding positive connections with others. When we have the courage to meet and talk with people about our ideals, we are taking the first and surest step in our human revolution."</p>
+      <p>"When we have the courage to meet and talk with people about our ideals, we are taking the first and surest step in our human revolution."</p>
       <cite>— Daisaku Ikeda</cite>
     </div>
   </div>
@@ -487,11 +509,12 @@
   <!-- EMAIL CAPTURE -->
   <div class="email-band">
     <div class="email-inner">
-      <p class="email-intro">If you'd like a short summary to keep, I can send it to you.</p>
+      <p class="email-intro">I can send you a short version of this reflection, so you have it to come back to.</p>
       <form class="email-form" id="email-form" onsubmit="return false;">
         <input class="email-input" type="email" id="reflection-email" placeholder="you@organisation.org" required>
         <button class="email-submit" id="email-submit">Send it to me</button>
       </form>
+      <p class="email-note">I'll only use your email to send this reflection, unless you choose to stay in touch.</p>
       <p class="email-thanks" id="email-thanks">Sent — thank you.</p>
     </div>
   </div>
@@ -528,7 +551,7 @@
     {
       id: 'q2',
       scored: true,
-      text: 'How much of your meeting time is spent on things that actually require the people in the room?',
+      text: 'In your meetings, how often are the right people in the room — and genuinely able to contribute?',
       options: [
         'Most of it',
         'Some of it',
@@ -592,6 +615,12 @@
       ]
     }
   ];
+
+  const IMMEDIATE_INSIGHT = {
+    A: `Your responses suggest the pressure is close in right now. Before strategy or structure, the question is usually whether there is enough space — and enough trust — for the thinking that matters to actually happen.`,
+    B: `Your responses suggest things are working, but something isn't quite moving. The next edge is rarely more effort or structure. It's usually the quality of thinking the organisation can generate together.`,
+    C: `Your responses suggest you're asking the right question. What takes an organisation further at this stage is rarely structural — it's whether the thinking can become genuinely expansive, relational and long-horizon.`
+  };
 
   const PROFILE_COPY = {
     A: `<p class="body-text">Something I see a lot in the organisations I work with: people carrying an enormous amount. Pressure, scrutiny, the emotional weight of decisions that affect other people's lives. It doesn't leave much room for anything else.</p>
@@ -683,6 +712,7 @@
     document.querySelector('.diag-band').style.display = 'none';
     document.querySelector('.hero-band').style.display = 'none';
     document.getElementById('profile-copy').innerHTML = PROFILE_COPY[profile];
+    document.getElementById('immediate-insight').textContent = IMMEDIATE_INSIGHT[profile];
 
     const results = document.getElementById('results');
     results.classList.add('visible');
