@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A short reflection | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --teal-mid: #B0CCE0;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero-band {
+    background: var(--slate);
+    padding: 3.5rem 1.5rem;
+  }
+  .hero-inner { max-width: 700px; margin: 0 auto; }
+  .hero-inner h1 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  /* ── STANDARD LAYOUT ── */
+  .section-band { padding: 3rem 1.5rem; }
+  .section-band.alt { background: var(--off-white); }
+  .section-band.white { background: var(--warm-white); }
+  .section-inner { max-width: 700px; margin: 0 auto; }
+
+  .section-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-size: clamp(26px, 3.5vw, 34px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  .body-text {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--slate-light);
+    margin-bottom: 1rem;
+  }
+  .body-text:last-of-type { margin-bottom: 0; }
+  .body-text.opening {
+    color: var(--slate);
+    font-style: italic;
+  }
+
+  /* ── QUESTIONS ── */
+  .diag-band {
+    background: var(--slate);
+    padding: 3.5rem 1.5rem;
+  }
+  .diag-inner { max-width: 700px; margin: 0 auto; }
+  .diag-items { list-style: none; }
+  .diag-item {
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .diag-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .diag-q {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.92);
+    font-weight: 500;
+    margin-bottom: 0.85rem;
+    line-height: 1.55;
+  }
+  .diag-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .diag-option {
+    text-align: left;
+    background: rgba(107,159,188,0.08);
+    border: 1px solid rgba(107,159,188,0.3);
+    color: rgba(255,255,255,0.82);
+    padding: 0.7rem 1rem;
+    border-radius: 6px;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .diag-option:hover { background: rgba(107,159,188,0.18); border-color: var(--teal); }
+  .diag-option.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+  .diag-submit {
+    margin-top: 2rem;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.85rem 1.75rem;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .diag-submit:hover { background: var(--teal-dark); }
+  .diag-submit:disabled { opacity: 0.6; cursor: default; }
+
+  .diag-note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.75rem;
+    display: none;
+  }
+  .diag-note.visible { display: block; }
+
+  /* ── RESULTS ── */
+  #results { display: none; }
+  #results.visible { display: block; }
+
+  .opening-line {
+    font-size: clamp(19px, 2.6vw, 23px);
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .opening-line.loading {
+    color: var(--slate-light);
+    font-size: 15px;
+    font-style: normal;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  /* ── QUOTE BAND ── */
+  .quote-band {
+    background: var(--slate);
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+  }
+  .quote-inner { max-width: 640px; margin: 0 auto; }
+  .quote-inner p {
+    font-size: clamp(18px, 2.6vw, 22px);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .quote-inner cite {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    font-style: normal;
+  }
+
+  /* ── EMAIL CAPTURE ── */
+  .email-band {
+    background: var(--off-white);
+    padding: 3rem 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .email-inner { max-width: 700px; margin: 0 auto; }
+  .email-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: var(--slate-mid);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+  .email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 420px;
+  }
+  .email-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: var(--slate);
+    background: #fff;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .email-input:focus { border-color: var(--teal); }
+  .email-input::placeholder { color: #aaa; }
+  .email-submit {
+    padding: 0.8rem 1.5rem;
+    background: var(--slate);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    text-align: center;
+    letter-spacing: 0.02em;
+    align-self: flex-start;
+  }
+  .email-submit:hover { background: var(--teal-dark); }
+  .email-submit:disabled { opacity: 0.6; cursor: default; }
+  .email-thanks {
+    display: none;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: var(--teal-dark);
+    font-style: italic;
+    padding: 0.5rem 0;
+  }
+
+  /* ── CALENDLY CTA ── */
+  .cta-band {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+  .cta-link {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--slate);
+    text-decoration: none;
+    padding: 0.85rem 1.75rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .cta-link:hover { background: var(--teal-dark); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--slate);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 1.25rem 1.5rem 1.75rem;
+    text-align: center;
+  }
+  .site-footer p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 540px) {
+    .hero-band, .section-band, .diag-band, .quote-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<script src="/nav.js"></script>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="hero-inner">
+    <h1>A short reflection</h1>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="section-band white">
+  <div class="section-inner">
+    <p class="body-text">This takes about three minutes. There are no right answers — just an honest picture of where things are. The questions are about your organisation, not just you.</p>
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<div class="diag-band">
+  <div class="diag-inner">
+    <ul class="diag-items" id="diag-items"></ul>
+    <button class="diag-submit" id="diag-submit">See your reflection</button>
+    <p class="diag-note" id="diag-note">Please answer all seven questions before continuing.</p>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results">
+
+  <section class="section-band white">
+    <div class="section-inner">
+      <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
+
+      <p class="opening-line loading" id="opening-line">Thinking…</p>
+
+      <div id="profile-copy"></div>
+    </div>
+  </section>
+
+  <!-- IKEDA QUOTE -->
+  <div class="quote-band">
+    <div class="quote-inner">
+      <p>"Engaging in dialogue is a struggle to positively transform our own life as well as that of others. It is the act of breaking out of the shell of our lesser self, surrounding the wall of our callous ego, and creating and expanding positive connections with others. When we have the courage to meet and talk with people about our ideals, we are taking the first and surest step in our human revolution."</p>
+      <cite>— Daisaku Ikeda</cite>
+    </div>
+  </div>
+
+  <!-- EMAIL CAPTURE -->
+  <div class="email-band">
+    <div class="email-inner">
+      <p class="email-intro">If you'd like a short summary to keep, I can send it to you.</p>
+      <form class="email-form" id="email-form" onsubmit="return false;">
+        <input class="email-input" type="email" id="reflection-email" placeholder="you@organisation.org" required>
+        <button class="email-submit" id="email-submit">Send it to me</button>
+      </form>
+      <p class="email-thanks" id="email-thanks">Sent — thank you.</p>
+    </div>
+  </div>
+
+  <!-- CALENDLY -->
+  <div class="cta-band">
+    <a class="cta-link" href="https://calendly.com/mitziw/discovery-call" target="_blank" rel="noopener">Book a discovery call</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <p>Thinking Environment™ is a trademark of Nancy Kline / Time to Think. Used under licence by Mitzi Wyman, Wyman Associates.</p>
+</footer>
+
+<script>
+  const QUESTIONS = [
+    {
+      id: 'q1',
+      scored: true,
+      text: 'When did you last have a conversation at work that genuinely changed how you were thinking about something important?',
+      options: [
+        'Within the last week',
+        'Within the last month',
+        "I'd have to think hard to remember one",
+        "I'm not sure we have those kinds of conversations"
+      ]
+    },
+    {
+      id: 'q2',
+      scored: true,
+      text: 'How much of your meeting time is spent on things that actually require the people in the room?',
+      options: [
+        'Most of it',
+        'Some of it',
+        'Honestly, not much',
+        'I try not to think about it'
+      ]
+    },
+    {
+      id: 'q3',
+      scored: true,
+      text: 'When a difficult issue surfaces, what usually happens?',
+      options: [
+        'We work through it properly, even if it takes time',
+        'We address it but tend to stay on the surface',
+        'It tends to get managed rather than resolved',
+        "It gets noted and doesn't really go anywhere"
+      ]
+    },
+    {
+      id: 'q4',
+      scored: true,
+      text: 'How far ahead are you able to think, realistically, given the current pressure?',
+      options: [
+        "We're holding a clear longer-term direction",
+        'We can see six to twelve months reasonably well',
+        'The next few weeks is about as far as it goes',
+        "Right now I'm focused on getting through the week"
+      ]
+    },
+    {
+      id: 'q5',
+      scored: true,
+      text: 'When you make a significant decision, how confident are you that the best thinking in the room actually got heard?',
+      options: [
+        'Very confident',
+        "Mostly, though I'm aware some voices are quieter",
+        "Not very — I suspect we're missing things",
+        "I genuinely don't know"
+      ]
+    },
+    {
+      id: 'q6',
+      scored: true,
+      text: 'How would you describe the energy in your team or organisation right now?',
+      options: [
+        'Stretched but purposeful',
+        'Busy and a bit flat',
+        'Pressured and running on fumes',
+        "I'm worried about some people"
+      ]
+    },
+    {
+      id: 'q7',
+      scored: false,
+      text: 'What prompted you to fill this in today?',
+      options: [
+        "I'm looking for what the next stage looks like for us",
+        "Something isn't working and I can't quite name it",
+        "I'm concerned about my team",
+        'I came across this and was curious'
+      ]
+    }
+  ];
+
+  const PROFILE_COPY = {
+    A: `<p class="body-text">Something I see a lot in the organisations I work with: people carrying an enormous amount. Pressure, scrutiny, the emotional weight of decisions that affect other people's lives. It doesn't leave much room for anything else.</p>
+<p class="body-text">What tends to go first is the thinking — not because people stop caring about it, but because there's nowhere to put it. Conversations stay on the surface. Decisions get made fast, on partial information. The people with the most useful things to say go quiet, or don't get asked. And the organisation gets better and better at managing its problems without ever quite resolving them.</p>
+<p class="body-text">The Meeting Intelligence Index is a short diagnostic that holds up a mirror to what's happening when your people are in the room together. What it tends to surface are things people have sensed but haven't been able to name — and that shift, from something felt to something understood, is usually where the movement begins.</p>
+<p class="body-text">If any of this resonates, I'd be glad to talk.</p>`,
+    B: `<p class="body-text">Something I notice with a lot of senior leaders who are doing the job well: there's a point where doing more of the same stops producing different results. The organisation is functioning. People are committed. And yet something isn't quite moving.</p>
+<p class="body-text">What I tend to find underneath it is a narrowing of horizon — not always visible from inside it. The conversations are happening, but they're close in. The thinking is good, but it's working on what's already known rather than reaching toward what isn't yet clear. And the relationships that might open that up — with people who think differently, who see further, who ask the uncomfortable question — don't quite have the conditions they need.</p>
+<p class="body-text">That's the territory the Thinking Environment courses work in. Not skills or frameworks in the conventional sense — more the quality of what becomes possible when people feel genuinely heard, and when the conversation can afford to go somewhere new.</p>
+<p class="body-text">If that question feels live for you, I'd be glad to think it through.</p>`,
+    C: `<p class="body-text">The organisations I find most interesting to work with are the ones asking this question — not because something is wrong, but because they've built something that works and they want to understand what takes it further.</p>
+<p class="body-text">What I've come to think, after twenty years of this work, is that the answer is almost never structural. It's about horizon — whether the organisation can see far enough, think expansively enough, operate relationally rather than just transactionally. Those things sound abstract until you sit in a room where they're present, or absent. The difference is not subtle.</p>
+<p class="body-text">What makes that possible is the quality of the thinking the organisation can generate together — whether people are doing their best thinking in the room, whether the conversations are producing something genuinely new, whether there's enough trust for the difficult thing to be said. Building that kind of range is slower work than most organisations expect. But it compounds.</p>
+<p class="body-text">If you're sitting with that question, I'd be glad to have the conversation.</p>`
+  };
+
+  const answers = {};
+
+  // ── RENDER QUESTIONS ──
+  const itemsEl = document.getElementById('diag-items');
+  QUESTIONS.forEach(q => {
+    const li = document.createElement('li');
+    li.className = 'diag-item';
+
+    const p = document.createElement('p');
+    p.className = 'diag-q';
+    p.textContent = q.text;
+    li.appendChild(p);
+
+    const optsWrap = document.createElement('div');
+    optsWrap.className = 'diag-options';
+
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'diag-option';
+      btn.textContent = opt;
+      btn.addEventListener('click', () => {
+        optsWrap.querySelectorAll('.diag-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[q.id] = { index: i, text: opt, score: q.scored ? (4 - i) : null };
+      });
+      optsWrap.appendChild(btn);
+    });
+
+    li.appendChild(optsWrap);
+    itemsEl.appendChild(li);
+  });
+
+  // ── SUBMIT ──
+  document.getElementById('diag-submit').addEventListener('click', async () => {
+    const allAnswered = QUESTIONS.every(q => answers[q.id]);
+    const note = document.getElementById('diag-note');
+    if (!allAnswered) {
+      note.classList.add('visible');
+      return;
+    }
+    note.classList.remove('visible');
+
+    const total = QUESTIONS.filter(q => q.scored).reduce((sum, q) => sum + answers[q.id].score, 0);
+    const q6Index = answers.q6.index;
+
+    let profile;
+    if (q6Index === 2 || q6Index === 3) {
+      profile = 'A';
+    } else if (total <= 12) {
+      profile = 'A';
+    } else if (total <= 18) {
+      profile = 'B';
+    } else {
+      profile = 'C';
+    }
+
+    currentProfile = profile;
+
+    const btn = document.getElementById('diag-submit');
+    btn.disabled = true;
+    btn.textContent = 'Thinking…';
+
+    document.querySelector('.diag-band').style.display = 'none';
+    document.getElementById('profile-copy').innerHTML = PROFILE_COPY[profile];
+
+    const results = document.getElementById('results');
+    results.classList.add('visible');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    try {
+      const res = await fetch('/api/diagnostic', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q7Answer: answers.q7.text })
+      });
+      const data = await res.json();
+      const openingEl = document.getElementById('opening-line');
+      openingEl.textContent = data.opening;
+      openingEl.classList.remove('loading');
+    } catch (e) {
+      const openingEl = document.getElementById('opening-line');
+      openingEl.textContent = '';
+      openingEl.classList.remove('loading');
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'See your reflection';
+  });
+
+  let currentProfile = null;
+
+  // ── EMAIL CAPTURE ──
+  document.getElementById('email-submit').addEventListener('click', async () => {
+    const emailInput = document.getElementById('reflection-email');
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    const opening = document.getElementById('opening-line').textContent;
+    const btn = document.getElementById('email-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('/api/send-reflection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, profile: currentProfile, opening })
+      });
+      if (!res.ok) throw new Error('Request failed');
+    } catch (e) {
+      btn.disabled = false;
+      btn.textContent = 'Send it to me';
+      alert('Something went wrong. Please try again or email mitzi@mitziwyman.com directly.');
+      return;
+    }
+    document.getElementById('email-form').style.display = 'none';
+    document.getElementById('email-thanks').style.display = 'block';
+  });
+</script>
+
+</body>
+</html>
