@@ -1,7 +1,5 @@
 const INTRO = "You filled in a short reflection on the Wyman Associates website — thinking.mitziwyman.com/you. This is what came back.";
 
-const FRAME = "Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.";
-
 const PROFILE_COPY = {
   A: [
     "Something I see a lot in the organisations I work with: people carrying an enormous amount. Pressure, scrutiny, the emotional weight of decisions that affect other people's lives. It doesn't leave much room for anything else.",
@@ -53,7 +51,6 @@ exports.handler = async function(event) {
 
   const paragraphs = [
     INTRO,
-    FRAME,
     opening || '',
     ...PROFILE_COPY[profile],
     SIGNPOST[profile],
