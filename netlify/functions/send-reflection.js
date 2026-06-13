@@ -66,7 +66,7 @@ exports.handler = async function(event) {
       'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
     },
     body: JSON.stringify({
-      from: 'Mitzi Wyman <mitzi@mitziwyman.com>',
+      from: process.env.RESEND_FROM_EMAIL || 'Mitzi Wyman <mitzi@mitziwyman.com>',
       to: [email],
       bcc: ['mitzi@mitziwyman.com'],
       subject: 'A reflection from Wyman Associates',
