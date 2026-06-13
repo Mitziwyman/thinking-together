@@ -123,7 +123,7 @@
     color: var(--slate);
     font-style: italic;
   }
-  .immediate-insight {
+  .immediate-insight, .immediate-insight:last-of-type {
     font-size: 17px;
     line-height: 1.7;
     color: var(--slate);
@@ -272,7 +272,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(13,27,62,0.4);
+    background: rgba(13,27,62,0.45);
   }
   .results-landscape-quote .quote-inner {
     position: absolute;
@@ -302,20 +302,20 @@
   /* ── QUOTE OVER LANDSCAPE ── */
   .quote-inner { max-width: 560px; margin: 0 auto; }
   .quote-inner p {
-    font-size: clamp(12px, 1.3vw, 14px);
+    font-size: 1.1rem;
     font-style: italic;
     font-weight: 400;
-    color: rgba(255,255,255,0.85);
+    color: #fff;
     line-height: 1.6;
     margin-bottom: 0.6rem;
   }
   .quote-inner cite {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 12px;
+    font-size: 0.85rem;
     font-weight: 600;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--teal-mid);
+    color: #fff;
     font-style: normal;
   }
 
@@ -440,7 +440,6 @@
     .hero-band, .section-band, .diag-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
     .section-band.roomy, .opening-band { padding: 3rem 1.1rem; }
     .results-landscape-quote { height: 150px; }
-    .quote-inner p { font-size: 12px; }
   }
 
   @media (max-width: 768px) {
@@ -553,10 +552,10 @@
       scored: true,
       text: 'In your meetings, how often are the right people in the room — and genuinely able to contribute?',
       options: [
-        'Most of it',
-        'Some of it',
-        'Honestly, not much',
-        'I try not to think about it'
+        'Most of the time, yes',
+        'Sometimes, but it varies',
+        "Rarely — the right people aren't there, or can't speak freely",
+        "Honestly, I'm not sure we've ever asked that question"
       ]
     },
     {
