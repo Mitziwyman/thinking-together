@@ -372,9 +372,11 @@
     .section-band.roomy, .quote-band { padding: 3rem 1.1rem; }
   }
 
-  @media (max-width: 700px) {
-    .hero-flex { flex-direction: column; gap: 1.75rem; }
-    .hero-photo { flex: 0 0 auto; width: 100%; aspect-ratio: 16 / 9; max-width: 420px; }
+  @media (max-width: 768px) {
+    .hero-band { padding: 0 0 2rem; }
+    .hero-flex { flex-direction: column; gap: 1.25rem; }
+    .hero-photo { order: -1; flex: 0 0 auto; width: 100%; max-width: none; aspect-ratio: 16 / 9; }
+    .hero-text { padding: 0 1.5rem; max-width: none; }
   }
 </style>
 </head>
