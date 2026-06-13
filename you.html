@@ -32,9 +32,15 @@
   /* ── HERO ── */
   .hero-band {
     background: var(--slate);
-    padding: 3.5rem 1.5rem;
+    padding: 3rem 1.5rem;
   }
-  .hero-inner { max-width: 700px; margin: 0 auto; }
+  .hero-inner { max-width: 1000px; margin: 0 auto; }
+  .hero-flex {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .hero-text { flex: 1 1 auto; min-width: 0; max-width: 480px; }
   .hero-kicker {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 11px;
@@ -42,6 +48,37 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--teal-mid);
+    margin-bottom: 1rem;
+  }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.8);
+    max-width: 480px;
+    margin-bottom: 0;
+  }
+  .hero-photo {
+    flex: 0 0 320px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+    background: #28384a;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.78) contrast(0.9) brightness(1.1);
+  }
+  .hero-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(44,62,80,0.32) 0%, rgba(61,122,158,0.18) 100%);
   }
 
   /* ── STANDARD LAYOUT ── */
@@ -332,6 +369,11 @@
   @media (max-width: 540px) {
     .hero-band, .section-band, .diag-band, .quote-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
   }
+
+  @media (max-width: 700px) {
+    .hero-flex { flex-direction: column; gap: 1.75rem; }
+    .hero-photo { flex: 0 0 auto; width: 100%; aspect-ratio: 16 / 9; max-width: 420px; }
+  }
 </style>
 </head>
 <body>
@@ -340,15 +382,14 @@
 
 <!-- HERO -->
 <section class="hero-band">
-  <div class="hero-inner">
-    <div class="hero-kicker">Wyman Associates · Your Reflection</div>
-  </div>
-</section>
-
-<!-- INTRO -->
-<section class="section-band white">
-  <div class="section-inner">
-    <p class="body-text">This takes about three minutes. There are no right answers — just an honest picture of where things are. The questions are about your organisation, not just you.</p>
+  <div class="hero-inner hero-flex">
+    <div class="hero-text">
+      <div class="hero-kicker">Wyman Associates · Your Reflection</div>
+      <p class="hero-intro">This takes about three minutes. There are no right answers — just an honest picture of where things are. The questions are about your organisation, not just you.</p>
+    </div>
+    <div class="hero-photo">
+      <img src="hero-you.jpg" alt="">
+    </div>
   </div>
 </section>
 
