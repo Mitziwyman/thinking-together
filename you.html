@@ -35,12 +35,13 @@
     padding: 3.5rem 1.5rem;
   }
   .hero-inner { max-width: 700px; margin: 0 auto; }
-  .hero-inner h1 {
-    font-size: clamp(28px, 4.5vw, 42px);
-    font-weight: 400;
-    font-style: italic;
-    color: #fff;
-    line-height: 1.2;
+  .hero-kicker {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
   }
 
   /* ── STANDARD LAYOUT ── */
@@ -97,42 +98,58 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--teal);
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.25rem;
   }
   .diag-items { list-style: none; }
   .diag-item {
-    padding: 1.5rem 0;
+    padding: 1.1rem 0;
     border-top: 1px solid rgba(255,255,255,0.1);
   }
   .diag-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.1); }
   .diag-q {
     font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    color: rgba(255,255,255,0.92);
+    font-size: 14px;
+    color: rgba(255,255,255,0.88);
     font-weight: 500;
-    margin-bottom: 0.85rem;
-    line-height: 1.55;
+    margin-bottom: 0.6rem;
+    line-height: 1.5;
   }
   .diag-options {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
   }
   .diag-option {
-    text-align: left;
-    background: rgba(107,159,188,0.08);
-    border: 1px solid rgba(107,159,188,0.3);
-    color: rgba(255,255,255,0.82);
-    padding: 0.7rem 1rem;
-    border-radius: 6px;
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.25rem 0;
     cursor: pointer;
-    transition: all 0.15s;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.65);
+    transition: color 0.15s;
   }
-  .diag-option:hover { background: rgba(107,159,188,0.18); border-color: var(--teal); }
-  .diag-option.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .diag-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 13px;
+    height: 13px;
+    margin: 0.15em 0 0;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .diag-option input[type="radio"]:checked {
+    border-color: var(--teal);
+    background: var(--teal);
+    box-shadow: inset 0 0 0 3px var(--slate);
+  }
+  .diag-option:hover { color: rgba(255,255,255,0.92); }
+  .diag-option.selected { color: #fff; }
 
   .diag-submit {
     margin-top: 2rem;
@@ -263,6 +280,19 @@
     padding: 0.5rem 0;
   }
 
+  /* ── BACK TO SITE ── */
+  .back-link-band {
+    padding: 0 1.5rem 2.5rem;
+    text-align: center;
+  }
+  .back-link {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--slate-light);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--teal-dark); text-decoration: underline; }
+
   /* ── CALENDLY CTA ── */
   .cta-band {
     padding: 3rem 1.5rem;
@@ -311,7 +341,7 @@
 <!-- HERO -->
 <section class="hero-band">
   <div class="hero-inner">
-    <h1>A short reflection</h1>
+    <div class="hero-kicker">Wyman Associates · Your Reflection</div>
   </div>
 </section>
 
@@ -375,6 +405,11 @@
   <!-- CALENDLY -->
   <div class="cta-band">
     <a class="cta-link" href="https://calendly.com/mitziw/discovery-call" target="_blank" rel="noopener">Book a discovery call</a>
+  </div>
+
+  <!-- BACK TO SITE -->
+  <div class="back-link-band">
+    <a class="back-link" href="/">Return to thinking.mitziwyman.com</a>
   </div>
 
 </div>
@@ -496,16 +531,25 @@
     optsWrap.className = 'diag-options';
 
     q.options.forEach((opt, i) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'diag-option';
-      btn.textContent = opt;
-      btn.addEventListener('click', () => {
-        optsWrap.querySelectorAll('.diag-option').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+      const label = document.createElement('label');
+      label.className = 'diag-option';
+
+      const radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = q.id;
+
+      const span = document.createElement('span');
+      span.textContent = opt;
+
+      radio.addEventListener('change', () => {
+        optsWrap.querySelectorAll('.diag-option').forEach(o => o.classList.remove('selected'));
+        label.classList.add('selected');
         answers[q.id] = { index: i, text: opt, score: q.scored ? (4 - i) : null };
       });
-      optsWrap.appendChild(btn);
+
+      label.appendChild(radio);
+      label.appendChild(span);
+      optsWrap.appendChild(label);
     });
 
     li.appendChild(optsWrap);
