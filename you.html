@@ -84,6 +84,7 @@
   .section-band { padding: 3rem 1.5rem; }
   .section-band.alt { background: var(--off-white); }
   .section-band.white { background: var(--warm-white); }
+  .section-band.roomy { padding: 4rem 1.5rem; }
   .section-inner { max-width: 700px; margin: 0 auto; }
 
   .section-label {
@@ -219,11 +220,11 @@
   #results.visible { display: block; }
 
   .opening-line {
-    font-size: clamp(21px, 3vw, 27px);
+    font-size: clamp(17px, 1.8vw, 19px);
     font-weight: 400;
     font-style: italic;
     color: var(--slate);
-    line-height: 1.5;
+    line-height: 1.65;
   }
   .opening-line.loading {
     color: var(--slate-light);
@@ -235,16 +236,16 @@
   /* ── QUOTE BAND ── */
   .quote-band {
     background: var(--slate);
-    padding: 3.5rem 1.5rem;
+    padding: 4.5rem 1.5rem;
     text-align: center;
   }
-  .quote-inner { max-width: 640px; margin: 0 auto; }
+  .quote-inner { max-width: 560px; margin: 0 auto; }
   .quote-inner p {
-    font-size: clamp(18px, 2.6vw, 22px);
+    font-size: clamp(14px, 1.6vw, 16px);
     font-style: italic;
     font-weight: 400;
-    color: rgba(255,255,255,0.92);
-    line-height: 1.65;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.75;
     margin-bottom: 1rem;
   }
   .quote-inner cite {
@@ -368,6 +369,7 @@
 
   @media (max-width: 540px) {
     .hero-band, .section-band, .diag-band, .quote-band, .email-band, .cta-band { padding: 2.5rem 1.1rem; }
+    .section-band.roomy, .quote-band { padding: 3rem 1.1rem; }
   }
 
   @media (max-width: 700px) {
@@ -406,20 +408,19 @@
 <!-- RESULTS -->
 <div id="results">
 
-  <section class="section-band white">
+  <section class="section-band white roomy">
     <div class="section-inner">
-      <p class="section-label">Wyman Associates — Your reflection</p>
       <p class="opening-line loading" id="opening-line">Thinking…</p>
     </div>
   </section>
 
-  <section class="section-band alt">
+  <section class="section-band alt roomy">
     <div class="section-inner">
       <p class="body-text">Most leaders know the gap intimately — between the organisation they're working in and the one they sense could exist. It doesn't close. That's not a counsel of despair; it's just the truth of the work. The question is how to stand in it without burning out or giving up — and that, in the end, is rarely something anyone manages alone. Dialogue, when the conditions are right, moves people past the assumptions they've made about each other. And in that movement, the thinking in the room changes. That's where this work begins.</p>
     </div>
   </section>
 
-  <section class="section-band white">
+  <section class="section-band white roomy">
     <div class="section-inner" id="profile-copy"></div>
   </section>
 
