@@ -1,0 +1,7 @@
+{
+  "name": "thinking-together",
+  "private": true,
+  "dependencies": {
+    "@netlify/blobs": "^8.2.0"
+  }
+}

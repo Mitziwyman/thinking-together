@@ -471,6 +471,7 @@
       <span id="week-label"></span>
       <button id="next-week">&#8594;</button>
     </div>
+    <button id="sync-status" class="week-nav" style="border:1px solid var(--border);border-radius:4px;background:none;cursor:pointer;font-family:inherit">Cloud sync: off</button>
   </div>
 </header>
 
@@ -598,14 +599,88 @@
   }
 
   function save(field, value) {
-    localStorage.setItem(storageKey(field), JSON.stringify(value));
+    const key = storageKey(field);
+    localStorage.setItem(key, JSON.stringify(value));
     flashSaved();
+    queueRemoteSave(key, value);
   }
 
   function load(field, fallback) {
     const v = localStorage.getItem(storageKey(field));
     return v !== null ? JSON.parse(v) : fallback;
   }
+
+  // ── Cloud sync (Netlify Blobs via /api/my-now) ──────────────────────
+
+  let syncKey = localStorage.getItem('now_sync_key') || '';
+  const remoteSaveTimers = {};
+
+  function setSyncStatus(status) {
+    const btn = document.getElementById('sync-status');
+    if (status === 'ok') {
+      btn.textContent = 'Cloud sync: on';
+      btn.title = 'Your work is backed up. Click to change your sync passphrase.';
+    } else if (status === 'error') {
+      btn.textContent = 'Cloud sync: error';
+      btn.title = 'Could not reach cloud storage — saving locally only. Click to re-enter your sync passphrase.';
+    } else {
+      btn.textContent = 'Cloud sync: off';
+      btn.title = 'Click to enter your sync passphrase and back up this page to the cloud.';
+    }
+  }
+
+  function queueRemoteSave(key, value) {
+    if (!syncKey) return;
+    clearTimeout(remoteSaveTimers[key]);
+    remoteSaveTimers[key] = setTimeout(() => {
+      fetch('/api/my-now', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-now-key': syncKey },
+        body: JSON.stringify({ key, value })
+      }).then(res => setSyncStatus(res.ok ? 'ok' : 'error'))
+        .catch(() => setSyncStatus('error'));
+    }, 800);
+  }
+
+  async function syncFromRemote() {
+    if (!syncKey) {
+      setSyncStatus('off');
+      return;
+    }
+    try {
+      const res = await fetch('/api/my-now', { headers: { 'x-now-key': syncKey } });
+      if (!res.ok) {
+        setSyncStatus('error');
+        return;
+      }
+      const remote = await res.json();
+
+      // Pull remote values down into the local cache.
+      Object.entries(remote).forEach(([key, value]) => {
+        localStorage.setItem(key, JSON.stringify(value));
+      });
+
+      // Push any local-only week data up to the cloud (e.g. saved while offline).
+      Object.keys(localStorage).forEach(key => {
+        if ((key.startsWith('week_') || key.startsWith('banner_dismissed_')) && !(key in remote)) {
+          queueRemoteSave(key, JSON.parse(localStorage.getItem(key)));
+        }
+      });
+
+      setSyncStatus('ok');
+    } catch (e) {
+      setSyncStatus('error');
+    }
+  }
+
+  document.getElementById('sync-status').addEventListener('click', async () => {
+    const entered = prompt('Enter your sync passphrase to back this page up to the cloud:', syncKey);
+    if (entered === null) return;
+    syncKey = entered.trim();
+    localStorage.setItem('now_sync_key', syncKey);
+    await syncFromRemote();
+    loadWeek();
+  });
 
   let saveTimer;
   function flashSaved() {
@@ -888,7 +963,7 @@
   }
 
   // ── Init ──────────────────────────────────────────────────────────────
-  loadWeek();
+  syncFromRemote().then(loadWeek);
 </script>
 
 </body>

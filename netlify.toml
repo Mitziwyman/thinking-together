@@ -25,6 +25,11 @@
   status = 200
 
 [[redirects]]
+  from = "/api/my-now"
+  to = "/.netlify/functions/my-now-data"
+  status = 200
+
+[[redirects]]
   from = "/you"
   to = "/you.html"
   status = 200
