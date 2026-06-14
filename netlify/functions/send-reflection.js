@@ -24,7 +24,6 @@ const PROFILE_COPY = {
 };
 
 const SIGNPOST = {
-  A: 'The Meeting Intelligence Index is a good place to start — <a href="https://meetings-culture.netlify.app">meetings-culture.netlify.app</a>',
   B: 'The courses page is the most direct route in — <a href="https://thinking.mitziwyman.com/courses">thinking.mitziwyman.com/courses</a>',
   C: 'The organisations page sets out how this work tends to unfold — <a href="https://thinking.mitziwyman.com/organisations">thinking.mitziwyman.com/organisations</a>'
 };
