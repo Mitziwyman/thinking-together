@@ -32,4 +32,6 @@ Added to `netlify.toml`:
 Committed as `6b66862` and deployed to production. Verified `thinking.mitziwyman.com` now returns `301 → https://mitziwyman.com/`.
 
 ### Note for future sessions
-This Netlify site (`jocular-salmiakki-17943d`) deploys via **direct API push**, not an auto-build triggered by `git push` to GitHub. After pushing changes to `main`, a manual deploy trigger is needed for the live site to update. If this becomes a hassle, consider wiring up GitHub-triggered auto-deploys in Netlify's site settings.
+~~This Netlify site (`jocular-salmiakki-17943d`) deploys via direct API push, not an auto-build triggered by `git push` to GitHub. After pushing changes to `main`, a manual deploy trigger is needed for the live site to update.~~
+
+**Update, same day:** GitHub → Netlify auto-deploy was set up on 14 June 2026. Confirmed working — the push of commit `85a2db9` ("Add decisions log") triggered an automatic production deploy on `mitziwyman.com` within seconds, with no manual deploy step. From now on, `git push` to `main` is sufficient to go live.
