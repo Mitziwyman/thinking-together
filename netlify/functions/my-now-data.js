@@ -1,8 +1,8 @@
 const { getStore } = require('@netlify/blobs');
 
 exports.handler = async function(event) {
-  const secret = process.env.MY_NOW_SECRET;
-  const provided = event.headers['x-now-key'] || event.headers['x-now-key'.toLowerCase()];
+  const secret = (process.env.MY_NOW_SECRET || '').trim().toLowerCase();
+  const provided = (event.headers['x-now-key'] || '').trim().toLowerCase();
 
   if (!secret || provided !== secret) {
     return { statusCode: 401, body: 'Unauthorized' };

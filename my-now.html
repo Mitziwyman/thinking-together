@@ -676,7 +676,7 @@
   document.getElementById('sync-status').addEventListener('click', async () => {
     const entered = prompt('Enter your sync passphrase to back this page up to the cloud:', syncKey);
     if (entered === null) return;
-    syncKey = entered.trim();
+    syncKey = entered.trim().toLowerCase();
     localStorage.setItem('now_sync_key', syncKey);
     await syncFromRemote();
     loadWeek();
