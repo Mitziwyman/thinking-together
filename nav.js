@@ -1,8 +1,14 @@
-// Shared navigation — edit this file to update nav on all pages
+// Shared navigation — domain-aware
 (function() {
   var currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+  var isMainSite = window.location.hostname === 'mitziwyman.com' || window.location.hostname === 'www.mitziwyman.com';
 
-  var navItems = [
+  var navItems = isMainSite ? [
+    { label: 'Courses',       href: '/courses' },
+    { label: 'Organisations', href: '/organisations.html' },
+    { label: 'Tools',         href: '/suite' },
+    { label: 'For You',       href: '/you' },
+  ] : [
     { label: 'Home',    href: '/' },
     { label: 'For You', href: '/you' },
   ];
