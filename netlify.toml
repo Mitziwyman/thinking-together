@@ -1,10 +1,4 @@
 [[redirects]]
-  from = "https://thinking.mitziwyman.com/*"
-  to = "https://mitziwyman.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
   from = "/api/subscribe"
   to = "/.netlify/functions/subscribe"
   status = 200
