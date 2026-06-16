@@ -69,6 +69,32 @@
     color: var(--slate-light);
   }
 
+  /* ── OPENING ROW (photo + first section) ── */
+  .opening-row {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+  .opening-photo {
+    flex-shrink: 0;
+  }
+  .opening-photo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--rule);
+    display: block;
+  }
+  .opening-row .section {
+    margin-bottom: 0;
+  }
+  @media (max-width: 500px) {
+    .opening-row { flex-direction: column; gap: 1.25rem; }
+    .opening-photo img { width: 80px; height: 80px; }
+  }
+
   /* ── ACCENT SECTION (left bar) ── */
   .section {
     border-left: 3px solid var(--teal);
@@ -148,15 +174,20 @@
 
   <div class="masthead">
     <div class="masthead-eyebrow">Mitzi Wyman · Wyman Associates</div>
-    <h1>A space for thinking out loud.</h1>
+    <h1>Freshest thinking.</h1>
     <p class="masthead-sub">thinking.mitziwyman.com</p>
   </div>
 
-  <div class="section">
-    <div class="section-label">What this is</div>
-    <h2>Not a homepage. More of a notebook.</h2>
-    <p>This is where I put things that are in motion — ideas I'm working through, resources I'm building, things worth sharing before they're finished. If you're here, you probably know me.</p>
-    <p>The more polished version of my work lives at <a href="https://mitziwyman.com" style="color: var(--teal-dark); text-decoration: none; font-weight: 600;">mitziwyman.com</a>. This is the working edge.</p>
+  <div class="opening-row">
+    <div class="opening-photo">
+      <img src="mitzi-about-hero.png" alt="Mitzi Wyman">
+    </div>
+    <div class="section">
+      <div class="section-label">What this is</div>
+      <h2>Not a homepage. More of a notebook.</h2>
+      <p>This is where I put things that are in motion — ideas I'm working through, resources I'm building, things worth sharing before they're finished. If you're here, you probably know me.</p>
+      <p>The more polished version of my work lives at <a href="https://mitziwyman.com" style="color: var(--teal-dark); text-decoration: none; font-weight: 600;">mitziwyman.com</a>. This is the working edge.</p>
+    </div>
   </div>
 
   <div class="section">
