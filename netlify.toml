@@ -36,6 +36,11 @@
   status = 200
 
 [[redirects]]
+  from = "/api/horizon"
+  to = "/.netlify/functions/horizon"
+  status = 200
+
+[[redirects]]
   from = "/you"
   to = "/you.html"
   status = 200
