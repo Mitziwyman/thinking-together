@@ -947,6 +947,7 @@
         body: JSON.stringify({ scores: mrcScores })
       });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Assessment failed');
       document.getElementById('mrc-score-line').textContent = '';
       document.getElementById('mrc-score-text').textContent = data.text;
     } catch(e) {

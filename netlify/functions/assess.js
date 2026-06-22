@@ -64,7 +64,13 @@ Guidelines:
   });
 
   if (!response.ok) {
-    return { statusCode: 500, body: 'Assessment failed' };
+    const errorBody = await response.text();
+    console.error('Anthropic API error:', response.status, errorBody);
+    return {
+      statusCode: 500,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ error: 'Assessment failed' })
+    };
   }
 
   const data = await response.json();
