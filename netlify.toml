@@ -45,6 +45,9 @@
   to = "/you.html"
   status = 200
 
+[functions."daily-health-check"]
+  schedule = "0 7 * * *"
+
 # mitziwyman.com all other paths → pass through unchanged
 [[redirects]]
   from = "https://mitziwyman.com/*"
