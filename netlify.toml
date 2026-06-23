@@ -41,6 +41,16 @@
   status = 200
 
 [[redirects]]
+  from = "/api/track"
+  to = "/.netlify/functions/track"
+  status = 200
+
+[[redirects]]
+  from = "/api/usage-summary"
+  to = "/.netlify/functions/usage-summary"
+  status = 200
+
+[[redirects]]
   from = "/you"
   to = "/you.html"
   status = 200

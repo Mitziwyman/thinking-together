@@ -227,7 +227,18 @@ var TITLES = [
 
 var currentStep = 0;
 
+function track(eventName) {
+  try {
+    fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tool: "sunday-reset", event: eventName })
+    }).catch(function(e) {});
+  } catch (e) {}
+}
+
 function startTool() {
+  track("started");
   document.getElementById("landing").style.display = "none";
   document.getElementById("toolView").classList.add("show");
   var now = new Date();
@@ -267,6 +278,7 @@ async function buildResults() {
   document.getElementById("toolView").classList.remove("show");
   document.getElementById("resultsView").classList.add("show");
   window.scrollTo({ top:0, behavior:"smooth" });
+  track("completed");
 
   var prompt =
     "1. What I am carrying: " + (answers[0]||"(blank)") + "\n" +
