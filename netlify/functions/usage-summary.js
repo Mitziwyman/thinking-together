@@ -1,7 +1,11 @@
 const { getStore } = require('@netlify/blobs');
 
 exports.handler = async () => {
-  const store = getStore('usage-tracking');
+  const store = getStore({
+    name: 'usage-tracking',
+    siteID: process.env.SITE_ID || process.env.NETLIFY_SITE_ID || 'acaba2aa-a05f-4c3d-abab-43b2b9fc26be',
+    token: process.env.NETLIFY_BLOBS_TOKEN
+  });
   const { blobs } = await store.list();
 
   const totals = {};
