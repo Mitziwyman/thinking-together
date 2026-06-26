@@ -17,17 +17,35 @@ function evaluate(tool, ok, text, keywords, minLen) {
 
 async function testMII() {
   const keywords = ['Priya', 'budget', 'finance team', 'silent', 'dominated', 'Manchester'];
+  const jobId = `health-check-${Date.now()}`;
   try {
-    const res = await fetch('https://meetings-culture.netlify.app/.netlify/functions/claude', {
+    const submitRes = await fetch('https://meetings-culture.netlify.app/.netlify/functions/claude-background', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        jobId,
         prompt: "You are Mitzi Wyman, an executive coach trained in Nancy Kline's Thinking Environment. Write a short reflection (3-4 sentences) for a leader named Priya who just ran a budget reprioritisation meeting with her finance team in Manchester, where two people stayed silent the whole time and one person dominated. Reference the specific scenario."
       })
     });
-    const data = await res.json().catch(() => ({}));
-    const text = data?.content?.[0]?.text || '';
-    return evaluate('MII', res.ok, text, keywords, 100);
+    if (!submitRes.ok) return { tool: 'MII', pass: false, reason: 'HTTP error / non-200 response submitting job', excerpt: '' };
+
+    // claude-background runs async; poll claude-status until the job finishes.
+    let job = null;
+    for (let i = 0; i < 15; i++) {
+      await new Promise((r) => setTimeout(r, 2000));
+      const statusRes = await fetch(`https://meetings-culture.netlify.app/.netlify/functions/claude-status?jobId=${jobId}`);
+      job = await statusRes.json().catch(() => null);
+      if (job?.status === 'done' || job?.status === 'error') break;
+    }
+
+    if (!job || job.status === 'pending') {
+      return { tool: 'MII', pass: false, reason: 'job did not complete in time', excerpt: '' };
+    }
+    if (job.status === 'error') {
+      return { tool: 'MII', pass: false, reason: 'job reported an error', excerpt: String(job.error || '') };
+    }
+    const text = job.data?.content?.[0]?.text || '';
+    return evaluate('MII', true, text, keywords, 100);
   } catch (e) {
     return { tool: 'MII', pass: false, reason: 'no response / connection error', excerpt: String(e) };
   }
