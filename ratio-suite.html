@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ratio Suite | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --teal-mid: #B0CCE0;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+    --gold: #C9A84C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--slate);
+    color: var(--off-white);
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+  a { color: var(--teal); }
+
+  /* ── TOP / LANDING ── */
+  .top {
+    padding: 4rem 1.5rem 2.5rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .top-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.6rem;
+  }
+  .top h1 {
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(34px, 5.5vw, 48px);
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 0.6rem;
+  }
+  .top .subhead {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: var(--teal-mid);
+    margin-bottom: 1.75rem;
+  }
+  .top p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 17.5px;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+    max-width: 600px;
+  }
+
+  .notebook-box {
+    border: 1px solid rgba(107,159,188,0.4);
+    border-radius: 6px;
+    padding: 1.1rem 1.3rem;
+    background: rgba(255,255,255,0.07);
+    margin: 1.75rem 0 0.5rem;
+  }
+  .notebook-box p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 0;
+  }
+  .notebook-box .nb-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+
+  /* ── CARD GRID ── */
+  .deck {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(107,159,188,0.25);
+    border-radius: 10px;
+    padding: 1.4rem 1.3rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    text-align: left;
+  }
+  .card:hover {
+    border-color: var(--teal);
+    background: rgba(255,255,255,0.07);
+  }
+  .card .tag {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+  .card h2 {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.25;
+  }
+  .card p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+  }
+
+  .card.disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+  .card.disabled:hover {
+    border-color: rgba(107,159,188,0.25);
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* ── RATIO VIEW ── */
+  .ratio-view {
+    display: none;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem;
+  }
+  .ratio-view.active { display: block; }
+
+  .back-link {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--teal);
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    cursor: pointer;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .ratio-tag {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+  .ratio-view h2 {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(26px, 4vw, 32px);
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .ratio-question {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: var(--teal-mid);
+    margin-bottom: 1.75rem;
+  }
+
+  .orienting p {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.85;
+    margin-bottom: 1.1rem;
+  }
+
+  .board-toggle {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--teal);
+    cursor: pointer;
+    margin: 0.25rem 0 1.5rem;
+    text-decoration: underline;
+    text-decoration-color: rgba(107,159,188,0.4);
+  }
+  .board-note {
+    display: none;
+    background: rgba(107,159,188,0.12);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 0.9rem 1.2rem;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .board-note.visible { display: block; }
+
+  /* ── SCORING PANEL (visually separated from page background) ── */
+  .scoring-panel {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(107,159,188,0.3);
+    border-radius: 12px;
+    padding: 1.75rem 1.75rem 2rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── CONTEXT PROMPT ── */
+  .context-prompt-block { margin-bottom: 2rem; }
+  .context-prompt-block label {
+    display: block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 0.6rem;
+    font-style: italic;
+  }
+  .context-prompt-block textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(107,159,188,0.35);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(255,255,255,0.92);
+    resize: vertical;
+    min-height: 3.2rem;
+  }
+  .context-prompt-block textarea::placeholder { color: rgba(255,255,255,0.4); }
+  .context-prompt-block textarea:focus { outline: none; border-color: var(--teal); }
+
+  /* ── RATING SCALE (1–5 circles) ── */
+  .prompt-block { margin-bottom: 2.25rem; }
+  .prompt-block label {
+    display: block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .prompt-sub {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.9rem;
+    line-height: 1.6;
+  }
+  .rating-scale {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .rating-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.6);
+    margin-right: 0.3rem;
+  }
+  .rating-label.right { margin-left: 0.3rem; margin-right: 0; }
+  .rating-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(107,159,188,0.5);
+    background: rgba(107,159,188,0.12);
+    color: rgba(255,255,255,0.85);
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .rating-btn:hover { background: var(--teal); border-color: var(--teal); color: #fff; }
+  .rating-btn.selected { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+  .reveal-btn {
+    display: inline-block;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.8rem;
+    border-radius: 6px;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .reveal-btn:hover { background: var(--teal-dark); }
+
+  .reveal-error {
+    display: none;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: var(--teal-mid);
+    margin-top: 0.85rem;
+  }
+  .reveal-error.visible { display: block; }
+
+  /* ── RESULT ── */
+  .result {
+    display: none;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .result.active { display: block; }
+
+  .score-line {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 1.75rem;
+  }
+  .score-line strong { color: #fff; }
+
+  .grid-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 1;
+    margin: 0 auto 1.75rem;
+    background: rgba(255,255,255,0.07);
+    border-radius: 10px;
+    border: 1px solid rgba(107,159,188,0.35);
+  }
+  .grid-wrap .axis-line { position: absolute; background: rgba(255,255,255,0.18); }
+  .grid-wrap .axis-h { left: 0; right: 0; top: 50%; height: 1px; }
+  .grid-wrap .axis-v { top: 0; bottom: 0; left: 50%; width: 1px; }
+  .grid-wrap .corner-label {
+    position: absolute;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.3;
+    max-width: 44%;
+  }
+  .grid-wrap .cl-tl { top: 8px; left: 10px; }
+  .grid-wrap .cl-tr { top: 8px; right: 10px; text-align: right; }
+  .grid-wrap .cl-bl { bottom: 8px; left: 10px; }
+  .grid-wrap .cl-br { bottom: 8px; right: 10px; text-align: right; }
+  .grid-wrap .axis-label {
+    position: absolute;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal-mid);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .axis-label.x-label { bottom: -24px; left: 50%; transform: translateX(-50%); }
+  .axis-label.y-label {
+    left: -32px; top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: center;
+  }
+  .grid-dot {
+    position: absolute;
+    width: 16px; height: 16px;
+    background: var(--gold);
+    border: 2px solid var(--slate);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    transform: translate(-50%, 50%);
+  }
+
+  .reflection {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 17.5px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 1.25rem;
+  }
+  .reflecting {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--teal-mid);
+    animation: reflectPulse 1.6s ease-in-out infinite;
+  }
+  @keyframes reflectPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .assumption-line {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 15.5px;
+    color: var(--teal-mid);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .midpoint-note {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin: -0.75rem 0 1.5rem;
+  }
+
+  .about-toggle {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(255,255,255,0.25);
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .about-note {
+    display: none;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    font-style: italic;
+    margin-top: 0.85rem;
+  }
+  .about-note.visible { display: block; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  footer .footer-note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+  }
+  footer .footer-credit {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+</style>
+</head>
+<body>
+
+  <div id="topHeader">
+    <div class="top">
+      <div class="top-label">Mitzi Wyman</div>
+      <h1>The Ratio Suite</h1>
+      <div class="subhead sans">Tools for making the invisible visible.</div>
+      <p>Most of the time, when a decision feels hard, it&rsquo;s because two separate things have got tangled together. How strongly you feel about something, and how much it actually matters. How close you are to something, and how consequential it is. How much you&rsquo;re intervening, and who needs to own it.</p>
+      <p>These ratios don&rsquo;t untangle that for you. They just help you see it more clearly. Score each dimension honestly &mdash; the number doesn&rsquo;t need to be precise, it needs to be true enough to examine. That&rsquo;s where the thinking starts.</p>
+      <div class="notebook-box">
+        <div class="nb-label">Before you pick a ratio</div>
+        <p>Bring a real situation. Something you&rsquo;re carrying at the moment &mdash; a decision, a relationship, a question about where to spend your energy. These tools work on the specific, not the hypothetical.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="deck" id="deck"></div>
+
+  <div id="ratioViews"></div>
+
+  <footer>
+    <div class="footer-note">For self-use and reflection. The moment you assign a number, you&rsquo;ve committed to a position you can examine.</div>
+    <div class="footer-credit">Fresh Thinking &middot; Mitzi Wyman &middot; mitziwyman.com</div>
+  </footer>
+
+<script>
+const RATIOS = [
+  {
+    id: "care-consequence",
+    tag: "Capital",
+    title: "Care : Consequence",
+    question: "When should I spend leadership capital?",
+    orienting: [
+      "Most leaders trust their emotional response as a reliable guide to what matters. Sometimes it is. But the things that quietly do the most damage &mdash; to culture, to safety, to the people in the room &mdash; often arrive without much feeling attached. A low score on care can sit alongside a high score on consequence, and if you only follow the things that feel loudest, you&rsquo;ll miss it entirely.",
+      "This ratio asks you to score them separately. How much do you care &mdash; the ethical charge, the sense that something is wrong? And how much does it actually matter to the organisation? They&rsquo;re related, but they&rsquo;re not the same. The gap between them is where the judgement lives."
+    ],
+    contextPrompt: "What&rsquo;s the situation you&rsquo;re bringing to this? Write a sentence or two &mdash; enough to hold it in view while you score.",
+    yLabel: "Care", xLabel: "Consequence",
+    yPrompt: "How much do I care about this?",
+    ySub: "The strength of the values response. Ethical charge. The sense that something is wrong, or right, or yours to act on.",
+    yAnchors: ["Barely", "Deeply"],
+    xPrompt: "How much does this matter to the organisation?",
+    xSub: "Likely consequence for safety, culture, trust, reputation, people, or future capability. Not how it feels &mdash; what it does.",
+    xAnchors: ["Minimal", "Major"],
+    corners: { tl: "High care, low consequence", tr: "High care, high consequence", bl: "Low care, low consequence", br: "Low care, high consequence" },
+    endingStyle: "question",
+    fallback: (y, x) => {
+      if (y >= 3 && x < 3) return "Your values response is strong here. Before acting on it, it&rsquo;s worth asking what this feeling might be clarifying &mdash; and what it might be obscuring.";
+      if (y < 3 && x >= 3) return "This is the quadrant worth sitting with longest. The assumption that &lsquo;if it really mattered, I&rsquo;d feel it more&rsquo; is exactly where leaders miss things. What would it mean if this mattered more than it feels?";
+      if (y >= 3 && x >= 3) return "Both scores are high. This is where resistance becomes leadership rather than reaction. What&rsquo;s the least dramatic intervention that would be genuinely useful?";
+      return "Notice it, then release it. Not everything that arrives needs your attention or your capital.";
+    },
+    assumption: "What assumption might be driving your Care score? And is that assumption worth examining?",
+    context: "First developed in NHS leadership work. This is an organisational tool &mdash; it asks you to create distance from the emotional charge and ask what the organisation actually needs."
+  },
+  {
+    id: "closeness-consequence",
+    tag: "Attention",
+    title: "Closeness : Consequence",
+    question: "Where should I place my attention?",
+    orienting: [
+      "Your attention is one of the scarcest things in your organisation. Everyone who works with you knows when they have it and when they don&rsquo;t. The question isn&rsquo;t whether you&rsquo;re busy &mdash; it&rsquo;s whether what you&rsquo;re close to actually needs you there.",
+      "Senior leaders often stay close to things because they&rsquo;re familiar, because they feel in control there, or because something once needed them and they never quite stepped back. This ratio asks a simpler question: does your closeness add value here, or does it create dependency?"
+    ],
+    contextPrompt: "What&rsquo;s the situation, role, or relationship you&rsquo;re thinking about? A sentence is enough.",
+    yLabel: "Closeness", xLabel: "Consequence",
+    yPrompt: "How close am I to this?",
+    ySub: "Involved, proximate, personally invested. How much of your attention and energy is here?",
+    yAnchors: ["Distant", "Very close"],
+    xPrompt: "How consequential is this for the organisation?",
+    xSub: "If this went wrong, or went well, how much would it matter? To the people, the service, the future of the organisation?",
+    xAnchors: ["Minimal", "Major"],
+    corners: { tl: "High closeness, low consequence", tr: "High closeness, high consequence", bl: "Low closeness, low consequence", br: "Low closeness, high consequence" },
+    endingStyle: "question",
+    fallback: (y, x) => {
+      if (y >= 3 && x < 3) return "You&rsquo;re very involved in something that probably doesn&rsquo;t need this level of attention from you. What is it about this that keeps drawing you in?";
+      if (y < 3 && x >= 3) return "You&rsquo;re at a distance from something that really matters. Sometimes that&rsquo;s good delegation. Sometimes it&rsquo;s drift. Which is it here?";
+      if (y >= 3 && x >= 3) return "Stay close &mdash; but check what your closeness is doing. Is it strategic oversight, or supervision the person doesn&rsquo;t need?";
+      return "Leave it alone unless asked. This is not where your attention needs to be.";
+    },
+    assumption: "What assumption are you making about what happens if you step back from this?",
+    context: "Strongest for senior leaders who are over-involved in operational detail without realising it. Your attention is one of the organisation&rsquo;s scarcest assets."
+  },
+  {
+    id: "intervention-ownership",
+    tag: "Disempowerment",
+    title: "Intervention : Ownership",
+    question: "When does helping become taking over?",
+    orienting: [
+      "There&rsquo;s a particular kind of harm that comes from good intentions. When you step in to help &mdash; to fix, to clarify, to move things along &mdash; you solve the immediate problem and quietly remove ownership from the person who needed to carry it. They become dependent on your thinking rather than developing their own.",
+      "This isn&rsquo;t about whether you care. It&rsquo;s about whether your intervention is actually serving the person, or serving your own need to be useful. This ratio makes that visible without making it personal."
+    ],
+    contextPrompt: "Who are you thinking about, and what are you stepping into? A sentence is enough.",
+    yLabel: "Intervention", xLabel: "Ownership needed",
+    yPrompt: "How much am I intervening?",
+    ySub: "Stepping in, solving, directing, deciding. How much of this are you doing?",
+    yAnchors: ["Hardly at all", "Heavily"],
+    xPrompt: "Who needs to own this?",
+    xSub: "How much does the other person &mdash; or team &mdash; need to carry this themselves in order to grow, to be trusted, or to be accountable?",
+    xAnchors: ["Barely", "Strongly"],
+    corners: { tl: "High intervention, low ownership needed", tr: "High intervention, high ownership needed", bl: "Low intervention, low ownership needed", br: "Low intervention, high ownership needed" },
+    endingStyle: "question",
+    fallback: (y, x) => {
+      if (y >= 3 && x >= 3) return "You&rsquo;re doing a lot in a situation where someone else needs to own it. What would it look like to hand this back, even partially?";
+      if (y < 3 && x >= 3) return "You&rsquo;re stepping back and the person needs to own it. The question is whether they know that, and whether they have what they need to carry it.";
+      if (y >= 3 && x < 3) return "You&rsquo;re deeply involved in something that doesn&rsquo;t require the other person to own it. Check that this is a conscious choice rather than a default.";
+      return "Neither high involvement nor strong ownership is required. Notice whether you&rsquo;re genuinely at ease with that, or whether the low intervention is disengagement rather than trust.";
+    },
+    assumption: "What are you assuming would happen if you intervened less? Is that assumption worth testing?",
+    context: "Most relevant for coaching, line management, and senior leader relationships. The act of thinking for someone else &mdash; however well-intentioned &mdash; is often an act of disempowerment."
+  },
+  {
+    id: "values-impact",
+    tag: "Proportion",
+    title: "Values : Impact",
+    question: "Is my response proportionate to the difference it will make?",
+    orienting: [
+      "This one is harder than it looks. A strong values response with low impact leaves you with a genuine choice, not an easy answer. Act anyway, because silence costs you something? Or conserve, because your credibility is worth more across a longer arc?",
+      "There&rsquo;s no formula for this. But separating the moral weight from the practical consequence at least means you&rsquo;re making the choice consciously rather than by default. Low impact now doesn&rsquo;t mean low impact ever. Sometimes the most values-consistent thing you can do is stay in the room."
+    ],
+    contextPrompt: "What&rsquo;s the situation &mdash; and what response are you weighing up? A sentence or two.",
+    yLabel: "Values", xLabel: "Impact",
+    yPrompt: "How strongly does this register against my values?",
+    ySub: "Moral weight, ethical charge, the sense that something matters deeply to who you are and what you stand for.",
+    yAnchors: ["Barely", "Deeply"],
+    xPrompt: "How much difference will my response actually make?",
+    xSub: "Not whether it matters &mdash; whether your specific response to it changes anything. Impact on the outcome, the people affected, the direction of things.",
+    xAnchors: ["Little", "A great deal"],
+    corners: { tl: "High values, low impact", tr: "High values, high impact", bl: "Low values, low impact", br: "Low values, high impact" },
+    endingStyle: "observation",
+    fallback: (y, x) => {
+      if (y >= 3 && x < 3) return "A strong values response with limited immediate impact is one of the harder places to sit. It doesn&rsquo;t resolve easily &mdash; and it isn&rsquo;t meant to. What it asks is that you stay conscious about the choice you&rsquo;re making, whichever way it goes.";
+      if (y < 3 && x >= 3) return "Something with high impact that isn&rsquo;t registering strongly against your values. It&rsquo;s worth a moment to check whether something important has gone quiet, or whether the quiet is clarity.";
+      if (y >= 3 && x >= 3) return "Both scores are high. This is where acting on your values and making a real difference align. What remains is how &mdash; and whether the way you act protects your ability to keep influencing things over time.";
+      return "Neither dimension is pulling strongly. That can be clarity. It&rsquo;s worth noticing whether the low scores feel like ease or like something has gone numb.";
+    },
+    assumption: "What are you assuming about your impact &mdash; and is that assumption based on evidence, or on how things feel right now?",
+    boardNote: "If you&rsquo;re on a board, a strong values score is a signal to examine the position before acting on it. The question worth asking: are these my values, or are they the organisation&rsquo;s values that I&rsquo;m holding on its behalf? Those can look identical from the inside and be quite different things.",
+    context: "In commercial and financial contexts, the language of impact tends to land more readily than the language of values. The underlying question is the same."
+  },
+  {
+    id: "uniqueness-accessibility",
+    tag: "Presence",
+    title: "Uniqueness : Accessibility",
+    question: "Is this worth being present for?",
+    orienting: [
+      "Some moments can&rsquo;t be replicated. Some can &mdash; the content exists elsewhere, the conversation will happen again, the recording will be available. The trouble is that in the middle of a busy week, everything feels urgent and nothing feels replaceable.",
+      "This ratio slows that down for two minutes. How irreplaceable is this, really? And how accessible is the same experience through another route? The gap between those two scores usually tells you what you already know but haven&rsquo;t quite let yourself act on."
+    ],
+    contextPrompt: "What&rsquo;s the decision &mdash; the two things competing for your presence? Name them.",
+    yLabel: "Uniqueness", xLabel: "Accessibility",
+    yPrompt: "How irreplaceable is this moment, room, or opportunity?",
+    ySub: "Could this happen again? Is this person, this conversation, this room available in another form? Or is this singular?",
+    yAnchors: ["Replaceable", "Singular"],
+    xPrompt: "How accessible is the same experience through other routes?",
+    xSub: "Recording, notes, a follow-up conversation, a future event. How much of what matters here could you get another way?",
+    xAnchors: ["Not at all", "Fully"],
+    corners: { tl: "High uniqueness, low accessibility", tr: "High uniqueness, high accessibility", bl: "Low uniqueness, low accessibility", br: "Low uniqueness, high accessibility" },
+    endingStyle: "observation",
+    fallback: (y, x) => {
+      if (y >= 3 && x < 3) return "This is genuinely singular and you probably already know it. The ratio has just made it harder to look away.";
+      if (y < 3 && x >= 3) return "The experience is available to you through other routes. Letting this one go isn&rsquo;t loss &mdash; it&rsquo;s just a different kind of presence.";
+      if (y >= 3 && x >= 3) return "Both feel important, and the ratio hasn&rsquo;t resolved it &mdash; because it&rsquo;s a genuine dilemma rather than a decision with a clear answer. What matters most to you about each one?";
+      return "Neither option is pulling strongly. Sometimes the most honest thing the ratio can surface is that neither deserves the weight you&rsquo;ve been giving it.";
+    },
+    assumption: "What are you assuming you&rsquo;ll miss if you&rsquo;re not there? Is that assumption worth examining?",
+    context: "Developed from a real scheduling decision. Works in two minutes with a decision you&rsquo;re actually carrying. Most useful for attention and presence choices."
+  }
+];
+
+const deck = document.getElementById('deck');
+const viewsContainer = document.getElementById('ratioViews');
+const topHeader = document.getElementById('topHeader');
+
+RATIOS.forEach(r => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `<div class="tag">${r.tag}</div><h2>${r.title}</h2><p>${r.question}</p>`;
+  card.addEventListener('click', () => openRatio(r.id));
+  deck.appendChild(card);
+});
+
+const disabledCard = document.createElement('div');
+disabledCard.className = 'card disabled';
+disabledCard.innerHTML = `<div class="tag">Coming</div><h2>Belonging : Integrity</h2><p>What am I giving up to stay in the circle? The thinking isn&rsquo;t finished yet &mdash; this one&rsquo;s coming.</p>`;
+deck.appendChild(disabledCard);
+
+function buildRatingScale(ratioId, axis, anchors) {
+  let html = `<div class="rating-scale">`;
+  html += `<span class="rating-label">${anchors[0]}</span>`;
+  for (let i = 1; i <= 5; i++) {
+    html += `<button type="button" class="rating-btn" data-ratio="${ratioId}" data-axis="${axis}" data-value="${i}" aria-label="${i}">${i}</button>`;
+  }
+  html += `<span class="rating-label right">${anchors[1]}</span>`;
+  html += `</div>`;
+  return html;
+}
+
+RATIOS.forEach(r => {
+  const view = document.createElement('div');
+  view.className = 'ratio-view';
+  view.id = 'view-' + r.id;
+
+  const orientingHtml = r.orienting.map(p => `<p>${p}</p>`).join('');
+
+  let boardHtml = '';
+  if (r.boardNote) {
+    boardHtml = `
+      <span class="board-toggle sans" data-board-toggle="${r.id}">Using this in a board context?</span>
+      <div class="board-note" id="${r.id}-boardnote">${r.boardNote}</div>
+    `;
+  }
+
+  view.innerHTML = `
+    <span class="back-link" data-back="1">&larr; Back to the suite</span>
+    <div class="ratio-tag">${r.tag}</div>
+    <h2>${r.title}</h2>
+    <div class="ratio-question sans">${r.question}</div>
+
+    <div class="orienting">${orientingHtml}</div>
+
+    ${boardHtml}
+
+    <div class="scoring-panel">
+      <div class="context-prompt-block">
+        <label>${r.contextPrompt}</label>
+        <textarea rows="2" placeholder="Not saved &mdash; just for you to hold in view while you score."></textarea>
+      </div>
+
+      <div class="prompt-block">
+        <label>${r.yPrompt}</label>
+        <div class="prompt-sub">${r.ySub}</div>
+        ${buildRatingScale(r.id, 'y', r.yAnchors)}
+      </div>
+
+      <div class="prompt-block">
+        <label>${r.xPrompt}</label>
+        <div class="prompt-sub">${r.xSub}</div>
+        ${buildRatingScale(r.id, 'x', r.xAnchors)}
+      </div>
+
+      <button class="reveal-btn" data-reveal="${r.id}">See what it means</button>
+      <div class="reveal-error sans" id="${r.id}-error">Choose a number on both scales to see your result.</div>
+    </div>
+
+    <div class="result" id="${r.id}-result">
+      <div class="score-line sans" id="${r.id}-scoreline"></div>
+      <div class="grid-wrap">
+        <div class="axis-line axis-h"></div>
+        <div class="axis-line axis-v"></div>
+        <div class="corner-label cl-tl">${r.corners.tl}</div>
+        <div class="corner-label cl-tr">${r.corners.tr}</div>
+        <div class="corner-label cl-bl">${r.corners.bl}</div>
+        <div class="corner-label cl-br">${r.corners.br}</div>
+        <div class="axis-label x-label">${r.xLabel} &rarr;</div>
+        <div class="axis-label y-label">${r.yLabel} &rarr;</div>
+        <div class="grid-dot" id="${r.id}-dot"></div>
+      </div>
+      <div class="reflection" id="${r.id}-reflection"></div>
+      <div class="assumption-line">${r.assumption}</div>
+      <button type="button" class="about-toggle" data-about-toggle="${r.id}">About this ratio</button>
+      <div class="about-note" id="${r.id}-aboutnote">${r.context}</div>
+    </div>
+  `;
+  viewsContainer.appendChild(view);
+
+  const selections = { y: null, x: null };
+
+  view.querySelectorAll('.rating-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const axis = btn.dataset.axis;
+      selections[axis] = parseInt(btn.dataset.value, 10);
+      view.querySelectorAll(`.rating-btn[data-axis="${axis}"]`).forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+
+  if (r.boardNote) {
+    view.querySelector(`[data-board-toggle="${r.id}"]`).addEventListener('click', () => {
+      view.querySelector(`#${r.id}-boardnote`).classList.toggle('visible');
+    });
+  }
+
+  view.querySelector(`[data-about-toggle="${r.id}"]`).addEventListener('click', () => {
+    view.querySelector(`#${r.id}-aboutnote`).classList.toggle('visible');
+  });
+
+  view.querySelector(`[data-reveal="${r.id}"]`).addEventListener('click', async () => {
+    const errorEl = view.querySelector(`#${r.id}-error`);
+    if (selections.y === null || selections.x === null) {
+      errorEl.classList.add('visible');
+      return;
+    }
+    errorEl.classList.remove('visible');
+
+    const y = selections.y;
+    const x = selections.x;
+    const contextText = view.querySelector('.context-prompt-block textarea').value.trim();
+    const result = view.querySelector(`#${r.id}-result`);
+    const scoreline = view.querySelector(`#${r.id}-scoreline`);
+    const reflection = view.querySelector(`#${r.id}-reflection`);
+    const dot = view.querySelector(`#${r.id}-dot`);
+    const ambiguous = (y === 3 || x === 3);
+
+    scoreline.innerHTML = `<strong>${r.yLabel}: ${y}</strong> &middot; <strong>${r.xLabel}: ${x}</strong> &middot; gap of ${Math.abs(y - x)}`;
+    // Inset 8%-92% so an extreme score (1 or 5) sits clearly inside its quadrant
+    // rather than directly on the crossing lines, where it reads as "centred".
+    const toPct = v => 8 + ((v - 1) / 4) * 84;
+    dot.style.left = toPct(x) + '%';
+    dot.style.bottom = toPct(y) + '%';
+    result.classList.add('active');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    reflection.innerHTML = '<span class="reflecting">Reflecting&hellip;</span>';
+
+    let text = await getReflection(r, y, x, contextText, ambiguous);
+    reflection.innerHTML = text.body;
+    if (text.isFallback && ambiguous) {
+      reflection.insertAdjacentHTML('afterend', `<div class="midpoint-note">You&rsquo;re sitting in the middle on this one &mdash; which can mean you need more information, or that something hasn&rsquo;t quite come into focus yet.</div>`);
+    }
+  });
+
+  view.querySelector('[data-back="1"]').addEventListener('click', closeRatio);
+});
+
+const REFLECTION_SYSTEM = "You are a quiet, precise thinking partner. The user has just scored themselves on a leadership ratio tool. Your job is to write a single short reflection — three to five sentences maximum — that responds to their specific scores and situation. Do not summarise what they've told you back to them. Do not be reassuring or therapeutic. Do not use coaching language or phrases like 'it sounds like' or 'I hear that.' Write in plain, grounded prose — warm but direct, specific rather than generic. If this is an organisational ratio, end with a single question that moves them toward action. If this is a personal ratio, end with an observation, not a question — something to sit with. If either score is 3, acknowledge the ambiguity directly rather than pushing them into a quadrant. When you end with a question, make it the single most useful next question for this specific person given their scores and context — not a generic invitation to reflect, but something precise enough that they couldn't have arrived at it without doing the scoring first.";
+
+async function getReflection(r, y, x, contextText, ambiguous) {
+  const fallbackBody = r.fallback(y, x);
+  const prompt = [
+    `Ratio: ${r.title}`,
+    `${r.yLabel}: ${y}/5`,
+    `${r.xLabel}: ${x}/5`,
+    `Gap between scores: ${Math.abs(y - x)}`,
+    `What the user wrote about their situation: ${contextText ? '"' + contextText + '"' : 'Not provided.'}`,
+    `Ambiguous midpoint: ${ambiguous ? 'Yes — a score of 3 is present, flag this explicitly rather than treating it as clearly high or low.' : 'No.'}`,
+    `Ratio type: ${r.endingStyle === 'question' ? 'Organisational — end with a single precise next-step question.' : 'Personal — end with an observation, not a question.'}`
+  ].join('\n');
+
+  try {
+    const res = await fetch('/.netlify/functions/reflect', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt: prompt, system: REFLECTION_SYSTEM })
+    });
+    const data = await res.json();
+    let aiText = '';
+    if (data.content) {
+      for (let i = 0; i < data.content.length; i++) {
+        if (data.content[i].type === 'text') { aiText = data.content[i].text.trim(); break; }
+      }
+    }
+    if (!aiText) throw new Error('Empty response');
+    return { body: aiText, isFallback: false };
+  } catch (err) {
+    return { body: fallbackBody, isFallback: true };
+  }
+}
+
+function openRatio(id) {
+  topHeader.style.display = 'none';
+  deck.style.display = 'none';
+  document.querySelectorAll('.ratio-view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function closeRatio() {
+  document.querySelectorAll('.ratio-view').forEach(v => v.classList.remove('active'));
+  topHeader.style.display = '';
+  deck.style.display = '';
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
