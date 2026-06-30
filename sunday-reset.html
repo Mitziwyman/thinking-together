@@ -214,6 +214,7 @@ textarea.ans::placeholder { color: #ccc; font-style: italic; }
   </div>
 </div>
 
+<script src="/wii-track.js"></script>
 <script>
 var SYSTEM = "You are a thinking partner inside a Sunday evening reflection tool created by Mitzi Wyman — a leadership consultant and Time to Think Faculty member.\n\nSomeone has just answered five questions as part of a weekly reset. Read all five answers as a whole picture and write a response of three to four sentences.\n\nYour response should:\n- Notice something specific that is emerging or shifting across what they have written — an insight, a clarity, a possibility they may not have named directly\n- Stay with what is opening up, not what is weighing them down — the weight has already been named, your job is to reflect what is coming through beneath it\n- End with a quiet, grounded observation that lets them rest in what they have just done — not a question, not a prompt, just something that settles\n\nRules:\n- Warm and direct — peer to peer, not coach to client\n- Never give advice or tell them what to do\n- No affirmations, no motivational language\n- Respond to what they actually wrote — nothing generic\n- Prose only, no bullets\n- Three to four sentences maximum\n- Never end on a question — close with stillness, not an opening";
 
@@ -228,13 +229,8 @@ var TITLES = [
 var currentStep = 0;
 
 function track(eventName) {
-  try {
-    fetch("/api/track", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ tool: "sunday-reset", event: eventName })
-    }).catch(function(e) {});
-  } catch (e) {}
+  // Delegates to the shared tracker so Sunday Reset also records unique people.
+  if (window.wiiTrack) wiiTrack("sunday-reset", eventName);
 }
 
 function startTool() {

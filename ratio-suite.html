@@ -485,6 +485,7 @@
 </style>
 </head>
 <body>
+<script src="/wii-track.js"></script>
 
   <div id="topHeader">
     <div class="top">
@@ -778,6 +779,7 @@ RATIOS.forEach(r => {
       return;
     }
     errorEl.classList.remove('visible');
+    if (window.wiiTrack) wiiTrack('ratio-suite', 'completed');
 
     const y = selections.y;
     const x = selections.x;
@@ -844,6 +846,7 @@ async function getReflection(r, y, x, contextText, ambiguous) {
 }
 
 function openRatio(id) {
+  if (window.wiiStartOnce) wiiStartOnce('ratio-suite');
   topHeader.style.display = 'none';
   deck.style.display = 'none';
   document.querySelectorAll('.ratio-view').forEach(v => v.classList.remove('active'));

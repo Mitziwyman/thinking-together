@@ -14,7 +14,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { tool, event: eventName } = JSON.parse(event.body);
+    const { tool, event: eventName, visitorId } = JSON.parse(event.body);
 
     if (!tool || !eventName) {
       return { statusCode: 400, body: 'Missing tool or event' };
@@ -26,11 +26,19 @@ exports.handler = async (event) => {
       token: process.env.NETLIFY_BLOBS_TOKEN
     });
     const day = new Date().toISOString().slice(0, 10);
-    const key = `${day}/${tool}/${eventName}`;
 
+    // Event counter — same key format as before, so existing history is preserved.
+    const key = `${day}/${tool}/${eventName}`;
     const current = await store.get(key, { type: 'text' });
     const count = current ? parseInt(current, 10) + 1 : 1;
     await store.set(key, String(count));
+
+    // Unique-visitor record — one key per visitor, per tool, per day.
+    // Writing the same key again does nothing, so repeat clicks from the
+    // same browser are only ever counted once.
+    if (visitorId) {
+      await store.set(`visitors/${day}/${tool}/${visitorId}`, '1');
+    }
 
     return {
       statusCode: 200,

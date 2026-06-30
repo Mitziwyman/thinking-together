@@ -487,6 +487,7 @@
 <body>
 
 <script src="/nav.js"></script>
+<script src="/wii-track.js"></script>
 <!-- HERO -->
 <div class="hero-band">
   <div class="hero-inner">
@@ -733,6 +734,7 @@
   const hcScores = {};
 
   function selectRating(btn, key, value) {
+    if (window.wiiStartOnce) wiiStartOnce('horizons');
     const scale = btn.closest('.rating-scale');
     scale.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
@@ -750,6 +752,7 @@
       return;
     }
     error.classList.remove('visible');
+    if (window.wiiTrack) wiiTrack('horizons', 'completed');
 
     const btn = document.querySelector('.mrc-calculate');
     btn.disabled = true;

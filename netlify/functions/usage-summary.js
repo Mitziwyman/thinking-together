@@ -9,14 +9,44 @@ exports.handler = async () => {
   const { blobs } = await store.list();
 
   const totals = {};
+  const visitorSets = {};      // tool -> Set of all-time unique visitor ids
+  const dayVisitorSets = {};   // tool -> day -> Set of unique visitor ids
+
+  const ensureTool = (tool) => {
+    totals[tool] = totals[tool] || { _byDay: {} };
+    return totals[tool];
+  };
+
   for (const { key } of blobs) {
-    const [day, tool, eventName] = key.split('/');
-    const count = parseInt(await store.get(key, { type: 'text' }), 10);
-    totals[tool] = totals[tool] || {};
-    totals[tool][eventName] = (totals[tool][eventName] || 0) + count;
-    totals[tool]._byDay = totals[tool]._byDay || {};
-    totals[tool]._byDay[day] = totals[tool]._byDay[day] || {};
-    totals[tool]._byDay[day][eventName] = (totals[tool]._byDay[day][eventName] || 0) + count;
+    const parts = key.split('/');
+
+    if (parts[0] === 'visitors') {
+      // visitors/<day>/<tool>/<visitorId>
+      const [, day, tool, visitorId] = parts;
+      ensureTool(tool);
+      visitorSets[tool] = visitorSets[tool] || new Set();
+      visitorSets[tool].add(visitorId);
+      dayVisitorSets[tool] = dayVisitorSets[tool] || {};
+      dayVisitorSets[tool][day] = dayVisitorSets[tool][day] || new Set();
+      dayVisitorSets[tool][day].add(visitorId);
+    } else {
+      // <day>/<tool>/<eventName>
+      const [day, tool, eventName] = parts;
+      const t = ensureTool(tool);
+      const count = parseInt(await store.get(key, { type: 'text' }), 10) || 0;
+      t[eventName] = (t[eventName] || 0) + count;
+      t._byDay[day] = t._byDay[day] || {};
+      t._byDay[day][eventName] = (t._byDay[day][eventName] || 0) + count;
+    }
+  }
+
+  // Fold the unique-people counts in alongside the event counts.
+  for (const tool of Object.keys(visitorSets)) {
+    totals[tool].uniqueVisitors = visitorSets[tool].size;
+    for (const day of Object.keys(dayVisitorSets[tool])) {
+      totals[tool]._byDay[day] = totals[tool]._byDay[day] || {};
+      totals[tool]._byDay[day].uniqueVisitors = dayVisitorSets[tool][day].size;
+    }
   }
 
   return {
