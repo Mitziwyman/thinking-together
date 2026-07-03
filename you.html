@@ -497,10 +497,12 @@
 
   <section class="section-band white roomy">
     <div class="section-inner">
-      <p class="body-text immediate-insight" id="immediate-insight"></p>
       <h3 class="section-title fuller-reflection-title">A fuller reflection</h3>
       <div class="section-rule"></div>
-      <div id="profile-copy"></div>
+      <div id="reflection-body">
+        <p class="body-text" style="font-style:italic;">Reading what you wrote&hellip;</p>
+      </div>
+      <p class="body-text" id="reflection-invite" style="display:none; margin-top:2rem;">If anything here feels worth exploring further, you're welcome to <a href="mailto:mitzi@mitziwyman.com" style="color:var(--teal-dark);">get in touch</a>.</p>
     </div>
   </section>
 
@@ -524,11 +526,6 @@
       <p class="email-note">I'll only use your email to send this reflection, unless you choose to stay in touch.</p>
       <p class="email-thanks" id="email-thanks">Sent — thank you.</p>
     </div>
-  </div>
-
-  <!-- CALENDLY -->
-  <div class="cta-band">
-    <a class="cta-link" href="https://calendly.com/mitziw/discovery-call" target="_blank" rel="noopener">Book a discovery call</a>
   </div>
 
   <!-- BACK TO SITE -->
@@ -623,26 +620,12 @@
     }
   ];
 
-  const IMMEDIATE_INSIGHT = {
-    A: `Your responses suggest the pressure is close in right now. Before strategy or structure, the question is usually whether there is enough space — and enough trust — for the thinking that matters to actually happen.`,
-    B: `Your responses suggest things are working, but something isn't quite moving. The next edge is rarely more effort or structure. It's usually the quality of thinking the organisation can generate together.`,
-    C: `Your responses suggest you're asking the right question. What takes an organisation further at this stage is rarely structural — it's whether the thinking can become genuinely expansive, relational and long-horizon.`
-  };
+  // Fail-quiet safety net — only ever shown if the reflection can't be generated,
+  // so the person still leaves with something honest rather than a blank page.
+  const FALLBACK_OPENING = 'Thank you for taking the time — that in itself tells me something.';
+  const FALLBACK_REFLECTION = `Something in you paused long enough to sit with seven honest questions about how things really are. That instinct — to stop and look rather than push on — is worth trusting.
 
-  const PROFILE_COPY = {
-    A: `<p class="body-text">Something I see a lot in the organisations I work with: people carrying an enormous amount. Pressure, scrutiny, the emotional weight of decisions that affect other people's lives. It doesn't leave much room for anything else.</p>
-<p class="body-text">What tends to go first is the thinking — not because people stop caring about it, but because there's nowhere to put it. Conversations stay on the surface. Decisions get made fast, on partial information. The people with the most useful things to say go quiet, or don't get asked. And the organisation gets better and better at managing its problems without ever quite resolving them.</p>
-<p class="body-text">The Meeting Intelligence Index is a short diagnostic that holds up a mirror to what's happening when your people are in the room together. What it tends to surface are things people have sensed but haven't been able to name — and that shift, from something felt to something understood, is usually where the movement begins.</p>
-<p class="body-text">If any of this resonates, I'd be glad to talk.</p>`,
-    B: `<p class="body-text">Something I notice with a lot of senior leaders who are doing the job well: there's a point where doing more of the same stops producing different results. The organisation is functioning. People are committed. And yet something isn't quite moving.</p>
-<p class="body-text">What I tend to find underneath it is a narrowing of horizon — not always visible from inside it. The conversations are happening, but they're close in. The thinking is good, but it's working on what's already known rather than reaching toward what isn't yet clear. And the relationships that might open that up — with people who think differently, who see further, who ask the uncomfortable question — don't quite have the conditions they need.</p>
-<p class="body-text">That's the territory the Thinking Environment courses work in. Not skills or frameworks in the conventional sense — more the quality of what becomes possible when people feel genuinely heard, and when the conversation can afford to go somewhere new.</p>
-<p class="body-text">If that question feels live for you, I'd be glad to think it through.</p>`,
-    C: `<p class="body-text">The organisations I find most interesting to work with are the ones asking this question — not because something is wrong, but because they've built something that works and they want to understand what takes it further.</p>
-<p class="body-text">What I've come to think, after twenty years of this work, is that the answer is almost never structural. It's about horizon — whether the organisation can see far enough, think expansively enough, operate relationally rather than just transactionally. Those things sound abstract until you sit in a room where they're present, or absent. The difference is not subtle.</p>
-<p class="body-text">What makes that possible is the quality of the thinking the organisation can generate together — whether people are doing their best thinking in the room, whether the conversations are producing something genuinely new, whether there's enough trust for the difficult thing to be said. Building that kind of range is slower work than most organisations expect. But it compounds.</p>
-<p class="body-text">If you're sitting with that question, I'd be glad to have the conversation.</p>`
-  };
+Whatever sits underneath the answers you gave, the fact that you're asking at all suggests you can already sense where the thinking needs more room. That noticing is usually where the movement begins.`;
 
   const answers = {};
 
@@ -686,6 +669,18 @@
     itemsEl.appendChild(li);
   });
 
+  // What the person will read back, held so we can also email it to them.
+  let currentOpening = '';
+  let currentReflection = '';
+
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function paragraphsToHtml(text) {
+    return text.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean)
+      .map(p => `<p class="body-text">${escapeHtml(p)}</p>`).join('');
+  }
+
   // ── SUBMIT ──
   document.getElementById('diag-submit').addEventListener('click', async () => {
     const allAnswered = QUESTIONS.every(q => answers[q.id]);
@@ -696,56 +691,51 @@
     }
     note.classList.remove('visible');
 
-    const total = QUESTIONS.filter(q => q.scored).reduce((sum, q) => sum + answers[q.id].score, 0);
-    const q6Index = answers.q6.index;
-
-    let profile;
-    if (q6Index === 2 || q6Index === 3) {
-      profile = 'A';
-    } else if (total <= 12) {
-      profile = 'A';
-    } else if (total <= 18) {
-      profile = 'B';
-    } else {
-      profile = 'C';
-    }
-
-    currentProfile = profile;
-
     const btn = document.getElementById('diag-submit');
     btn.disabled = true;
     btn.textContent = 'Thinking…';
 
     document.querySelector('.diag-band').style.display = 'none';
     document.querySelector('.hero-band').style.display = 'none';
-    document.getElementById('profile-copy').innerHTML = PROFILE_COPY[profile];
-    document.getElementById('immediate-insight').textContent = IMMEDIATE_INSIGHT[profile];
 
     const results = document.getElementById('results');
     results.classList.add('visible');
     results.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+    const openingEl = document.getElementById('opening-line');
+    const bodyEl = document.getElementById('reflection-body');
+    const inviteEl = document.getElementById('reflection-invite');
+
+    // Everything they told us, in their own words — all seven answers.
+    const responses = QUESTIONS.map(q => ({ question: q.text, answer: answers[q.id].text }));
+
     try {
       const res = await fetch('/api/diagnostic', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ q7Answer: answers.q7.text })
+        body: JSON.stringify({ responses })
       });
+      if (!res.ok) throw new Error('Request failed');
       const data = await res.json();
-      const openingEl = document.getElementById('opening-line');
-      openingEl.textContent = data.opening;
-      openingEl.classList.remove('loading');
+
+      currentOpening = (data.opening || '').trim();
+      currentReflection = (data.reflection || '').trim();
+      if (!currentReflection) throw new Error('Empty reflection');
     } catch (e) {
-      const openingEl = document.getElementById('opening-line');
-      openingEl.textContent = '';
-      openingEl.classList.remove('loading');
+      // Fail quiet.
+      currentOpening = FALLBACK_OPENING;
+      currentReflection = FALLBACK_REFLECTION;
     }
+
+    document.querySelector('.opening-band').style.display = currentOpening ? '' : 'none';
+    openingEl.textContent = currentOpening;
+    openingEl.classList.remove('loading');
+    bodyEl.innerHTML = paragraphsToHtml(currentReflection);
+    inviteEl.style.display = 'block';
 
     btn.disabled = false;
     btn.textContent = 'See your reflection';
   });
-
-  let currentProfile = null;
 
   // ── EMAIL CAPTURE ──
   document.getElementById('email-submit').addEventListener('click', async () => {
@@ -755,7 +745,6 @@
       alert('Please enter a valid email address.');
       return;
     }
-    const opening = document.getElementById('opening-line').textContent;
     const btn = document.getElementById('email-submit');
     btn.disabled = true;
     btn.textContent = 'Sending…';
@@ -763,7 +752,7 @@
       const res = await fetch('/api/send-reflection', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, profile: currentProfile, opening })
+        body: JSON.stringify({ email, opening: currentOpening, reflection: currentReflection })
       });
       if (!res.ok) throw new Error('Request failed');
     } catch (e) {
