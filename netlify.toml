@@ -51,8 +51,18 @@
   status = 200
 
 [[redirects]]
+  from = "/api/health-status"
+  to = "/.netlify/functions/health-status"
+  status = 200
+
+[[redirects]]
   from = "/usage"
   to = "/usage.html"
+  status = 200
+
+[[redirects]]
+  from = "/status"
+  to = "/status.html"
   status = 200
 
 [[redirects]]

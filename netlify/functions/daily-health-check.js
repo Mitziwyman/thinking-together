@@ -153,24 +153,34 @@ exports.handler = async function () {
     console.error('Failed to write health-check history blob', e);
   }
 
+  // Always email a morning result — a green "all's well" when everything passes,
+  // a loud alert when something fails. Sent straight from this scheduled function,
+  // so it never depends on anything else completing. A missing email therefore
+  // genuinely means the check didn't run.
+  let subject, summary;
   if (failed.length > 0) {
-    const summary =
+    subject = `⚠️ Tool health check — ${failed.length} issue(s) found`;
+    summary =
       `Health check run at ${now}\n\n` +
       results
         .map((r) => `${r.tool}: ${r.pass ? 'PASS' : 'FAIL'} — ${r.reason}\nExcerpt: ${r.excerpt}\n`)
         .join('\n');
-    try {
-      await fetch('https://mitziwyman.com/api/health-alert', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          subject: `⚠️ Tool health check — ${failed.length} issue(s) found`,
-          summary
-        })
-      });
-    } catch (e) {
-      console.error('Failed to send health-alert email', e);
-    }
+  } else {
+    subject = `✅ All tools healthy — ${now.slice(0, 10)}`;
+    summary =
+      `Good morning. All five tools passed this morning's automatic check — nothing for you to do.\n\n` +
+      results.map((r) => `${r.tool}: working`).join('\n') +
+      `\n\nChecked at ${now}.`;
+  }
+
+  try {
+    await fetch('https://mitziwyman.com/api/health-alert', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ subject, summary })
+    });
+  } catch (e) {
+    console.error('Failed to send health email', e);
   }
 
   return { statusCode: 200, body: JSON.stringify({ ranAt: now, failed: failed.length, results }) };
