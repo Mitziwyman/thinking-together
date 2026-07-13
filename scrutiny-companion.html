@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scrutiny Companion | Thinking Together</title>
+  <style>
+    :root {
+      --bg: #f6f5f2;
+      --surface: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --accent: #2f5d62;
+      --accent-soft: #d9e8e9;
+      --border: #e5e7eb;
+      --ok: #0f766e;
+      --shadow: 0 8px 24px rgba(0,0,0,0.06);
+      --radius: 14px;
+      --space: 1rem;
+      --max: 860px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f8f7f4 0%, #f2f4f8 100%);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+    }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      margin: 0 0 .4rem 0;
+      font-size: 1.8rem;
+      letter-spacing: -0.01em;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .progress {
+      margin-top: 1rem;
+      background: #eef2f7;
+      border-radius: 999px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #2f5d62, #4e7c82);
+      transition: width .25s ease;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .card.active { display: block; }
+
+    .step-title {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: -.25rem;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 1rem 0 .4rem;
+    }
+
+    textarea, input[type="text"], select {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: .75rem .85rem;
+      font: inherit;
+      color: var(--ink);
+      background: #fff;
+    }
+
+    textarea { min-height: 90px; resize: vertical; }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: .75rem;
+    }
+
+    .chips {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-top: .4rem;
+    }
+
+    .chip {
+      border: 1px solid #cfd8dc;
+      background: #f7fafb;
+      color: #334155;
+      border-radius: 999px;
+      padding: .45rem .75rem;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      background: var(--accent-soft);
+      border-color: #9dbbc0;
+      color: #12434a;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.25rem;
+      gap: .75rem;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: .7rem 1rem;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #eef2f7;
+      color: #1f2937;
+    }
+
+    .summary {
+      background: #f8fbfc;
+      border: 1px solid #d8e6e8;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .reflection {
+      background: #f7faf8;
+      border: 1px solid #d9ece4;
+      border-left: 4px solid var(--ok);
+      border-radius: 10px;
+      padding: .95rem 1rem;
+      margin-top: 1rem;
+      white-space: pre-wrap;
+    }
+
+    .small {
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    .copy-ok { color: var(--ok); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Scrutiny Companion</h1>
+      <p class="sub">When scrutiny is loud, stay with what is true.</p>
+      <p class="small">A short guided reflection for leaders under pressure, visibility, or judgment.</p>
+      <div class="progress" aria-label="progress">
+        <div id="progressBar"></div>
+      </div>
+      <p class="small" id="progressText">Step 1 of 6</p>
+    </section>
+
+    <section class="card active" data-step="1">
+      <h2 class="step-title">Arrival</h2>
+      <p class="hint">No performance needed. Just honesty.</p>
+
+      <label for="presentNow">What feels most present right now?</label>
+      <textarea id="presentNow" placeholder="Write whatever is most real for you in this moment..."></textarea>
+
+      <div class="nav">
+        <button class="btn-secondary" disabled>Back</button>
+        <button class="btn-primary" onclick="nextStep()">Continue</button>
+      </div>
+    </section>
+
+    <section class="card" data-step="2">
+      <h2 class="step-title">Name the pressure</h2>
+      <p class="hint">Get specific. Specificity reduces overwhelm.</p>
+
+      <label for="scrutinyWhere">Where are you feeling most scrutinised?</label>
+      <select id="scrutinyWhere">
+        <option value="">Select one...</option>
+        <option>Team</option>
+        <option>Board or senior stakeholders</option>
+        <option>Peers</option>
+        <option>Public / external voices</option>
+        <option>Myself</option>
+        <option>Other</option>
+      </select>
+
+      <label for="fearMeaning">What are you afraid this scrutiny might mean about you?</label>
+      <textarea id="fearMeaning" placeholder="e.g. that I am not enough / that I made the wrong call..."></textarea>
+
+      <label for="quickProtect">What are you tempted to do to protect yourself quickly?</label>
+      <input id="quickProtect" type="text" placeholder="e.g. over-explain, withdraw, over-control, rush" />
+
+      <div class="nav">
+        <button class="btn-secondary" onclick="prevStep()">Back</button>
+        <button class="btn-primary" onclick="nextStep()">Continue</button>
+      </div>
+    </section>
+
+    <section class="card" data-step="3">
+      <h2 class="step-title">Separate signal from noise</h2>
+      <p class="hint">Not all pressure deserves your energy.</p>
+
+      <label for="signal">What part of the feedback is useful signal?</label>
+      <textarea id="signal" placeholder="What is useful, even if hard to hear?"></textarea>
+
+      <label for="noise">What part is noise you do not need to carry?</label>
+      <textarea id="noise" placeholder="What can be put down?"></textarea>
+
+      <label for="wiseLeadership">What would wise leadership look like if you were not trying to prove anything?</label>
+      <textarea id="wiseLeadership" placeholder="Describe the posture and action..."></textarea>
+
+      <div class="nav">
+        <button class="btn-secondary" onclick="prevStep()">Back</button>
+        <button class="btn-primary" onclick="nextStep()">Continue</button>
+      </div>
+    </section>
+
+    <section class="card" data-step="4">
+      <h2 class="step-title">Reconnect to values and courage</h2>
+      <p class="hint">Choose the ground you want to stand on.</p>
+
+      <label>Which value do you want to lead from right now?</label>
+      <div class="chips" id="valueChips">
+        <button type="button" class="chip" data-value="Clarity">Clarity</button>
+        <button type="button" class="chip" data-value="Care">Care</button>
+        <button type="button" class="chip" data-value="Courage">Courage</button>
+        <button type="button" class="chip" data-value="Fairness">Fairness</button>
+        <button type="button" class="chip" data-value="Accountability">Accountability</button>
+        <button type="button" class="chip" data-value="Steadiness">Steadiness</button>
+      </div>
+
+      <label for="honestSentence">What is one honest sentence you need to say next?</label>
+      <textarea id="honestSentence" placeholder="One clear sentence you need to speak."></textarea>
+
+      <label for="boundary">What is one boundary that protects your integrity under pressure?</label>
+      <textarea id="boundary" placeholder="e.g. I will not make this decision without hearing from... "></textarea>
+
+      <div class="nav">
+        <button class="btn-secondary" onclick="prevStep()">Back</button>
+        <button class="btn-primary" onclick="nextStep()">Continue</button>
+      </div>
+    </section>
+
+    <section class="card" data-step="5">
+      <h2 class="step-title">Forward step</h2>
+      <p class="hint">Small, visible, values-aligned action in 24 hours.</p>
+
+      <label for="nextAction">What is the next visible action you will take in the next 24 hours?</label>
+      <textarea id="nextAction" placeholder="Name one concrete action."></textarea>
+
+      <label for="whoNeedsToHear">Who needs to hear from you directly?</label>
+      <input id="whoNeedsToHear" type="text" placeholder="Person or group" />
+
+      <div class="nav">
+        <button class="btn-secondary" onclick="prevStep()">Back</button>
+        <button class="btn-primary" onclick="nextStep()">Create reflection</button>
+      </div>
+    </section>
+
+    <section class="card" data-step="6">
+      <h2 class="step-title">Before you go</h2>
+      <p class="hint">A closing reflection shaped by what you wrote.</p>
+
+      <div id="generatedReflection" class="reflection"></div>
+
+      <div class="summary" id="summaryBlock"></div>
+
+      <div class="nav">
+        <button class="btn-secondary" onclick="prevStep()">Back</button>
+        <button class="btn-primary" onclick="copySummary()">Copy my reflection</button>
+      </div>
+      <p id="copyFeedback" class="small"></p>
+    </section>
+  </main>
+
+  <script>
+    let currentStep = 1;
+    let selectedValue = "";
+    const totalSteps = 6;
+
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+
+    function showStep(step) {
+      currentStep = Math.max(1, Math.min(totalSteps, step));
+      cards.forEach(c => c.classList.remove('active'));
+      document.querySelector(`.card[data-step="${currentStep}"]`).classList.add('active');
+      const pct = (currentStep - 1) / (totalSteps - 1) * 100;
+      progressBar.style.width = `${pct}%`;
+      progressText.textContent = `Step ${currentStep} of ${totalSteps}`;
+
+      if (currentStep === 6) {
+        renderOutput();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextStep() { showStep(currentStep + 1); }
+    function prevStep() { showStep(currentStep - 1); }
+
+    document.getElementById('valueChips').addEventListener('click', (e) => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      document.querySelectorAll('.chip').forEach(ch => ch.classList.remove('active'));
+      btn.classList.add('active');
+      selectedValue = btn.dataset.value;
+    });
+
+    function val(id) {
+      const el = document.getElementById(id);
+      return (el?.value || '').trim();
+    }
+
+    function sentenceOrFallback(text, fallback) {
+      return text ? text : fallback;
+    }
+
+    function renderOutput() {
+      const presentNow = val('presentNow');
+      const scrutinyWhere = val('scrutinyWhere');
+      const fearMeaning = val('fearMeaning');
+      const quickProtect = val('quickProtect');
+      const signal = val('signal');
+      const noise = val('noise');
+      const wiseLeadership = val('wiseLeadership');
+      const honestSentence = val('honestSentence');
+      const boundary = val('boundary');
+      const nextAction = val('nextAction');
+      const whoNeedsToHear = val('whoNeedsToHear');
+
+      const reflection = [
+        "You are not here to perform certainty.",
+        "You are here to lead with integrity under pressure.",
+        "",
+        sentenceOrFallback(scrutinyWhere ? `The scrutiny you are carrying around ${scrutinyWhere.toLowerCase()} is real.` : "The scrutiny you are carrying is real.", "The scrutiny you are carrying is real."),
+        sentenceOrFallback(signal ? "You have already named useful signal, even in discomfort." : "You are capable of finding signal, even in discomfort.", "You are capable of finding signal, even in discomfort."),
+        sentenceOrFallback(noise ? "You have also identified what is not yours to carry." : "You can put down what is not yours to carry.", "You can put down what is not yours to carry."),
+        "",
+        sentenceOrFallback(selectedValue ? `Lead now from ${selectedValue.toLowerCase()}, not from self-protection.` : "Lead now from your values, not from self-protection.", "Lead now from your values, not from self-protection."),
+        sentenceOrFallback(nextAction ? `Take the next step you named: ${nextAction}` : "Take one visible, values-aligned step in the next 24 hours.", "Take one visible, values-aligned step in the next 24 hours."),
+        "It is enough for today, and it is aligned with the leader you are becoming."
+      ].join('\n');
+
+      document.getElementById('generatedReflection').textContent = reflection;
+
+      const summary = `My next leadership move\n\n` +
+        `What feels most present: ${sentenceOrFallback(presentNow, '—')}\n` +
+        `Where scrutiny is loudest: ${sentenceOrFallback(scrutinyWhere, '—')}\n` +
+        `What I fear it means: ${sentenceOrFallback(fearMeaning, '—')}\n` +
+        `My quick-protect impulse: ${sentenceOrFallback(quickProtect, '—')}\n\n` +
+        `Useful signal: ${sentenceOrFallback(signal, '—')}\n` +
+        `Noise I am releasing: ${sentenceOrFallback(noise, '—')}\n` +
+        `Wise leadership now: ${sentenceOrFallback(wiseLeadership, '—')}\n\n` +
+        `Value I will lead from: ${sentenceOrFallback(selectedValue, '—')}\n` +
+        `One honest sentence: ${sentenceOrFallback(honestSentence, '—')}\n` +
+        `Boundary that protects integrity: ${sentenceOrFallback(boundary, '—')}\n\n` +
+        `Action in next 24 hours: ${sentenceOrFallback(nextAction, '—')}\n` +
+        `Who needs to hear from me: ${sentenceOrFallback(whoNeedsToHear, '—')}`;
+
+      const summaryBlock = document.getElementById('summaryBlock');
+      summaryBlock.textContent = summary;
+    }
+
+    async function copySummary() {
+      const reflection = document.getElementById('generatedReflection').textContent;
+      const summary = document.getElementById('summaryBlock').textContent;
+      const payload = `${reflection}\n\n---\n\n${summary}`;
+
+      const feedback = document.getElementById('copyFeedback');
+      try {
+        await navigator.clipboard.writeText(payload);
+        feedback.textContent = 'Copied. You can paste this into your notes or email.';
+        feedback.className = 'small copy-ok';
+      } catch (err) {
+        feedback.textContent = 'Could not copy automatically. Please select and copy manually.';
+        feedback.className = 'small';
+      }
+    }
+
+    showStep(1);
+  </script>
+</body>
+</html>

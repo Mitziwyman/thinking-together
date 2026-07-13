@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Companion tools — how they're being used | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+    --gold: #C9A84C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+
+  /* ── HERO ── */
+  .hero-band { background: var(--slate); padding: 3.25rem 1.5rem 2.75rem; }
+  .hero-inner { max-width: 760px; margin: 0 auto; }
+  .hero-eyebrow {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;
+  }
+  .hero-inner h1 {
+    font-size: clamp(30px, 4.6vw, 44px);
+    font-weight: 400; color: #fff; line-height: 1.12;
+    letter-spacing: -0.01em; font-style: italic; margin-bottom: 1rem;
+  }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.8);
+    max-width: 620px;
+  }
+  .header-teal-bar { height: 3px; background: var(--teal); }
+
+  /* ── BODY ── */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+
+  .status-row {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.75rem;
+  }
+  .updated {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px; color: var(--slate-light);
+  }
+  .refresh-btn {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px; font-weight: 600; color: var(--teal-dark);
+    background: #fff; border: 1px solid var(--rule); border-radius: 6px;
+    padding: 0.5rem 0.95rem; cursor: pointer; transition: background 0.15s, border-color 0.15s;
+  }
+  .refresh-btn:hover { background: var(--teal-light); border-color: var(--teal-mid); }
+
+  .group-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal-dark);
+    margin: 2.25rem 0 0.9rem;
+  }
+  .group-label:first-of-type { margin-top: 0; }
+
+  .card {
+    background: #fff; border: 1px solid var(--rule); border-radius: 10px;
+    padding: 1.4rem 1.5rem; margin-bottom: 1rem;
+  }
+  .card-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.1rem;
+  }
+  .card-title { font-size: 21px; font-style: italic; font-weight: 400; color: var(--slate); }
+  .card-sub {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12.5px; color: var(--slate-light);
+  }
+
+  .stat-row { display: flex; flex-wrap: wrap; gap: 1.75rem; }
+  .stat { min-width: 92px; }
+  .stat-num {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 30px; font-weight: 600; color: var(--slate); line-height: 1.1;
+  }
+  .stat-num.accent { color: var(--teal-dark); }
+  .stat-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12px; color: var(--slate-light); margin-top: 0.25rem;
+    letter-spacing: 0.01em;
+  }
+
+  .empty {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px; color: var(--slate-light); font-style: normal;
+  }
+
+  .plain {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14.5px; line-height: 1.8; color: var(--slate-mid);
+    background: var(--teal-light); border-radius: 10px;
+    padding: 1.15rem 1.3rem; margin-top: 2rem;
+  }
+  .plain strong { color: var(--slate); }
+
+  .note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px; line-height: 1.75; color: var(--slate-light);
+    margin-top: 1.5rem;
+  }
+
+  .message {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px; color: var(--slate-light); padding: 2rem 0;
+  }
+</style>
+</head>
+<body>
+  <script src="/nav.js"></script>
+
+  <div class="hero-band">
+    <div class="hero-inner">
+      <div class="hero-eyebrow sans">Private &middot; just for you</div>
+      <h1>How the companion tools are being used</h1>
+      <p class="hero-intro">A quiet count of how many people have opened and completed each thinking tool. No names, no personal data &mdash; only anonymous tallies. This page reads the live figures each time you open it.</p>
+    </div>
+  </div>
+  <div class="header-teal-bar"></div>
+
+  <div class="wrap">
+    <div class="status-row">
+      <div class="updated sans" id="updated">Loading the latest figures&hellip;</div>
+      <button class="refresh-btn sans" id="refresh" onclick="load()">Refresh</button>
+    </div>
+
+    <div id="content">
+      <div class="message">One moment &mdash; fetching the numbers.</div>
+    </div>
+
+    <div class="note sans" id="note" style="display:none;">
+      <strong>What the numbers mean.</strong>
+      <em>People</em> is how many separate browsers have visited (the closest thing to unique visitors).
+      <em>Opened</em> is how many times a tool was started.
+      <em>Completed</em> is how many of those went all the way through to a reflection.
+      Everything here is anonymous &mdash; the tracker never records who anyone is.
+    </div>
+  </div>
+
+<script>
+  // Friendly names, in the order we'd like to show them.
+  var TOOLS = [
+    { key: 'companion',    name: 'MII Companion',  group: 'companion', blurb: 'weekly meeting-readiness' },
+    { key: 'horizons',     name: '3 Horizons',     group: 'companion', blurb: 'weekly horizons review' },
+    { key: 'sunday-reset', name: 'Sunday Reset',   group: 'companion', blurb: 'Sunday-evening ritual' },
+    { key: 'ratio-suite',  name: 'Ratio Suite',    group: 'other',     blurb: 'the five leadership ratios' }
+  ];
+
+  function num(v) { return typeof v === 'number' ? v : 0; }
+
+  // Sum "opened" events over the last 7 calendar days (today back six days).
+  // Day keys are ISO 'YYYY-MM-DD' strings, so a plain string compare works.
+  function last7Opened(byDay) {
+    if (!byDay) return 0;
+    var cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 6);
+    var since = cutoff.toISOString().slice(0, 10);
+    return Object.keys(byDay).reduce(function (sum, d) {
+      return d >= since ? sum + num(byDay[d] && byDay[d].started) : sum;
+    }, 0);
+  }
+
+  function statBlock(label, value, accent) {
+    return '<div class="stat"><div class="stat-num' + (accent ? ' accent' : '') +
+      '">' + value + '</div><div class="stat-label">' + label + '</div></div>';
+  }
+
+  function cardFor(tool, data) {
+    var d = data[tool.key];
+    var head = '<div class="card-head"><div class="card-title">' + tool.name +
+      '</div><div class="card-sub">' + tool.blurb + '</div></div>';
+
+    if (!d || (!d.started && !d.uniqueVisitors && !d.completed)) {
+      return '<div class="card">' + head +
+        '<div class="empty sans">No visits recorded yet.</div></div>';
+    }
+
+    var people    = num(d.uniqueVisitors);
+    var opened    = num(d.started);
+    var completed = num(d.completed);
+    var recent    = last7Opened(d._byDay);
+
+    var stats =
+      statBlock('People', people, true) +
+      statBlock('Opened', opened, false) +
+      statBlock('Completed', completed, false) +
+      statBlock('Opened (last 7 days)', recent, false);
+
+    return '<div class="card">' + head + '<div class="stat-row">' + stats + '</div></div>';
+  }
+
+  function plainSummary(data) {
+    var companions = TOOLS.filter(function (t) { return t.group === 'companion'; });
+    var totalPeople = 0, totalOpened = 0, anyData = false;
+    companions.forEach(function (t) {
+      var d = data[t.key];
+      if (d) {
+        totalPeople += num(d.uniqueVisitors);
+        totalOpened += num(d.started);
+        if (d.started || d.uniqueVisitors) anyData = true;
+      }
+    });
+    if (!anyData) {
+      return 'No one has opened the companion tools yet. As soon as they do, the tally will appear here.';
+    }
+    var s = 'Across your three companion tools, <strong>' + totalPeople +
+      '</strong> ' + (totalPeople === 1 ? 'person has' : 'people have') +
+      ' visited so far, opening a tool <strong>' + totalOpened + '</strong> ' +
+      (totalOpened === 1 ? 'time' : 'times') + ' in all.';
+    return s;
+  }
+
+  function render(data) {
+    var companions = TOOLS.filter(function (t) { return t.group === 'companion'; });
+    var others     = TOOLS.filter(function (t) { return t.group === 'other'; });
+
+    // Include any tracked tools we don't have a friendly name for.
+    var known = {};
+    TOOLS.forEach(function (t) { known[t.key] = true; });
+    var extras = Object.keys(data).filter(function (k) { return !known[k]; });
+
+    var html = '<div class="plain sans">' + plainSummary(data) + '</div>';
+
+    html += '<div class="group-label sans">The digital companion tools</div>';
+    companions.forEach(function (t) { html += cardFor(t, data); });
+
+    if (others.length) {
+      html += '<div class="group-label sans">Also tracked</div>';
+      others.forEach(function (t) { html += cardFor(t, data); });
+    }
+
+    if (extras.length) {
+      html += '<div class="group-label sans">Other</div>';
+      extras.forEach(function (k) {
+        html += cardFor({ key: k, name: k, blurb: '' }, data);
+      });
+    }
+
+    document.getElementById('content').innerHTML = html;
+    document.getElementById('note').style.display = 'block';
+  }
+
+  function load() {
+    var updated = document.getElementById('updated');
+    var btn = document.getElementById('refresh');
+    updated.textContent = 'Refreshing…';
+    btn.disabled = true;
+
+    fetch('/api/usage-summary', { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
+      .then(function (data) {
+        render(data || {});
+        var now = new Date();
+        updated.textContent = 'Updated ' + now.toLocaleString('en-GB', {
+          weekday: 'short', day: 'numeric', month: 'short',
+          hour: '2-digit', minute: '2-digit'
+        });
+      })
+      .catch(function (err) {
+        document.getElementById('content').innerHTML =
+          '<div class="message sans">Sorry &mdash; the figures couldn’t be loaded just now (' +
+          err.message + '). Try Refresh in a moment.</div>';
+        document.getElementById('note').style.display = 'none';
+        updated.textContent = 'Couldn’t reach the tracker';
+      })
+      .then(function () { btn.disabled = false; });
+  }
+
+  load();
+</script>
+</body>
+</html>

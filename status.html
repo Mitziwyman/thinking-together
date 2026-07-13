@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Are the tools working? | Wyman Associates</title>
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+    --green: #3F8F6B;
+    --green-light: #E8F3EE;
+    --amber: #B8862B;
+    --amber-light: #FBF3DF;
+    --red: #B5563A;
+    --red-light: #F7E7E1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .sans { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; }
+
+  .hero-band { background: var(--slate); padding: 3rem 1.5rem 2.5rem; }
+  .hero-inner { max-width: 720px; margin: 0 auto; }
+  .hero-eyebrow {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;
+  }
+  .hero-inner h1 {
+    font-size: clamp(28px, 4.4vw, 40px);
+    font-weight: 400; color: #fff; line-height: 1.14;
+    font-style: italic; margin-bottom: 0.9rem;
+  }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.8); max-width: 600px;
+  }
+  .header-teal-bar { height: 3px; background: var(--teal); }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 2.25rem 1.5rem 4rem; }
+
+  .status-row {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem;
+  }
+  .updated { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; color: var(--slate-light); }
+  .refresh-btn {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px; font-weight: 600; color: var(--teal-dark);
+    background: #fff; border: 1px solid var(--rule); border-radius: 6px;
+    padding: 0.5rem 0.95rem; cursor: pointer;
+  }
+  .refresh-btn:hover { background: var(--teal-light); }
+
+  .banner {
+    border-radius: 12px; padding: 1.5rem 1.6rem; margin-bottom: 1.75rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .banner-icon { font-size: 26px; line-height: 1; flex-shrink: 0; margin-top: 2px; }
+  .banner-title { font-size: 22px; font-style: italic; margin-bottom: 0.25rem; }
+  .banner-sub {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px; line-height: 1.7;
+  }
+  .banner.good  { background: var(--green-light); color: #2C5A45; }
+  .banner.bad   { background: var(--red-light);   color: #7C3320; }
+  .banner.amber { background: var(--amber-light); color: #7A5A17; }
+
+  .tool-card {
+    display: flex; align-items: center; gap: 1rem;
+    background: #fff; border: 1px solid var(--rule); border-radius: 10px;
+    padding: 1rem 1.25rem; margin-bottom: 0.7rem;
+  }
+  .tool-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+  .tool-dot.pass { background: var(--green); }
+  .tool-dot.fail { background: var(--red); }
+  .tool-name { font-size: 18px; flex: 1; }
+  .tool-state {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px; font-weight: 600;
+  }
+  .tool-state.pass { color: var(--green); }
+  .tool-state.fail { color: var(--red); }
+  .tool-reason {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 12.5px; color: var(--red); font-weight: 400; margin-top: 0.2rem;
+  }
+  .tool-main { flex: 1; }
+
+  .note {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 13px; line-height: 1.75; color: var(--slate-light); margin-top: 1.75rem;
+  }
+  .note strong { color: var(--slate); }
+  .message {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px; color: var(--slate-light); padding: 1.5rem 0;
+  }
+</style>
+</head>
+<body>
+  <script src="/nav.js"></script>
+
+  <div class="hero-band">
+    <div class="hero-inner">
+      <div class="hero-eyebrow sans">Private &middot; just for you</div>
+      <h1>Are the tools working?</h1>
+      <p class="hero-intro">One place to see, at a glance, whether all five tools are healthy &mdash; so you never have to click through them yourself. This reads the automatic check that runs every morning at 7am.</p>
+    </div>
+  </div>
+  <div class="header-teal-bar"></div>
+
+  <div class="wrap">
+    <div class="status-row">
+      <div class="updated sans" id="updated">Checking&hellip;</div>
+      <button class="refresh-btn sans" id="refresh" onclick="load()">Refresh</button>
+    </div>
+
+    <div id="content">
+      <div class="message sans">One moment &mdash; reading this morning&rsquo;s check.</div>
+    </div>
+
+    <div class="note sans" id="note" style="display:none;">
+      <strong>How this works.</strong> Every morning at 7am, an automatic check runs each tool end to end and records whether it worked. This page shows that result &mdash; you don&rsquo;t need to test anything by hand. If a tool ever fails, you also get an email straight away; if the whole check hasn&rsquo;t run, the banner above turns amber so it can&rsquo;t slip by unnoticed.
+    </div>
+  </div>
+
+<script>
+  function hoursSince(iso) {
+    try { return (Date.now() - new Date(iso).getTime()) / 36e5; } catch (e) { return Infinity; }
+  }
+  function fmt(iso) {
+    try {
+      return new Date(iso).toLocaleString('en-GB', {
+        weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+      });
+    } catch (e) { return iso; }
+  }
+
+  function render(data) {
+    const content = document.getElementById('content');
+    const latest = data && data.latest;
+
+    if (!latest || !Array.isArray(latest.results) || !latest.results.length) {
+      content.innerHTML =
+        '<div class="banner amber"><div class="banner-icon">&#9888;</div><div>' +
+        '<div class="banner-title">No check has run yet</div>' +
+        '<div class="banner-sub">There&rsquo;s no health-check history to show. If this persists past tomorrow morning, the automatic check may not be running &mdash; worth flagging.</div>' +
+        '</div></div>';
+      document.getElementById('note').style.display = 'block';
+      return;
+    }
+
+    const results = latest.results;
+    const failing = results.filter(r => !r.pass);
+    const stale = hoursSince(latest.date) > 26;
+
+    let banner;
+    if (stale) {
+      banner = '<div class="banner amber"><div class="banner-icon">&#9888;</div><div>' +
+        '<div class="banner-title">The check hasn&rsquo;t run recently</div>' +
+        '<div class="banner-sub">The last automatic check was ' + fmt(latest.date) +
+        '. It normally runs every morning &mdash; if it stays stale, the monitoring itself may need a look.</div></div></div>';
+    } else if (failing.length === 0) {
+      banner = '<div class="banner good"><div class="banner-icon">&#10003;</div><div>' +
+        '<div class="banner-title">All five tools are healthy</div>' +
+        '<div class="banner-sub">Everything passed the last automatic check. Nothing for you to do.</div></div></div>';
+    } else {
+      banner = '<div class="banner bad"><div class="banner-icon">&#9888;</div><div>' +
+        '<div class="banner-title">' + failing.length + ' tool' + (failing.length === 1 ? '' : 's') +
+        ' need' + (failing.length === 1 ? 's' : '') + ' attention</div>' +
+        '<div class="banner-sub">See which below. You should also have had an email about this.</div></div></div>';
+    }
+
+    const cards = results.map(function (r) {
+      const ok = !!r.pass;
+      return '<div class="tool-card">' +
+        '<span class="tool-dot ' + (ok ? 'pass' : 'fail') + '"></span>' +
+        '<div class="tool-main"><span class="tool-name">' + r.tool + '</span>' +
+        (ok || !r.reason ? '' : '<div class="tool-reason">' + r.reason + '</div>') +
+        '</div>' +
+        '<span class="tool-state ' + (ok ? 'pass' : 'fail') + '">' + (ok ? 'Working' : 'Not working') + '</span>' +
+        '</div>';
+    }).join('');
+
+    content.innerHTML = banner + cards;
+    document.getElementById('note').style.display = 'block';
+  }
+
+  function load() {
+    const updated = document.getElementById('updated');
+    const btn = document.getElementById('refresh');
+    updated.textContent = 'Checking…';
+    btn.disabled = true;
+
+    fetch('/api/health-status', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        render(data);
+        updated.textContent = data && data.latest
+          ? 'Last automatic check: ' + fmt(data.latest.date)
+          : 'No check recorded yet';
+      })
+      .catch(function (err) {
+        document.getElementById('content').innerHTML =
+          '<div class="message sans">Couldn&rsquo;t load the status just now (' + err.message + '). Try Refresh in a moment.</div>';
+        updated.textContent = 'Couldn’t reach the check';
+      })
+      .then(function () { btn.disabled = false; });
+  }
+
+  load();
+</script>
+</body>
+</html>
