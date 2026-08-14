@@ -32,7 +32,12 @@ exports.handler = async function(event) {
   });
 
   if (!response.ok && response.status !== 409) {
-    return { statusCode: 500, body: 'Signup failed' };
+    const mailerliteError = await response.text().catch(() => '');
+    console.error('MailerLite signup failed:', response.status, mailerliteError);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Signup failed', mailerliteStatus: response.status, mailerliteError })
+    };
   }
 
   return { statusCode: 200, body: 'OK' };

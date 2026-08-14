@@ -791,8 +791,11 @@ Whatever sits underneath the answers you gave, the fact that you're asking at al
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
-      }).then(res => {
-        if (!res.ok) console.error('Stay-in-touch signup failed:', res.status);
+      }).then(async res => {
+        if (!res.ok) {
+          const detail = await res.text().catch(() => '');
+          console.error('Stay-in-touch signup failed:', res.status, detail);
+        }
       }).catch(err => console.error('Stay-in-touch signup error:', err));
     }
 
