@@ -394,6 +394,21 @@
     font-style: italic;
     padding: 0.5rem 0;
   }
+  .stay-in-touch-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    cursor: pointer;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--slate-mid);
+  }
+  .stay-in-touch-check input[type="checkbox"] {
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    accent-color: var(--teal-dark);
+  }
 
   /* ── BACK TO SITE ── */
   .back-link-band {
@@ -521,6 +536,10 @@
       <p class="email-intro">I can send you a short version of this reflection, so you have it to come back to.</p>
       <form class="email-form" id="email-form" onsubmit="return false;">
         <input class="email-input" type="email" id="reflection-email" placeholder="you@organisation.org" required>
+        <label class="stay-in-touch-check">
+          <input type="checkbox" id="stay-in-touch">
+          <span>Yes — I'd like to hear from you now and again.</span>
+        </label>
         <button class="email-submit" id="email-submit">Send it to me</button>
       </form>
       <p class="email-note">I'll only use your email to send this reflection, unless you choose to stay in touch.</p>
@@ -741,6 +760,7 @@ Whatever sits underneath the answers you gave, the fact that you're asking at al
   document.getElementById('email-submit').addEventListener('click', async () => {
     const emailInput = document.getElementById('reflection-email');
     const email = emailInput.value.trim();
+    const stayInTouch = document.getElementById('stay-in-touch').checked;
     if (!email || !email.includes('@')) {
       alert('Please enter a valid email address.');
       return;
@@ -761,6 +781,17 @@ Whatever sits underneath the answers you gave, the fact that you're asking at al
       alert('Something went wrong. Please try again or email mitzi@mitziwyman.com directly.');
       return;
     }
+
+    // Stay-in-touch signup is separate and best-effort: it only ever carries the
+    // email address, never the reflection content, and never blocks the thank-you state.
+    if (stayInTouch) {
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      }).catch(() => {});
+    }
+
     document.getElementById('email-form').style.display = 'none';
     document.getElementById('email-thanks').style.display = 'block';
   });
