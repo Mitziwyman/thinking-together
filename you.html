@@ -784,12 +784,16 @@ Whatever sits underneath the answers you gave, the fact that you're asking at al
 
     // Stay-in-touch signup is separate and best-effort: it only ever carries the
     // email address, never the reflection content, and never blocks the thank-you state.
+    // Failures are logged (not surfaced to the visitor) so they're diagnosable from
+    // the browser console instead of vanishing silently.
     if (stayInTouch) {
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
-      }).catch(() => {});
+      }).then(res => {
+        if (!res.ok) console.error('Stay-in-touch signup failed:', res.status);
+      }).catch(err => console.error('Stay-in-touch signup error:', err));
     }
 
     document.getElementById('email-form').style.display = 'none';
