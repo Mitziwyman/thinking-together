@@ -298,9 +298,11 @@ async function buildResults() {
         if (data.content[i].type === "text") { text = data.content[i].text; break; }
       }
     }
-    document.getElementById("aiText").textContent = text || "A week with a shape to it, ready to begin.";
+    if (!text) throw new Error("No reflection text returned");
+    document.getElementById("aiText").textContent = text;
   } catch(e) {
-    document.getElementById("aiBlock").style.display = "none";
+    console.error("Monday Morning reflection failed:", e);
+    document.getElementById("aiText").textContent = "The reflection didn't come through this time — your answers above are still yours to sit with.";
   }
 }
 

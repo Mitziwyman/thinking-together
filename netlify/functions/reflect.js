@@ -31,6 +31,18 @@ exports.handler = async (event) => {
 
     const data = await response.json();
 
+    if (!response.ok || !data.content) {
+      console.error('Anthropic API error:', response.status, JSON.stringify(data));
+      return {
+        statusCode: 502,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ error: 'Reflection failed' })
+      };
+    }
+
     return {
       statusCode: 200,
       headers: {
