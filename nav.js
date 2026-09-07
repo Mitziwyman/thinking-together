@@ -4,6 +4,7 @@
   var isMainSite = window.location.hostname === 'mitziwyman.com' || window.location.hostname === 'www.mitziwyman.com';
 
   var navItems = isMainSite ? [
+    { label: 'About',         href: '/about' },
     { label: 'Courses',       href: '/courses' },
     { label: 'Organisations', href: '/organisations.html' },
     { label: 'Tools',         href: '/suite' },
@@ -27,7 +28,7 @@
 
   var html = '\
 <header class="site-header">\
-  <a href="/" class="brand">Wyman Associates</a>\
+  <a href="/" class="brand">Mitzi Wyman</a>\
   <nav class="site-nav">' + links + '</nav>\
   <a href="https://calendly.com/mitziw/discovery-call" class="nav-cta" target="_blank" rel="noopener">Book a discovery call</a>\
   <button class="nav-toggle" aria-label="Menu" onclick="document.getElementById(\'mobile-nav\').classList.toggle(\'open\')">\

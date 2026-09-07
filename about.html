@@ -2,9 +2,195 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="0; url=/">
-<title>Mitzi Wyman</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Mitzi | Mitzi Wyman</title>
+<meta name="description" content="Lawyer by background, organisational psychologist by training, faculty for Nancy Kline's Time to Think — Mitzi Wyman works at the intersection of leadership, thinking and technology.">
+<style>
+  :root {
+    --teal: #6B9FBC;
+    --teal-dark: #3D7A9E;
+    --teal-light: #EEF4F8;
+    --teal-mid: #B0CCE0;
+    --slate: #2C3E50;
+    --slate-mid: #374E61;
+    --slate-light: #52687A;
+    --warm-white: #FAFAF8;
+    --off-white: #F2F4F6;
+    --rule: #D8E4EC;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--warm-white);
+    color: var(--slate);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── HERO ── */
+  .hero-band { background: var(--slate); padding: 3.5rem 1.5rem; }
+  .hero-inner { max-width: 700px; margin: 0 auto; display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+  .hero-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+  .hero-text h1 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .hero-intro {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.8);
+    margin-top: 0.75rem;
+  }
+
+  /* ── STANDARD LAYOUT ── */
+  .section-band { padding: 3rem 1.5rem; }
+  .section-band.white { background: var(--warm-white); }
+  .section-band.alt { background: var(--off-white); }
+  .section-inner { max-width: 700px; margin: 0 auto; }
+
+  .section-label {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal-dark);
+    margin-bottom: 0.6rem;
+  }
+
+  .body-text {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--slate-light);
+    margin-bottom: 1rem;
+  }
+  .body-text:last-of-type { margin-bottom: 0; }
+
+  /* ── PURPOSE BAND ── */
+  .purpose-band { background: var(--slate); padding: 3rem 1.5rem; text-align: center; }
+  .purpose-band .section-inner p {
+    font-size: clamp(19px, 2.5vw, 23px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ── CTA ── */
+  .cta-wrap { margin-top: 2rem; }
+  .access-cta {
+    display: inline-block;
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--slate);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .access-cta:hover { background: var(--teal-dark); }
+
+  /* ── FOOTER ── */
+  .site-footer { padding: 2.5rem 1.5rem; background: var(--off-white); border-top: 1px solid var(--rule); text-align: center; }
+  .footer-inner { max-width: 560px; margin: 0 auto; }
+  .site-footer p { font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 13px; color: var(--slate-light); line-height: 1.8; }
+  .site-footer a { color: var(--teal-dark); text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }
+  .footer-name { color: var(--slate); font-weight: 600; margin-bottom: 0.6rem; }
+  .footer-links { margin-bottom: 1.5rem; }
+  .footer-copyright { font-size: 12px; color: var(--slate-light); opacity: 0.65; }
+
+  @media (max-width: 560px) {
+    .hero-inner { flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
 <body>
+
+<script src="/nav.js"></script>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="hero-inner">
+    <img src="mitzi-wyman.jpg" alt="Mitzi Wyman" class="hero-photo">
+    <div class="hero-text">
+      <h1>About Mitzi</h1>
+      <p class="hero-intro">Lawyer by background, organisational psychologist by training, faculty for Nancy Kline's Time to Think.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I DO NOW -->
+<section class="section-band white">
+  <div class="section-inner">
+    <div class="section-label">What I do now</div>
+    <p class="body-text">I help boards and leadership teams see the thinking behind their decisions, not just the decisions themselves — because in a world that keeps changing faster than most governance was built for, trust, transparency and intellectual honesty in the room matter as much as the strategy in it. That's the territory I work in: leadership, thinking and technology, held together rather than treated as three separate things.</p>
+  </div>
+</section>
+
+<!-- THE JOURNEY -->
+<section class="section-band alt">
+  <div class="section-inner">
+    <div class="section-label">From law to how people actually think</div>
+    <p class="body-text">I trained as a lawyer, with an LLM in International Law from UCL, and later took an MSc in Organisational Psychiatry and Psychology at King's College London — the point where my interest shifted from what people argue to how they actually think. Along the way I was awarded a scholarship to study social enterprise at Cambridge.</p>
+    <p class="body-text">Today I'm a coach, facilitator and teacher on Nancy Kline's Time to Think faculty, faculty of the NHS Leadership Capital Academy, and a facilitator with Windsor Leadership.</p>
+  </div>
+</section>
+
+<!-- WORKING WITH DIFFERENCE -->
+<section class="section-band white">
+  <div class="section-inner">
+    <div class="section-label">Working with difference</div>
+    <p class="body-text">I'm Anglo-Japanese, and I've lived and been educated across several continents — a background that's taught me to work with difference rather than around it. My own practice is informed by a blend of Buddhist practice and Quaker wisdom.</p>
+  </div>
+</section>
+
+<!-- PURPOSE -->
+<section class="purpose-band">
+  <div class="section-inner">
+    <p>The quality of a decision depends on the quality of the thinking that produced it.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-band white">
+  <div class="section-inner">
+    <div class="cta-wrap">
+      <a href="https://calendly.com/mitziw/discovery-call" class="access-cta" target="_blank" rel="noopener">Book a discovery call →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-name">Mitzi Wyman · Wyman Associates</p>
+    <p class="footer-links">
+      <a href="mailto:mitzi@mitziwyman.com">mitzi@mitziwyman.com</a> &nbsp;·&nbsp;
+      <a href="https://calendly.com/mitziw/discovery-call" target="_blank" rel="noopener">Book a discovery call</a> &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/mitziwyman" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p class="footer-copyright">© 2026 Wyman Associates. All rights reserved.</p>
+  </div>
+</footer>
+
 </body>
 </html>
