@@ -43,7 +43,6 @@ exports.handler = async function(event) {
     body: JSON.stringify({
       from: process.env.RESEND_FROM_EMAIL || 'Mitzi Wyman <mitzi@mitziwyman.com>',
       to: [email],
-      bcc: ['mitzi@mitziwyman.com'],
       subject: 'A reflection from Wyman Associates',
       html
     })
